@@ -1,0 +1,19 @@
+package com.example.servercurs.repository;
+
+import com.example.servercurs.entities.Course;
+import com.example.servercurs.entities.Skills;
+import com.example.servercurs.entities.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface CourseRepository extends JpaRepository<Course, Integer> {
+    @Query("SELECT DISTINCT course FROM Course course " +
+            "JOIN FETCH course.id_skills id_skills JOIN FETCH course.id_language id_language")
+    List<Course> findWithAll();
+    @Query("From Course c where c.id_skills=:id")
+    List<Course> findCourseById_course(Skills id);
+}

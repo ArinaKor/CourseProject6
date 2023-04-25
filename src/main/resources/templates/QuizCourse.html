@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Personality Quiz</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<style>
+  html {
+    box-sizing: border-box;
+  }
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    line-height: 1.7rem;
+    background: no-repeat linear-gradient(250deg, #ff934f, #db222a);
+  }
+  .quiz-container {
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px white;
+    padding: 3rem;
+    text-shadow: 0 1px #00000010;
+    width: 60%;
+    margin: 5rem auto;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(360deg, transparent, #ffffff);
+    min-height: 100vh;
+  }
+  .title {
+    margin-top: 0;
+    margin-bottom: 3rem;
+    color: #00000050;
+    font-weight: 400;
+    font-size: 2.5rem;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .question {
+    margin: 2rem 0;
+    font-size: 1.5rem;
+  }
+  .option {
+    padding: 1rem;
+    color: #00000095;
+    background: rgba(255, 255, 255, 0.1);
+    width: 80%;
+    border-radius: 5px;
+    transition: all 0.3s;
+  }
+  .option:hover {
+    background: rgba(255, 255, 255, 0.4);
+  }
+  .option input:checked .option {
+    background: #08038c;
+    color: #000;
+  }
+  .controls > * {
+    margin: 1rem;
+  }
+  button {
+    padding: 0.5rem 1.5rem;
+    border: none;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    font-weight: 300;
+    color: white;
+    outline: none;
+    transform: scale(0.98);
+    transition: all 0.2s;
+  }
+  button.previous {
+    background: #c84630;
+  }
+  button.next {
+    background: #3c91e6;
+  }
+  button.restart {
+    background: #0cf574;
+    color: #00000050;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    transition: all 0.4s;
+  }
+  button.restart:hover {
+    color: #00000098;
+  }
+  button:hover,
+  button:focus {
+    transform: scale(1);
+    font-weight: 500;
+    box-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+  }
+  .result {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 2.5rem;
+    min-height: 100vh;
+  }
+  .final-score {
+    color: #00000099;
+  }
+  .summary {
+    font-size: 1rem;
+    text-shadow: 1px 1px #ffffff50;
+    color: #00000099;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 2rem;
+    margin-bottom: 2rem;
+  }
+  .summary h1 {
+    align-self: center;
+  }
+
+</style>
+</head>
+
+<body>
+
+<div class="quiz-container">
+  <div class="title">Personality Quiz</div>
+  <div id="question" class="question"></div>
+  <label class="option">
+    <input type="radio" name="option" value="1" />
+    <span class="option1"></span>
+  </label>
+  <label class="option">
+    <input type="radio" name="option" value="2" />
+    <span class="option2"></span>
+  </label>
+  <label class="option">
+    <input type="radio" name="option" value="3" />
+    <span class="option3"></span>
+  </label>
+  <!-- Buttons -->
+  <div class="controls">
+    <button class="previous">Previous</button>
+    <button class="next">Next</button>
+  </div>
+</div>
+<!--<form method="post">-->
+<div class="result">
+
+  <form method="post" action="/quiz/res">
+    <input type="text" id="score" name="totalScore"/>
+    <input type="submit" value="Check">
+  </form>
+  <!--<p th:text="${work}"/>
+  <div th:each="ac : ${list}" class="ticket">
+
+    <p th:text="${ac.id_course}" class="ID"/>
+    <p th:text="${ac.course_name}" class="ID"/><p th:text="${ac.id_language.name_language}" class="ID"/>
+    <p th:text="${ac.level}" class="ID"/>
+    <p th:text="${ac.price}" class="ID"/>
+    <p th:text="${ac.duration}"/>
+    <p th:text="${ac.id_skills.name_skills}" class="ID"/>
+  </div>-->
+</div><!--
+</form>-->
+<!--<input id="score2" type="text"/>
+<input type="submit" value="Check Courses"/>-->
+</body>
+<script>
+  const questions = [
+    {
+      "question": "Для меня предпочтительнее?",
+      "answer1": "Работать в условиях постоянного движения, многозадачности, частой смены активности.",
+      "answer1Total": "3",
+      "answer2": "Люблю стабильный тип задач, но при этом периодически нравится погружаться во что-то новое",
+      "answer2Total": "0",
+      "answer3": "Предпочитаю спокойную, однообразную и даже монотонную работу",
+      "answer3Total": "1"
+    },
+    {
+      "question": "Мне во время обучения лучше давались",
+      "answer1": "Технические науки (математика, физика)",
+      "answer1Total": "3",
+      "answer2": "Гуманитарные науки (история, литература, обществоведение)",
+      "answer2Total": "2",
+      "answer3": "Графические дисциплины (рисунок, черчение)",
+      "answer3Total": "1"
+    },
+    {
+      "question":
+              "Оценивая результаты собственной работы, для меня важно:",
+      "answer1": "Иметь возможность проверить, что все выполнено правильно по стандартному перечню требований, независимо от того, как оформлен результат",
+      "answer1Total": "1",
+      "answer2": "Обязательно увидеть визуальную составляющую своего труда.",
+      "answer2Total": "0",
+      "answer3": "Чтоб работало",
+      "answer3Total": "2"
+    },
+    {
+      "question": "При принятии решений я стараюсь",
+      "answer1": "Установить причинно-следственные связи и максимально оценить последствия своих решений",
+      "answer1Total": "3",
+      "answer2": "Стараюсь обдумывать, но при этом не трачу на это много времени и сил",
+      "answer2Total": "2",
+      "answer3":
+              "Чаще всего принимаю решения, не подумав эмоционально.",
+      "answer3Total": "1"
+    },
+    {
+      "question": "Какое хобби вас могло бы заинтересовать",
+      "answer1": "Собирать конструкторы и радиоуправляемые модели",
+      "answer1Total": "3",
+      "answer2": "Участвовать в дебатах, квизах, разгадывать кроссворды",
+      "answer2Total": "1",
+      "answer3": "Смотреть фильмы и писать отзывы. Всегда подмечаю много интересных деталей",
+      "answer3Total": "0"
+    },
+    {
+      "question":
+              "Решая логическую задачу и застопорившись на месте, я",
+      "answer1":
+              "Буду сидеть и делать, пока у меня самого не получится до конца",
+      "answer1Total": "0",
+      "answer2": "Оказавшись в тупике, попробую самостоятельно решить, однако, если через несколько подходов не получится, обращусь к коллегам/знакомым",
+      "answer2Total": "2",
+      "answer3": "Сразу столкнувшись с трудностями, вынесу на обсуждение коллег/знакомых.",
+      "answer3Total": "1"
+    },
+    {
+      "question": "При изучении нового программного продукта/приложения, я в большей степени обращаю внимание на",
+      "answer1": "Скорость работы",
+      "answer1Total": "1",
+      "answer2": "Соответствие его функционалу, заявленному в описаниях либо вашим потребностям.",
+      "answer2Total": "2",
+      "answer3": "Удобство пользования",
+      "answer3Total": "0"
+    }
+  ]
+
+
+  let currentQuestion = 0;
+  let score = [];
+  let selectedAnswersData = [];
+  const totalQuestions =questions.length;
+
+  const container = document.querySelector('.quiz-container');
+  const questionEl = document.querySelector('.question');
+  const option1 = document.querySelector('.option1');
+  const option2 = document.querySelector('.option2');
+  const option3 = document.querySelector('.option3');
+  const nextButton = document.querySelector('.next');
+  const previousButton = document.querySelector('.previous');
+  const restartButton = document.querySelector('.restart');
+  const result = document.querySelector('.result');
+
+  //Function to generate question
+  function generateQuestions (index) {
+    //Select each question by passing it a particular index
+    const question = questions[index];
+    const option1Total = questions[index].answer1Total;
+    const option2Total = questions[index].answer2Total;
+    const option3Total = questions[index].answer3Total;
+    //Populate html elements
+    questionEl.innerHTML = `${index + 1}. ${question.question}`
+    option1.setAttribute('data-total', `${option1Total}`);
+    option2.setAttribute('data-total', `${option2Total}`);
+    option3.setAttribute('data-total', `${option3Total}`);
+    option1.innerHTML = `${question.answer1}`
+    option2.innerHTML = `${question.answer2}`
+    option3.innerHTML = `${question.answer3}`
+  }
+
+
+  function loadNextQuestion () {
+    const selectedOption = document.querySelector('input[type="radio"]:checked');
+    //Check if there is a radio input checked
+    if(!selectedOption) {
+      alert('Please select your answer!');
+      return;
+    }
+    //Get value of selected radio
+    const answerScore = Number(selectedOption.nextElementSibling.getAttribute('data-total'));
+
+    ////Add the answer score to the score array
+    score.push(answerScore);
+
+    selectedAnswersData.push()
+
+
+    const totalScore = score.reduce((total, currentNum) => total + currentNum);
+
+    //Finally we incement the current question number ( to be used as the index for each array)
+    currentQuestion++;
+
+    //once finished clear checked
+    selectedOption.checked = false;
+    //If quiz is on the final question
+    if(currentQuestion == totalQuestions - 1) {
+      nextButton.textContent = 'Finish';
+    }
+    //If the quiz is finished then we hide the questions container and show the results
+    if(currentQuestion == totalQuestions) {
+      container.style.display = 'none';
+      document.getElementById("score").value = totalScore;
+      return;
+    }
+    generateQuestions(currentQuestion);
+  }
+
+  //Function to load previous question
+  function loadPreviousQuestion() {
+    //Decrement quentions index
+    currentQuestion--;
+    //remove last array value;
+    score.pop();
+    //Generate the question
+    generateQuestions(currentQuestion);
+  }
+
+  //Fuction to reset and restart the quiz;
+  function restartQuiz(e) {
+    if(e.target.matches('button')) {
+      //reset array index and score
+      currentQuestion = 0;
+      score = [];
+      //Reload quiz to the start
+      location.reload();
+    }
+
+  }
+
+
+  generateQuestions(currentQuestion);
+  nextButton.addEventListener('click', loadNextQuestion);
+  previousButton.addEventListener('click',loadPreviousQuestion);
+  result.addEventListener('click',restartQuiz);
+
+
+</script>
+</html>
