@@ -24,7 +24,7 @@ public class Student {
     @Column(name="average_rating")
     private double rating;
     //without foreight keys
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="id_user")
     private User id_user;
 /*

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -18,19 +18,10 @@
         <div class=" collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto ">
                 <li class="nav-item">
-                    <a class="nav-link mx-2 active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link mx-2 active" aria-current="page" href="/admin">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="/admin/courses/add">Add</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link mx-2" href="/admin/lang">Programming Language</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link mx-2" href="/admin/skills">Skills</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link mx-2" href="/quiz">QUIZ</a>
+                    <a class="nav-link mx-2" href="/admin/users/add">Add</a>
                 </li>
                 <!--<li class="nav-item">
                     <a class="nav-link mx-2" href="/admin/courses/edit">Timetable</a>
@@ -50,45 +41,30 @@
             <th scope="col">Mail</th>
             <th scope="col">Password</th>
             <th scope="col">Role</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Edit</th>
         </tr>
         </thead>
         </tbody>
 
-            <tr th:each="ac : ${users}" class="ticket">
-                <th scope="row" th:value="${users.id_user}"></th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+            <tr th:each="ac : ${users}" class="user" >
+                <td  th:text="${ac.id_user}" class="user"></td>
+                <td  th:text="${ac.surname}" class="user"></td>
+                <td  th:text="${ac.name}" class="user"></td>
+                <td  th:text="${ac.mail}" class="user"></td>
+                <td  th:text="${ac.password}" class="user"></td>
+                <td  th:text="${ac.role.roleName}" class="user"></td>
+                <td>
+                    <form th:action="'/admin/users/'+${ac.id_user}+'/delete'" method="post">
+                        <button type="submit" class="shine-button">Delete</button>
+                    </form><!--th:action="'/admin/users/'+${ac.id_course}+'/delete'"-->
+                </td>
+                <td>
+                    <a th:href="'/admin/users/'+${ac.id_user}+'/edit'">Edit information</a>
+
+                </td>
             </tr>
         </tbody>
     </table>
-    <form th:action="'/admin/users/'+${ac.id_course}+'/delete'" method="post">
-        <button type="submit" class="shine-button">Delete</button>
-    </form>
-
-    <a th:href="'/admin/courses/'+${ac.id_course}+'/edit'">Edit information</a>
-
-<table class="table table-hover">
-
-    <tbody>
-    <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-    </tr>
-    <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-    </tr>
-    <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
-    </tr>
-    </tbody>
-</table>
 </body>
 </html>

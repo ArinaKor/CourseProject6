@@ -22,6 +22,18 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
             <version>3.0.5</version>
         </dependency>
+       <!-- <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator</artifactId>
+        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.webjars/webjars-locator -->
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -37,6 +49,8 @@
             <artifactId>hibernate-validator</artifactId>
             <version>7.0.5.Final</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
