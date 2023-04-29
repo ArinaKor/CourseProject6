@@ -1,7 +1,10 @@
 package com.example.servercurs.entities;
 
+import com.example.servercurs.enums.DayOfWeek;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name="timetable")
@@ -9,15 +12,34 @@ import lombok.*;
 @NoArgsConstructor
 @Setter
 @Getter
-@ToString
+
 public class TimeTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_timetable;
-    @Column(name="date")
-    private String date;
-    @Column(name="time")
+
+    /*@Enumerated(EnumType.STRING)*/
+    @Column(name = "days_of_week")
+    private String dayOfWeek;
+    @Column(name = "time")
     private String time;
+
+    /*@Column(name="time")
+    private String time;*/
     //without foreight key
     //change type date and time on sql-types
+    //onetomany
+    /*@OneToMany(mappedBy = "timetable",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.DETACH)
+    List<Group> groups;*/
+
+    @Override
+    public String toString() {
+        return "TimeTable{" +
+                "id_timetable=" + id_timetable +
+                ", dayOfWeek='" + dayOfWeek + '\'' +
+                ", time='" + time+
+                '}';
+    }
 }

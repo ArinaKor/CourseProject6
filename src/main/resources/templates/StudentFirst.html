@@ -1,13 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
     <title>Title</title>
 </head>
 <body>
-<h1>Hello Student,</h1>
+<nav class="navbar navbar-expand-sm navbar-light" id="neubar">
+    <div class="container">
+        <a class="navbar-brand" href="static/index.html"><img src="" height="60" /></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <p th:text="${student.id_user.mail}"/>
+        <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto ">
+                <li class="nav-item">
+                    <a class="nav-link mx-2 active" aria-current="page" href="#">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link mx-2" href="/authorization/personal">Personal</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-2" href="/authorization/timetable">Personal</a>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<h1>Hello Student,</h1>
+<p th:text="${student.id_student}"/>
+<!--<div th:each="ac : ${list}" class="ticket">
+    <form th:action="'/admin/group/'+${ac.id_student}+'/delete'" method="post">
+        <button type="submit" class="shine-button">Delete</button>
+    </form>
+    <p th:text="${ac.id_student}" class="ID"/>
+    <p th:text="${ac.payment}" class="ID"/>
+    <p th:text="${ac.id_user.surname}" class="ID"/>
+</div>-->
+<!--==Сделать каталог курсов + ссылка на расписание его группы==-->
+
+
+
 
 </body>
 </html>

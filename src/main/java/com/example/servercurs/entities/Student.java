@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="student")
 @Getter
@@ -32,4 +34,20 @@ public class Student {
     @JoinColumn(name="id_group", nullable = false)
     @JsonIgnore
     private Group id_group;*/
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name="id_group")
+    @JsonIgnore
+    private Group id_group;
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id_student=" + id_student +
+                ", payment='" + payment + '\'' +
+                ", certificate='" + certificate + '\'' +
+                ", rating=" + rating +
+                ", id_user=" + id_user +
+                '}';
+    }
 }

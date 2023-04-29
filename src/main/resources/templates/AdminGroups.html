@@ -61,10 +61,9 @@
                 <li class="nav-item">
                     <a class="nav-link mx-2" href="/admin/skills">Skills</a>
                 </li>
-                <!--лучше добавить это для студента!
                 <li class="nav-item">
                     <a class="nav-link mx-2" href="/quiz">QUIZ</a>
-                </li>-->
+                </li>
                 <!--<li class="nav-item">
                     <a class="nav-link mx-2" href="/admin/courses/edit">Timetable</a>
                 </li>-->
@@ -74,16 +73,17 @@
     </div>
 </nav>
 <div th:each="ac : ${list}" class="ticket">
-    <form th:action="'/admin/courses/'+${ac.id_course}+'/delete'" method="post">
+    <form th:action="'/admin/groups/'+${ac.id_group}+'/delete'" method="post">
         <button type="submit" class="shine-button">Delete</button>
     </form>
-    <p th:text="${ac.id_course}" class="ID"/>
-    <p th:text="${ac.course_name}" class="ID"/><p th:text="${ac.id_language.name_language}" class="ID"/>
-    <p th:text="${ac.level}" class="ID"/>
-    <p th:text="${ac.price}" class="ID"/>
-    <p th:text="${ac.duration}"/>
-    <p th:text="${ac.id_skills.name_skills}" class="ID"/>
-    <a th:href="'/admin/courses/'+${ac.id_course}+'/edit'">Edit information</a>
+    <p th:text="${ac.id_group}" class="ID"/>
+    <p th:text="${ac.count_student_all}" class="ID"/>
+    <p th:text="${ac.group_time}" class="ID"/>
+    <p th:text="${ac.recorded_count}" class="ID"/>
+    <p th:text="${ac.date_start}" class="ID"/><!--
+    <p th:text="${ac.teacher.id_user.surname}"/>
+    <p th:text="${ac.course.course_name}"/>-->
+    <a th:href="'/admin/groups/'+${ac.id_group}+'/edit'">Edit information</a>
 </div>
 
 </body>

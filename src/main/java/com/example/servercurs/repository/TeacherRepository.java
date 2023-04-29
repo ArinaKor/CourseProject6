@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher, Integer> {
     @Query("from Teacher tc where tc.id_user=:id_user")
-    Teacher deleteTeacherById_user(User id_user);
+    Teacher findTeacherById_user(User id_user);
 }

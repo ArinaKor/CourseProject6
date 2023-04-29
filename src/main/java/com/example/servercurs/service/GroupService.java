@@ -34,4 +34,9 @@ public class GroupService {
     public void delete(int id){
         groupRepository.deleteById(id);
     }
+/*
+    public List<Group> findAllByTimetable(){
+        return groupRepository.findAllByTimetable();
+    }
+*/
 }

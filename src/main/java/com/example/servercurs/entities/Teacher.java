@@ -3,13 +3,14 @@ package com.example.servercurs.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="teacher")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
-@ToString
 public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,4 +25,21 @@ public class Teacher {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="id_user")
     private User id_user;
+    @OneToMany(mappedBy = "teacher",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.DETACH)
+    List<Group> groups;
+   // one to many
+
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "id_teacher=" + id_teacher +
+                ", work=" + work +
+                ", speciality='" + speciality + '\'' +
+                ", id_user=" + id_user +
+                ", groups=" + groups +
+                '}';
+    }
 }

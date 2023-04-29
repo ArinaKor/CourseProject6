@@ -5,6 +5,30 @@
     <title>Title</title>
 </head>
 <body>
+<nav class="navbar navbar-expand-sm navbar-light" id="neubar">
+    <div class="container">
+        <a class="navbar-brand" href="static/index.html"><img src="" height="60" /></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto ">
+                <li class="nav-item">
+                    <a class="nav-link mx-2 active" aria-current="page" href="#">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link mx-2" th:href="@{/authorization/teacher/{id}(id=${teacher.id_teacher})}">Personal</a>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+</nav>
 <h1>Hello Teacher</h1>
+<p th:text="${teacher.id_teacher}"/>
+
 </body>
 </html>

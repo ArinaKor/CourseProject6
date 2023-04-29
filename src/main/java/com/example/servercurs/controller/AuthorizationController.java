@@ -1,9 +1,7 @@
 package com.example.servercurs.controller;
 
 import com.example.servercurs.entities.*;
-import com.example.servercurs.repository.CourseRepository;
-import com.example.servercurs.repository.GroupRepository;
-import com.example.servercurs.repository.UserRepository;
+import com.example.servercurs.repository.*;
 import com.example.servercurs.service.GroupService;
 import com.example.servercurs.service.RoleService;
 import com.example.servercurs.service.StudentService;
@@ -32,6 +30,10 @@ public class AuthorizationController {
     private CourseRepository courseRepository;
     @Autowired
     private GroupRepository groupRepository;
+    @Autowired
+    private TeacherRepository teacherRepository;
+    @Autowired
+    private StudentRepository studentRepository;
 
     @GetMapping("/authorization")
     public String authorization(){
@@ -98,8 +100,15 @@ public class AuthorizationController {
 
             return "AdminFirst";
         }else if(user.getRole().equals(roleList.get(1))){
+            Teacher teacher = teacherRepository.findTeacherById_user(user);
+
+            model.addAttribute("teacher", teacher);
             return "TeacherFirst";
         }else if(user.getRole().equals(roleList.get(2))){
+            List<Student> list1 = studentService.findAllStudents();
+            model.addAttribute("list", list1);
+            Student student = studentRepository.findStudentById_user(user);
+            model.addAttribute("student", student);
             return "StudentFirst";
         }
         String err = "We haven't got this user!May be you want registration?";

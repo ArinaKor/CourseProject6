@@ -6,6 +6,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name="course")
@@ -39,6 +40,10 @@ public class Course {
     @JsonIgnore
     private Language id_language;
 
+    @OneToMany(mappedBy = "course",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    List<Group> groups;
     @Override
     public String toString() {
         return "Course{" +
