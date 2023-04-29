@@ -2,10 +2,7 @@ package com.example.servercurs.controller;
 
 import com.example.servercurs.entities.*;
 import com.example.servercurs.repository.*;
-import com.example.servercurs.service.GroupService;
-import com.example.servercurs.service.RoleService;
-import com.example.servercurs.service.StudentService;
-import com.example.servercurs.service.UserService;
+import com.example.servercurs.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,20 +24,22 @@ public class AuthorizationController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private CourseRepository courseRepository;
+    private CourseService courseService;
     @Autowired
     private GroupRepository groupRepository;
     @Autowired
     private TeacherRepository teacherRepository;
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private GroupService groupService;
 
     @GetMapping("/authorization")
     public String authorization(){
         return "authorization";
     }
     @PostMapping("/authorization")
-    public String registration(/*@RequestParam String password2, */@RequestParam String email, @RequestParam String password, Model model){
+    public String registration(@RequestParam String email, @RequestParam String password, Model model){
 
         User user = new User();/*
         Student student = new Student();
@@ -105,10 +104,23 @@ public class AuthorizationController {
             model.addAttribute("teacher", teacher);
             return "TeacherFirst";
         }else if(user.getRole().equals(roleList.get(2))){
-            List<Student> list1 = studentService.findAllStudents();
-            model.addAttribute("list", list1);
+            /*List<Student> list1 = studentService.findAllStudents();
+            model.addAttribute("list", list1);*/
             Student student = studentRepository.findStudentById_user(user);
             model.addAttribute("student", student);
+            List<Group> listCourse = groupService.findAllGroups();
+            model.addAttribute("list", listCourse);
+
+            int k=0;
+            if(student.getId_group()==null){
+                k=0;
+            }
+           else if(!(student.getId_group()==null)){
+                k++;
+            }
+            System.out.println(k);
+            model.addAttribute("k", k);
+
             return "StudentFirst";
         }
         String err = "We haven't got this user!May be you want registration?";

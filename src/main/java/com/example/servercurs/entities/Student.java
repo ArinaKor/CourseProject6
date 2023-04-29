@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +25,8 @@ public class Student {
 
     @Column(name="average_rating")
     private double rating;
+    @Column(name="courses")
+    private String courses;
     //without foreight keys
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="id_user")
@@ -35,7 +37,7 @@ public class Student {
     @JsonIgnore
     private Group id_group;*/
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name="id_group")
     @JsonIgnore
     private Group id_group;

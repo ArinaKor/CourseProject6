@@ -3,6 +3,41 @@
 <head>
     <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Bootstrap Bundle JS (jsDelivr CDN) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <style>
+        #neubar {
+            background: #c9e9ff;
+            box-shadow: 4px 6px 12px rgba(0,0,0,0.4)
+        }
+
+        .nav-item .active {
+            border-radius: 6px;
+            background: linear-gradient(145deg, #50b1f3, #50B1F3FF);
+            box-shadow:  4px 4px 8px #c9e9ff,
+            -4px -4px 8px #c9e9ff;
+        }
+        #neubar .dropdown-menu a:hover {
+            color: #454545
+        }
+        #neubar .nav-item {
+            margin : auto 4px;
+        }
+        #neubar a {
+
+            padding-left:12px;
+            padding-right:12px;
+        }
+        #neubar .dropdown-menu {
+            background : #545454
+        }
+        a.navbar-brand {
+            color: #454545
+        }
+
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm navbar-light" id="neubar">
@@ -10,6 +45,9 @@
         <a class="navbar-brand" href="static/index.html"><img src="" height="60" /></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
+            <h4>Hello Student,</h4>
+            <!--<p th:text="${student.id_student}"/>-->
+            <p th:text="${student.id_user.surname}"/>
         </button>
 
         <div class=" collapse navbar-collapse" id="navbarNavDropdown">
@@ -19,10 +57,11 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="/authorization/personal">Personal</a>
+                    <a class="nav-link mx-2" th:href="@{/authorization/student/{id}(id=${student.id_student})}">Personal</a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="/authorization/timetable">Personal</a>
+                    <a class="nav-link mx-2" href="/maps">Maps</a>
                 </li>
 
 
@@ -30,17 +69,37 @@
         </div>
     </div>
 </nav>
-<h1>Hello Student,</h1>
-<p th:text="${student.id_student}"/>
-<!--<div th:each="ac : ${list}" class="ticket">
-    <form th:action="'/admin/group/'+${ac.id_student}+'/delete'" method="post">
-        <button type="submit" class="shine-button">Delete</button>
-    </form>
-    <p th:text="${ac.id_student}" class="ID"/>
-    <p th:text="${ac.payment}" class="ID"/>
-    <p th:text="${ac.id_user.surname}" class="ID"/>
-</div>-->
-<!--==Сделать каталог курсов + ссылка на расписание его группы==-->
+
+<br>
+<!--==Сделать каталог курсов + ?ссылка на расписание его группы?==-->
+<div th:each="ac : ${list}" class="ticket">
+
+    <p th:text="${ac.id_group}" class="ID"/>
+    <p th:text="${ac.count_student_all}" class="ID"/>
+    <p th:text="${ac.group_time}" class="ID"/>
+    <p th:text="${ac.date_start}" class="ID"/>
+    <p th:text="${ac.course.course_name}" class="ID"/>
+    <p th:text="${ac.course.id_language.name_language}"/>
+    <p th:text="${ac.course.id_skills.name_skills}" class="ID"/>
+    <div class="check">
+        <div th:if="${k==0}" >
+            <div>
+                <div th:if="${ac.count_student_all}!=${ac.recorded_count}">
+                    <form th:action="'/student/groups/'+${student.id_student}+'/'+${ac.id_group}+'/enroll'" method="post">
+                        <button type="submit" class="shine-button">Enroll</button>
+                    </form>
+                </div>
+                <div th:unless="${ac.count_student_all}!=${ac.recorded_count}">
+                    <p>Мест нет!</p>
+                </div>
+            </div>
+        </div>
+
+        <div th:unless="${k==0}">
+            <p>Вы не можете записаться на данный курс</p>
+        </div>
+    </div>
+</div>
 
 
 
