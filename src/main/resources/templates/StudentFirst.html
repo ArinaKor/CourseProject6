@@ -46,8 +46,8 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             <h4>Hello Student,</h4>
-            <!--<p th:text="${student.id_student}"/>-->
-            <p th:text="${student.id_user.surname}"/>
+            <p th:text="${student.id_student}"/>
+            <!--<p th:text="${student.id_user.surname}"/>-->
         </button>
 
         <div class=" collapse navbar-collapse" id="navbarNavDropdown">
@@ -57,50 +57,31 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link mx-2" th:href="@{/authorization/student/{id}(id=${student.id_student})}">Personal</a>
+                    <a class="nav-link mx-2" th:href="@{/student/{id}(id=${student.id_student})}">Personal</a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link mx-2" href="/maps">Maps</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-2" th:href="@{/students/groups/{id}(id=${student.id_student})}">All Groups</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-2" th:href="@{/students/lastMyGroups/{id}(id=${student.id_student})}">My last Groups</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-2" th:href="@{/students/mygroup/{id}(id=${student.id_student})}">My Group</a>
+                </li>
+
+
+
+
 
 
             </ul>
         </div>
     </div>
 </nav>
-
-<br>
-<!--==Сделать каталог курсов + ?ссылка на расписание его группы?==-->
-<div th:each="ac : ${list}" class="ticket">
-
-    <p th:text="${ac.id_group}" class="ID"/>
-    <p th:text="${ac.count_student_all}" class="ID"/>
-    <p th:text="${ac.group_time}" class="ID"/>
-    <p th:text="${ac.date_start}" class="ID"/>
-    <p th:text="${ac.course.course_name}" class="ID"/>
-    <p th:text="${ac.course.id_language.name_language}"/>
-    <p th:text="${ac.course.id_skills.name_skills}" class="ID"/>
-    <div class="check">
-        <div th:if="${k==0}" >
-            <div>
-                <div th:if="${ac.count_student_all}!=${ac.recorded_count}">
-                    <form th:action="'/student/groups/'+${student.id_student}+'/'+${ac.id_group}+'/enroll'" method="post">
-                        <button type="submit" class="shine-button">Enroll</button>
-                    </form>
-                </div>
-                <div th:unless="${ac.count_student_all}!=${ac.recorded_count}">
-                    <p>Мест нет!</p>
-                </div>
-            </div>
-        </div>
-
-        <div th:unless="${k==0}">
-            <p>Вы не можете записаться на данный курс</p>
-        </div>
-    </div>
-</div>
-
 
 
 

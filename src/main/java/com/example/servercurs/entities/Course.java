@@ -51,7 +51,6 @@ public class Course {
                 ", course_name='" + course_name + '\'' +
                 ", level='" + level + '\'' +
                 ", price=" + price +
-
                 ", duration=" + duration +
                 ", id_skills=" + id_skills +
                 ", id_language=" + id_language +

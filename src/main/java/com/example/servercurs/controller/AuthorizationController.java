@@ -3,13 +3,16 @@ package com.example.servercurs.controller;
 import com.example.servercurs.entities.*;
 import com.example.servercurs.repository.*;
 import com.example.servercurs.service.*;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -33,9 +36,13 @@ public class AuthorizationController {
     private StudentRepository studentRepository;
     @Autowired
     private GroupService groupService;
+    static int stud;
 
     @GetMapping("/authorization")
-    public String authorization(){
+    public String authorization(HttpServletResponse response){
+        /*
+        response.setHeader("Location", "/teacher");
+        //response.sendRedirect("/teacher");*/
         return "authorization";
     }
     @PostMapping("/authorization")
@@ -80,11 +87,12 @@ public class AuthorizationController {
         return "StudentFirst";
     }
     @PostMapping ("/authorization1")
-    public String authorization(@RequestParam String email2, @RequestParam String pass, Model model){
+    public String authorization(@RequestParam String email2, @RequestParam String pass, RedirectAttributes attributes, HttpServletResponse response, Model model) throws IOException {
 
         List<User> list = userService.findAllUser();
         User user = new User();
         List<Role> roleList = roleService.findAllRoles();
+        int c = 0;
         for (User user1:list) {
             if(user1.getMail().equals(email2)&&user1.getPassword().equals(pass)){
                 user.setId_user(user1.getId_user());
@@ -93,38 +101,41 @@ public class AuthorizationController {
                 user.setMail(user1.getMail());
                 user.setPassword(user1.getPassword());
                 user.setRole(user1.getRole());
+                c++;
             }
+        }
+        if (c == 0) {
+            String err = "We haven't got this user!May be you want registration?";
+            attributes.addFlashAttribute("err", err);
+
+            return "redirect:/authorization";
         }
         if(user.getRole().equals(roleList.get(0))){
 
-            return "AdminFirst";
+            return "redirect:/admin";
         }else if(user.getRole().equals(roleList.get(1))){
             Teacher teacher = teacherRepository.findTeacherById_user(user);
-
             model.addAttribute("teacher", teacher);
-            return "TeacherFirst";
+            attributes.addFlashAttribute("teacher", teacher);
+/*
+
+            response.setHeader("Location", "/teacher");
+            //response.sendRedirect("/teacher");*/
+            return "redirect:/teacher";
+            /*return "redirect:/teacher";*/
         }else if(user.getRole().equals(roleList.get(2))){
-            /*List<Student> list1 = studentService.findAllStudents();
-            model.addAttribute("list", list1);*/
             Student student = studentRepository.findStudentById_user(user);
             model.addAttribute("student", student);
-            List<Group> listCourse = groupService.findAllGroups();
-            model.addAttribute("list", listCourse);
-
-            int k=0;
-            if(student.getId_group()==null){
-                k=0;
-            }
-           else if(!(student.getId_group()==null)){
-                k++;
-            }
-            System.out.println(k);
-            model.addAttribute("k", k);
-
-            return "StudentFirst";
+            attributes.addFlashAttribute("student", student);
+            stud = student.getId_student();
+            return "redirect:/student";
         }
+        /*else if(!(user.getRole().equals(roleList.get(0))||user.getRole().equals(roleList.get(1))||user.getRole().equals(roleList.get(2)))){
+
+            return "redirect:/authorization";
+        }*//*
         String err = "We haven't got this user!May be you want registration?";
-        model.addAttribute("err", err);
+        model.addAttribute("err", err);*/
         return "authorization";
     }
     /*@GetMapping("/authorization1")

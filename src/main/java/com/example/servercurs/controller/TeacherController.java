@@ -20,7 +20,11 @@ public class TeacherController {
     private TeacherService teacherService;
     @Autowired
     private GroupRepository groupRepository;
-    @GetMapping("/authorization/teacher/{id}")
+    @GetMapping("/teacher")
+    public String teacher(){
+        return "TeacherFirst";
+    }
+    @GetMapping("/teacher/{id}")
     public String findGroups(@PathVariable int id, Model model){
         List<Group> groupList = groupRepository.findGroupsByTeacher(id);
 

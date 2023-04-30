@@ -18,12 +18,12 @@ public class MapController {
 
     private static final String API_KEY = "9d4a8d8c-7bb1-4267-891c-7f1c8bbd0509";
 
-    /*@GetMapping("/maps")
+    @GetMapping("/maps")
     public String showMap(Model model) {
         String address = "Минск, улица Петруся Бровки 39";
         model.addAttribute("address", address);
         model.addAttribute("apiKey", API_KEY);
         return "YandexMaps";
-    }*/
+    }
 
 }

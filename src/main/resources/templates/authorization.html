@@ -310,9 +310,11 @@
                                 <div class="center-wrap">
                                     <div class="section text-center">
                                         <h4 class="mb-4 pb-3">Log In</h4>
+                                        <!--<p th:text="${err}"></p>-->
+                                        <p th:text="${err}"/>
+
                                         <form action="/authorization1" method="post">
                                             <div class="form-group">
-                                                <p th:text="${err}"/>
                                             <input type="email" name="email2" class="form-style" placeholder="Your Email"  >
                                             <i class="input-icon uil uil-at"></i>
                                         </div>

@@ -10,8 +10,12 @@
     function init() {
       var myMap = new ymaps.Map("map", {
         center: [53.864926, 27.536409],
-        zoom: 16
+        zoom: 18
       });
+      var myPlacemark = new ymaps.Placemark([53.864926, 27.536409],
+              {hintContent: 'Наш маленький офис тут!В Бостоне'
+      });
+      myMap.geoObjects.add(myPlacemark);
 
 
 

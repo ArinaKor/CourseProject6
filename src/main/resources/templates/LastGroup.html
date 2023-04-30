@@ -38,39 +38,53 @@
         }
 
     </style>
+</head>
 <body>
 <nav class="navbar navbar-expand-sm navbar-light" id="neubar">
     <div class="container">
         <a class="navbar-brand" href="static/index.html"><img src="" height="60" /></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-            <h4>Hello Student,</h4>
-            <!--<p th:text="${student.id_student}"/>-->
-            <p th:text="${student.id_user.surname}"/>
         </button>
 
         <div class=" collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto ">
                 <li class="nav-item">
-                    <a class="nav-link mx-2 active" aria-current="page" href="/student">Home</a>
+                    <a class="nav-link mx-2 active" aria-current="page" href="#">Home</a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link mx-2" href="/admin/courses/add">Add</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-2" href="/admin/lang">Programming Language</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-2" href="/admin/skills">Skills</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-2" href="/quiz">QUIZ</a>
+                </li>
                 <!--<li class="nav-item">
-                    <a class="nav-link mx-2" th:href="@{/student/{id}(id=${student.id_student})}">Personal</a>
+                    <a class="nav-link mx-2" href="/admin/courses/edit">Timetable</a>
                 </li>-->
-
-                <!--<li class="nav-item">
-                    <a class="nav-link mx-2" href="/maps">Maps</a>
-                </li>-->
-
 
             </ul>
         </div>
     </div>
 </nav>
-<h1>Success</h1>
+<div th:each="ac : ${list}" class="ticket">
+        <!--<form th:action="'/admin/groups/'+${ac.id_group}+'/delete'" method="post">
+            <button type="submit" class="shine-button">Delete</button>
+        </form>-->
+        <p th:text="${ac.id_group}" class="ID"/>
+        <p th:text="${ac.count_student_all}" class="ID"/>
+        <p th:text="${ac.group_time}" class="ID"/>
+        <p th:text="${ac.recorded_count}" class="ID"/>
+        <p th:text="${ac.date_start}" class="ID"/>
+    <p th:text="${ac.teacher.id_user.surname}"/>
+    <p th:text="${ac.course.course_name}"/>
 
-<p th:text="${group.course.course_name}"/>
+</div>
 
 </body>
 </html>

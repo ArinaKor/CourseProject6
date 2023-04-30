@@ -35,7 +35,11 @@ public class UsersController {
     private TeacherRepository teacherRepository;
     @Autowired
     private StudentRepository studentRepository;
+    @GetMapping("/admin")
+    public String admin(Model model){
 
+        return "AdminFirst";
+    }
     @GetMapping("/admin/users")
     public String findUsers(Model model){
         List<User> users = userService.findAllUser();
@@ -69,73 +73,7 @@ public class UsersController {
         model.addAttribute("role", lastRoles);
         return "EditUser";
     }
-    @PostMapping("/admin/users/{id_user}/edit")
-    public String update(@PathVariable(value = "id_user") int id_user, @RequestParam String surname, @RequestParam String name,
-                         @RequestParam String roleName, @RequestParam String mail,@RequestParam String rolee, Model model){
 
-        Role role = roleRepository.findRoleByRoleName(roleName);
-
-        String message = "takoe yzse est'";
-        model.addAttribute("message", message);
-        User user = userService.findById(id_user);
-        List<Teacher> teacherList = teacherService.findAllTeachers();
-        List<Student> studentList = studentService.findAllStudents();
-        Teacher teacher = new Teacher();
-        Student student = new Student();
-        user.setSurname(surname);
-        user.setName(name);
-        user.setMail(mail);/*
-        user.setPassword(pass);*/
-        user.setRole(role);
-        userService.save(user);
-        if(!roleName.equals(rolee)){
-            if(rolee.equals("student")){
-                for (Student st:studentList) {
-                    if(st.getId_user().equals(user)){
-                        teacher.setId_user(user);
-                       /* teacherService.save(teacher);*/
-
-                        teacherService.save(teacher);
-                        studentService.delete(st.getId_student());
-                        break;
-                    }
-
-                } /*
-                */
-            }
-            if(rolee.equals("teacher")){
-                for (Teacher tc:teacherList) {
-                    if(tc.getId_user().equals(user)){
-                        student.setId_user(user);
-                        studentService.save(student);
-                        teacherService.delete(tc.getId_teacher());
-                        /*student.setId_user(user);
-                        studentService.save(student);*/
-                        break;
-                    }
-                }
-            }
-        }
-        userService.save(user);
-        /*if(!role.getRoleName().equals(role2.getRoleName())){
-            if(user.getRole().getRoleName().equals("student")){
-                Teacher teacher = teacherRepository.deleteTeacherById_user(user);
-
-                teacherRepository.deleteById(teacher.getId_teacher());
-                stud.setId_user(user);
-                studentService.save(stud);
-
-            }
-            else if(user.getRole().getRoleName().equals("teacher")) {
-                Student student = studentRepository.deleteStudentById_user(user);
-
-                teach.setId_user(user);
-                teacherService.save(teach);
-            }
-        }*/
-
-        return "redirect:/admin/users";
-    }
     @GetMapping("/admin/users/add")
     public String add( Model model){
         List<Role> roleList = roleService.findAllRoles();

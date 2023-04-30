@@ -2,6 +2,7 @@ package com.example.servercurs.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.List;
 
@@ -21,6 +22,11 @@ public class Teacher {
 
     @Column(name="speciality")
     private String speciality;
+    @Column(name="rating")
+    private Double rating;
+    @Column(name="count_rating")
+    @ColumnDefault("0")
+    private String count_rating;
     //without foreight keys
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="id_user")
@@ -38,8 +44,8 @@ public class Teacher {
                 "id_teacher=" + id_teacher +
                 ", work=" + work +
                 ", speciality='" + speciality + '\'' +
+                ", rating=" + rating +
                 ", id_user=" + id_user +
-                ", groups=" + groups +
                 '}';
     }
 }

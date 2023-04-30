@@ -17,8 +17,8 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_student;
-    @Column(name="payment")
-    private String payment;
+    @Column(name="balance")
+    private double balance;
 
     @Column(name="certificate")
     private String certificate;
@@ -46,10 +46,11 @@ public class Student {
     public String toString() {
         return "Student{" +
                 "id_student=" + id_student +
-                ", payment='" + payment + '\'' +
+                ", balance='" + balance + '\'' +
                 ", certificate='" + certificate + '\'' +
                 ", rating=" + rating +
                 ", id_user=" + id_user +
+                /*", id_group=" + id_group +*/
                 '}';
     }
 }

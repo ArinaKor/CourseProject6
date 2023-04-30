@@ -14,6 +14,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,7 +55,7 @@ public class Group {
     @JoinColumn(name="timetable")
     private TimeTable timetable;
 
-    @Override
+   /* @Override
     public String toString() {
         return "Group{" +
                 "id_group=" + id_group +
@@ -67,5 +68,5 @@ public class Group {
                 ", teacher=" + teacher +
                 ", timetable=" + timetable +
                 '}';
-    }
+    }*/
 }

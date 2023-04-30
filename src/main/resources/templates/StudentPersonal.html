@@ -16,7 +16,7 @@
         }
         .decor {
             position: relative;
-            max-width: 500px;
+            max-width: 900px;
             margin: 50px auto 0;
             background: white;
             border-radius: 30px;
@@ -135,6 +135,9 @@
         a.navbar-brand {
             color: #454545
         }
+        .main-form{
+            display: flex;
+        }
 
     </style>
     <!-- <link rel="stylesheet" href="../style/style.css">-->
@@ -156,7 +159,7 @@
         <div class=" collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto ">
                 <li class="nav-item">
-                    <a class="nav-link mx-2 active" aria-current="page" href="/user">Home</a>
+                    <a class="nav-link mx-2 active" aria-current="page" href="/student">Home</a>
                 </li>
                 <!--<li class="nav-item">
                     <a class="nav-link mx-2" href="#">Ticket</a>
@@ -170,20 +173,67 @@
         </div>
     </div>
 </nav>
-<div th:each="ac : ${list}" class="ticket">
-   <!-- <form th:action="'/admin/group/'+${ac.id_student}+'/delete'" method="post">
-        <button type="submit" class="shine-button">Delete</button>
-    </form>-->
-    <p th:text="${ac.id_student}" class="ID"/>
-    <p th:text="${ac.payment}" class="ID"/>
-    <p th:text="${ac.id_user}" class="ID"/>
-    <p th:text="${ac.id_group.recorded_count}"></p>
-    <!--
-    <p th:text="${ac.id_group.teacher}" class="ID"/>
-    <p th:text="${ac.id_group.course}" class="ID"/>--><!--
-    <p th:text="${ac.teacher.id_user.surname}"/>
-    <p th:text="${ac.course.course_name}"/>-->
-   <!-- <a th:href="'/admin/group/'+${ac.id_group}+'/edit'">Edit information</a>-->
+<!--
+<div>
+    <p th:text="${student.id_group}"/>
+    <form th:action="'/student/groups/'+${student.id_student}+'/'+${group.id_group}+'/complete'" method="post">
+        <button type="submit" class="shine-button">Complete</button>
+    </form>
 </div>
+-->
+
+<form class="decor"   method="post">
+    <div class="form-left-decoration"></div>
+    <div class="form-right-decoration"></div>
+    <div class="circle"></div>
+    <div class="main-form">
+    <div class="form-inner">
+        <h3>INFORMATION STUDENT</h3>
+        <div class="input1">
+            <div>
+                <label for="surname" style="margin-left: 5%">Surname</label>
+                <input type="text" th:value="${student.id_user.surname}" id="surname" name="surname"  placeholder="Surname">
+            </div>
+            <!--<input type="text" name="level"  placeholder="level">-->
+            <div>
+                <label for="name" style="margin-left: 5%">Name</label>
+                <input name="name" th:value="${student.id_user.name}" id="name" placeholder="Name"/>
+            </div>
+
+        </div>
+        <div class="input1">
+            <div>
+                <label for="mail" style="margin-left: 5%">Email</label>
+                <input type="text" th:value="${student.id_user.mail}" id="mail" name="mail" placeholder="Mail">
+            </div>
+<!--
+            edit password with check
+-->         <div>
+                <label for="pass" style="margin-left: 5%">Password</label>
+                <input type="text" th:value="${student.id_user.password}" id="pass" name="pass" placeholder="Password" disabled>
+            </div>
+        </div>
+        <div class="input1">
+            <div>
+                <label for="balance" style="margin-left: 5%">Balance</label>
+                <input type="text" name="balance" th:value="${student.balance}" id="balance" placeholder="Now Role" disabled />
+            </div>
+            <div>
+                <label for="rating" style="margin-left: 5%">Name</label>
+                <input type="text" th:value="${student.rating}" id="rating" name="rating" placeholder="Password" disabled>
+            </div>
+        </div>
+        <!--<div>
+            <h3>Information about Group</h3>
+        </div>-->
+
+        <input type="submit" value="Save Ticket">
+
+    </div>
+
+    </div>
+</form>
+
+
 </body>
 </html>
