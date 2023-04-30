@@ -12,7 +12,7 @@ import java.util.List;
 public interface GroupRepository extends JpaRepository<Group, Integer> {
     @Query("from Group gr order by gr.id_group")
     List<Group> findAllOrder();
-   @Query("from Group gr where gr.teacher.id_teacher=:id")
+   @Query("from Group gr where gr.teacher.id_teacher=:id order by gr.id_group")
     List<Group> findGroupsByTeacher(int id);
     @Query("SELECT DISTINCT st FROM Group st " +
             "JOIN FETCH st.timetable id_timetable")

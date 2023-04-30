@@ -24,9 +24,11 @@ public class Teacher {
     private String speciality;
     @Column(name="rating")
     private Double rating;
+
     @Column(name="count_rating")
     @ColumnDefault("0")
     private String count_rating;
+
     //without foreight keys
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="id_user")
