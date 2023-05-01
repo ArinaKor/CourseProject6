@@ -48,13 +48,7 @@ public class StudentMainController {
         //model.addAttribute("student", studentService.findById(id));
         return "StudentFirst";
     }
-    @GetMapping("/student/{id}")
-    private String checkPersonalPage(@PathVariable(name="id") int id,RedirectAttributes attributes, Model model){
-        Student student = studentService.findById(id);
-        model.addAttribute(student);
-        attributes.addFlashAttribute("student", student);
-        return "StudentPersonal";
-    }
+
     @GetMapping("/students/groups/{id_student}")
     private String findAllGroups(@PathVariable(name="id_student") int id_student,RedirectAttributes attributes, Model model){
 /*

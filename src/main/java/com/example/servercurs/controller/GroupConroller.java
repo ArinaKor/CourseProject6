@@ -141,8 +141,37 @@ public class GroupConroller {
         return "redirect:/admin/groups";
     }
     @GetMapping("/admin/groups/{id_group}/edit")
-    public String edit(@PathVariable(name="id_group") int id_group, Model model){
+    public String edit(RedirectAttributes attributes,@PathVariable(name="id_group") int id_group, Model model){
+
+        List<TimeTable> timeTable = timetableService.findAllTimeTables();
+        //List<String> dayOfWeek = Arrays.asList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday");
+        List<TimeTable> tm2 = new ArrayList<>();
+        List<Group> list = groupService.findAllGroups();
+        int cnt = 0;
+        for (TimeTable t : timeTable) {
+            boolean found = false;
+            for (Group g : list) {
+                if (g.getTimetable().getDayOfWeek().equals(t.getDayOfWeek()) && g.getTimetable().getTime().equals(t.getTime())) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                tm2.add(t);
+            }
+        }
+        if(tm2.size()==0){
+            String err = "Места в расписании закончены. Мы сообщим вам если они появятся)";
+            attributes.addFlashAttribute("err", err);
+
+            return "redirect:/admin/groups";
+
+        }
+
+
         model.addAttribute("group", groupService.findById(id_group));
+        model.addAttribute("listSkills", skillsRepository.findAll());
+        model.addAttribute("listLang", languageRepository.findAll());
         return "EditGroup";
     }
 

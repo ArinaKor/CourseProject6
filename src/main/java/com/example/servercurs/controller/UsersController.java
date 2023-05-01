@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,8 +136,8 @@ public class UsersController {
         return "redirect:/admin/users";
     }
     @PostMapping("/admin/users/{id_user}/edit")
-    public String update(@PathVariable(value = "id_user") int id_user, @RequestParam String surname, @RequestParam String name,
-                         @RequestParam String roleName, @RequestParam String mail,@RequestParam String rolee, Model model){
+    public String update(RedirectAttributes attributes, @PathVariable(value = "id_user") int id_user, @RequestParam String surname, @RequestParam String name,
+                         @RequestParam String roleName, @RequestParam String mail, @RequestParam String rolee, Model model){
 
         Role role = roleRepository.findRoleByRoleName(roleName);
 
@@ -152,7 +153,27 @@ public class UsersController {
         user.setMail(mail);/*
         user.setPassword(pass);*/
         user.setRole(role);
-        userService.save(user);
+        //userService.save(user);
+        List<User> userList = userService.findAllUser();
+        int count = 0;
+        for (User user1:userList) {
+            if(user1.getMail().equals(user.getMail())){
+                count++;
+            }
+
+        }
+        if(count==0){
+            userService.save(user);
+        }
+        else{
+            String error="We have user with this mail.Enter another mail please!";
+            attributes.addFlashAttribute("error", error);
+/*
+            model.addAttribute()
+*/
+
+            return "redirect:/admin/users/{id_user}/edit";
+        }
         if(!roleName.equals(rolee)){
             if(rolee.equals("student")){
                 for (Student st:studentList) {
