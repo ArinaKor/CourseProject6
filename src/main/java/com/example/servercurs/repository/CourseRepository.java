@@ -1,6 +1,7 @@
 package com.example.servercurs.repository;
 
 import com.example.servercurs.entities.Course;
+import com.example.servercurs.entities.Language;
 import com.example.servercurs.entities.Skills;
 import com.example.servercurs.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,4 +17,6 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
     List<Course> findWithAll();
     @Query("From Course c where c.id_skills=:id")
     List<Course> findCourseById_course(Skills id);
+    @Query("From Course c where c.id_skills=:id and c.id_language=:idLang and c.course_name=:name")
+    Course findCourse(Skills id, Language idLang, String name);
 }

@@ -183,13 +183,30 @@
       <input type="date" name="dateStart" value="2023-05-01" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"  placeholder="Date of Start"/>
     </div>
     <div class="input1">
+      <!--<input name="course" type="text"  placeholder="Course">-->
+      <input name="course" placeholder="Course" list="course" autocomplete="off"/>
+      <datalist id="course">
+        <div th:each="course : ${courses}">
+          <option th:value="${course.course_name}+'/'+ ${course.id_skills.name_skills}+'/'+${course.id_language.name_language}"/>
+        </div>
+      </datalist>
+      <input name="teacher" placeholder="Teacher" list="teach" autocomplete="off"/>
+      <datalist id="teach">
+        <div th:each="teacher : ${teachers}">
+          <option th:value="${teacher.id_teacher}+'-'+ ${teacher.id_user.surname}"/>
+        </div>
+      </datalist>
+      <!--<input type="text" name="level"  placeholder="level">-->
+      <!--<input type="teacher" type="text" name="dateStart" value="2023-05-01" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"  placeholder="Date of Start"/>-->
+    </div>
+    <div class="input1">
             <input name="groupTime" placeholder="GroupTime" list="time" />
           <datalist id="time">
               <option value="Утреннее"/>
               <option value="Вечернее"/>
               <option value="Дневное"/>
           </datalist>
-      <input name="timetable" placeholder="TimeTable" list="lang" />
+      <input name="timetable" placeholder="TimeTable" list="lang"autocomplete="off" />
       <datalist id="lang">
         <div th:each="timeTable : ${timeTable}">
           <option th:value="${timeTable.dayOfWeek}+':'+ ${timeTable.time}"/>
