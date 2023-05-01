@@ -8,10 +8,7 @@ import com.example.servercurs.service.TimetableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -59,18 +56,56 @@ public class GroupConroller {
         List<TimeTable> tm2 = new ArrayList<>();
         List<Group> list = groupService.findAllGroups();
         int cnt = 0;
-        for (int i = 0; i < timeTable.size(); i++) {
+        for (TimeTable t : timeTable) {
+            boolean found = false;
+            for (Group g : list) {
+                if (g.getTimetable().getDayOfWeek().equals(t.getDayOfWeek()) && g.getTimetable().getTime().equals(t.getTime())) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                tm2.add(t);
+            }
+        }
+        //System.out.println(tm2);
+        model.addAttribute("timeTable", tm2);
+        return "AddGroup";
+    }
+    @PostMapping("/admin/group/add")
+    public String addGroup1(@RequestParam(name="count_all") int count_all, @RequestParam(name="dateStart") Date dateStart, @RequestParam(name = "groupTime") String groupTime, @RequestParam("timetable") String timeTable, Model model){
+        TimeTable timeTable1  = new TimeTable();
+        System.out.println(timeTable);
+        List<TimeTable> timeTableList = timetableService.findAllTimeTables();
 
+        String[] parts = timeTable.split(":|-");
+        String dayOfWeek = parts[0];
+        String startTime = parts[1] + ":" + parts[2];
+        String endTime = parts[3] + ":" + parts[4];
+        String resultTime = startTime+"-"+endTime;
+        /*System.out.println(dayOfWeek);
+        System.out.println(resultTime);*/
 
+        for(TimeTable tb: timeTableList){
+            if(tb.getDayOfWeek().equals(dayOfWeek)&&tb.getTime().equals(resultTime)){
+                timeTable1.setId_timetable(tb.getId_timetable());
+                timeTable1.setDayOfWeek(tb.getDayOfWeek());
+                timeTable1.setTime(tb.getTime());
+                break;
+            }
         }
 
 
 
-        model.addAttribute("timeTable", tm2);
+        Group group = new Group();
+        group.setCount_student_all(count_all);
+        group.setGroup_time(groupTime);
+        group.setDate_start(dateStart);
+        group.setTimetable(timeTable1);
+        groupService.save(group);
 
 
-
-        return "AddGroup";
+        return "redirect:/admin/groups";
     }
 
 }

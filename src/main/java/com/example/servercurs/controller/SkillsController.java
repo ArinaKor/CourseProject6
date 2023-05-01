@@ -2,6 +2,7 @@ package com.example.servercurs.controller;
 
 import com.example.servercurs.entities.Language;
 import com.example.servercurs.entities.Skills;
+import com.example.servercurs.entities.User;
 import com.example.servercurs.service.SkillsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,24 @@ public class SkillsController {
     public String AddNewLang(@RequestParam String skills, Model model ){
         Skills skill = new Skills();
         skill.setName_skills(skills);
-        skillsService.save(skill);
+        List<Skills> list = skillsService.findAllSkillss();
+        int count = 0;
+        for (Skills sk:list) {
+            if((sk.getName_skills().toLowerCase()).equals(skill.getName_skills().toLowerCase())){
+                count++;
+            }
+
+        }
+        if(count==0){
+            //userService.save(user);
+            skillsService.save(skill);
+        }
+        else{
+            String error="We have skills with this name.Enter another name please!";
+            model.addAttribute("error", error);
+            return "AddSkills";
+        }
+       // skillsService.save(skill);
         return "redirect:/admin/skills";
     }
 
@@ -52,7 +70,24 @@ public class SkillsController {
     public String update(@PathVariable(value = "id_skills") int id_skills, @RequestParam String skills, Model model){
         Skills skill = skillsService.findById(id_skills);
         skill.setName_skills(skills);
-        skillsService.save(skill);
+        List<Skills> list = skillsService.findAllSkillss();
+        int count = 0;
+        for (Skills sk:list) {
+            if((sk.getName_skills().toLowerCase()).equals(skill.getName_skills().toLowerCase())){
+                count++;
+            }
+
+        }
+        if(count==0){
+            //userService.save(user);
+            skillsService.save(skill);
+        }
+        else{
+            String error="We have skills with this name.Enter another name please!";
+            model.addAttribute("error", error);
+            return "EditSkills";
+        }
+       // skillsService.save(skill);
         return "redirect:/admin/skills";
     }
 }

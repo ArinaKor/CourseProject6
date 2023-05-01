@@ -35,7 +35,24 @@ public class LanguageController {
     public String AddNewLang(@RequestParam String lang,  Model model ){
         Language language = new Language();
         language.setName_language(lang);
-        languageService.save(language);
+        List<Language> list = languageService.findAllLanguages();
+        int count = 0;
+        for (Language sk:list) {
+            if((sk.getName_language().toLowerCase()).equals(language.getName_language().toLowerCase())){
+                count++;
+            }
+
+        }
+        if(count==0){
+            //userService.save(user);
+            languageService.save(language);
+        }
+        else{
+            String error="We have language with this name.Enter another name please!";
+            model.addAttribute("error", error);
+            return "addLangProg";
+        }
+        //languageService.save(language);
         return "redirect:/admin/lang";
     }
 
@@ -54,7 +71,25 @@ public class LanguageController {
     public String update(@PathVariable(value = "id_language") int id_language, @RequestParam String lang, Model model){
         Language language = languageService.findById(id_language);
         language.setName_language(lang);
-        languageService.save(language);
+        List<Language> list = languageService.findAllLanguages();
+        int count = 0;
+        for (Language sk:list) {
+            if((sk.getName_language().toLowerCase()).equals(language.getName_language().toLowerCase())){
+                count++;
+            }
+
+        }
+        if(count==0){
+            //userService.save(user);
+            languageService.save(language);
+        }
+        else{
+            String error="We have language with this name.Enter another name please!";
+            model.addAttribute("error", error);
+            return "EditLang";
+        }
+
+        //languageService.save(language);
         return "redirect:/admin/lang";
     }
 }

@@ -47,7 +47,7 @@ public class Group {
     List<Student> students;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name="teacher", nullable = false)
+    @JoinColumn(name="teacher")
     @JsonIgnore
     private Teacher teacher;
 

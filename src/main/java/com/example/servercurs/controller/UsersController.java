@@ -103,7 +103,23 @@ public class UsersController {
         user.setMail(mail);
         user.setPassword(pass);
         user.setRole(role);
-        userService.save(user);
+
+        List<User> userList = userService.findAllUser();
+        int count = 0;
+        for (User user1:userList) {
+            if(user1.getMail().equals(user.getMail())){
+                count++;
+            }
+
+        }
+        if(count==0){
+            userService.save(user);
+        }
+        else{
+            String error="We have user with this mail.Enter another mail please!";
+            model.addAttribute("error", error);
+            return "AddUser";
+        }
 
             if(role.getRoleName().equals("student")){
                 student.setId_user(user);
@@ -115,6 +131,57 @@ public class UsersController {
                 teacherService.save(teacher);
             }
 
+
+        return "redirect:/admin/users";
+    }
+    @PostMapping("/admin/users/{id_user}/edit")
+    public String update(@PathVariable(value = "id_user") int id_user, @RequestParam String surname, @RequestParam String name,
+                         @RequestParam String roleName, @RequestParam String mail,@RequestParam String rolee, Model model){
+
+        Role role = roleRepository.findRoleByRoleName(roleName);
+
+        String message = "takoe yzse est'";
+        model.addAttribute("message", message);
+        User user = userService.findById(id_user);
+        List<Teacher> teacherList = teacherService.findAllTeachers();
+        List<Student> studentList = studentService.findAllStudents();
+        Teacher teacher = new Teacher();
+        Student student = new Student();
+        user.setSurname(surname);
+        user.setName(name);
+        user.setMail(mail);/*
+        user.setPassword(pass);*/
+        user.setRole(role);
+        userService.save(user);
+        if(!roleName.equals(rolee)){
+            if(rolee.equals("student")){
+                for (Student st:studentList) {
+                    if(st.getId_user().equals(user)){
+                        teacher.setId_user(user);
+                        /* teacherService.save(teacher);*/
+
+                        teacherService.save(teacher);
+                        studentService.delete(st.getId_student());
+                        break;
+                    }
+
+                } /*
+                 */
+            }
+            if(rolee.equals("teacher")){
+                for (Teacher tc:teacherList) {
+                    if(tc.getId_user().equals(user)){
+                        student.setId_user(user);
+                        studentService.save(student);
+                        teacherService.delete(tc.getId_teacher());
+                        /*student.setId_user(user);
+                        studentService.save(student);*/
+                        break;
+                    }
+                }
+            }
+        }
+        userService.save(user);
 
         return "redirect:/admin/users";
     }
