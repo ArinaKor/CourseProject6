@@ -293,6 +293,9 @@
             color: #ffeba7;
             box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
         }
+        input.invalid {
+            border: 2px solid red;
+        }
     </style>
 </head>
 <body>
@@ -322,7 +325,7 @@
                                             <input type="password" name="pass" class="form-style" placeholder="Your Password"  >
                                             <i class="input-icon uil uil-lock-alt"></i>
                                         </div>
-                                        <input type="submit" class="btn mt-4" value="Registration">
+                                        <input type="submit" class="btn mt-4" value="Login">
                                         </form>
 <!--
                                         <p class="mb-0 mt-4 text-center"><a href="#" class="link">Forgot your password?</a></p>
@@ -345,14 +348,15 @@
                                             <i class="input-icon uil uil-at"></i>
                                         </div>
                                         <div class="form-group mt-2">
-                                            <input type="password" required name="password" class="form-style" id="pass" placeholder="Your Password">
+                                            <input type="password" required name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-style" id="pass" placeholder="Your Password">
                                             <i class="input-icon uil uil-lock-alt"></i>
+
                                         </div>
                                             <div class="form-group mt-2">
                                                 <input type="password" required name="password2" class="form-style" id="passch" placeholder="Repeat Your Password">
                                                 <i class="input-icon uil uil-lock-alt"></i>
                                             </div>
-                                        <input type="submit" class="btn mt-4" value="Registration">
+                                        <input type="submit" class="btn mt-4" onclick="checkInput()" value="Registration">
                                         </form>
                                     </div>
 
@@ -377,5 +381,15 @@
 
     }
 */
+    function checkInput() {
+        var input = document.getElementById("pass");
+        var pattern = input.pattern;
+        var value = input.value;
+        if (!value.match(pattern)) {
+            alert("Пароль должен содержать не менее 8 символов, иметь хотя бы одну заглавную букву, буквы должны быть латинского алфавита и один специальный символ. Попробуйте подумать ещё и придумать правильный пароль) Мы просто не хотим, чтоб ваш аккаунт взломали");
+        }
+    }
+
+
 </script>
 </html>

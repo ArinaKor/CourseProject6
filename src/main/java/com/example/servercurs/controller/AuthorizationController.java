@@ -36,6 +36,7 @@ public class AuthorizationController {
     private StudentRepository studentRepository;
     @Autowired
     private GroupService groupService;
+    //BCryptPasswordEncoder bCryptPasswordEncoder = new
     static int stud;
 
     @GetMapping("/authorization")

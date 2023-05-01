@@ -7,6 +7,7 @@ import com.example.servercurs.entities.Teacher;
 import com.example.servercurs.repository.GroupRepository;
 import com.example.servercurs.repository.StudentRepository;
 import com.example.servercurs.service.*;
+import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.xhtmlrenderer.pdf.ITextRenderer;
 
-import javax.mail.MessagingException;
+//import javax.mail.MessagingException;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.*;
 
 @Controller
@@ -75,7 +80,7 @@ public class StudentMainController {
     }
 
     @PostMapping("/student/groups/{id_student}/{id_group}/enroll")
-    public String enrollCourse(@PathVariable(name="id_student") int id_student, @PathVariable(name="id_group") int id_group, Model model, RedirectAttributes attributes) throws MessagingException, jakarta.mail.MessagingException {
+    public String enrollCourse(@PathVariable(name="id_student") int id_student, @PathVariable(name="id_group") int id_group, Model model, RedirectAttributes attributes) {
         Student student = studentService.findById(id_student);
         Group group = groupService.findById(id_group);
 
@@ -109,8 +114,10 @@ public class StudentMainController {
     }
 
     @PostMapping("/students/mygroup/{id}")
-    public String completeCourse(@PathVariable(name="id") int id, @RequestParam(name="rating") String rating, RedirectAttributes attributes, Model model){
+    public String completeCourse(HttpServletResponse response, @PathVariable(name="id") int id, @RequestParam(name="rating") String rating, RedirectAttributes attributes, Model model) {
 
+
+        /*=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
         Student student = studentService.findById(id);
         Group group = groupService.findById(student.getId_group().getId_group());
 
@@ -119,12 +126,17 @@ public class StudentMainController {
 
         group.setRecorded_count(group.getRecorded_count()+1);
         groupService.save(group);
+        if(student.getCourses()==null){
+            student.setCourses("");
+        }
         StringBuilder crs = new StringBuilder(student.getCourses());
         student.setCourses(String.valueOf(crs.append(student.getId_group().getId_group()+",")));
         String[] courses = student.getCourses().split(",");
         for (int i = 0; i < courses.length; i++) {
             listLastGroups.add(courses[i]);
         }
+        student.setRating(0);
+        student.setCount_rating("");
 
         student.setId_group(null);
         studentService.save(student);
