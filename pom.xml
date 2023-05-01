@@ -32,6 +32,11 @@
             <artifactId>flying-saucer-pdf</artifactId>
             <version>9.1.20</version>
         </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>font-awesome</artifactId>
+            <version>5.15.3</version>
+        </dependency>
        <!-- <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
