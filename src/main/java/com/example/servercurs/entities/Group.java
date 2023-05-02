@@ -54,7 +54,8 @@ public class Group {
     @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name="timetable")
     private TimeTable timetable;
-
+    @Transient
+    private int progress;
    /* @Override
     public String toString() {
         return "Group{" +

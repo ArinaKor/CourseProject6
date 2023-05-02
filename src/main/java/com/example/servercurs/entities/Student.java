@@ -50,6 +50,8 @@ public class Student {
     @JsonIgnore
     private Group id_group;
 
+
+
     @Override
     public String toString() {
         return "Student{" +

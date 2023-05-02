@@ -4,6 +4,7 @@ import com.example.servercurs.entities.*;
 import com.example.servercurs.repository.*;
 import com.example.servercurs.service.*;
 import jakarta.servlet.http.HttpServletResponse;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +37,7 @@ public class AuthorizationController {
     private StudentRepository studentRepository;
     @Autowired
     private GroupService groupService;
-    //BCryptPasswordEncoder bCryptPasswordEncoder = new
+
     static int stud;
 
     @GetMapping("/authorization")
@@ -47,14 +48,15 @@ public class AuthorizationController {
         return "authorization";
     }
     @PostMapping("/authorization")
-    public String registration(@RequestParam String email, @RequestParam String password, Model model){
-
+    public String registration(RedirectAttributes attributes,@RequestParam String email, @RequestParam String password, Model model){
+        String salt = BCrypt.gensalt();
+        String hashedPassword = BCrypt.hashpw(password, salt);
         User user = new User();/*
         Student student = new Student();
         */
         Role role = roleService.findById(3);
         user.setMail(email);
-        user.setPassword(password);
+        user.setPassword(hashedPassword);
         user.setRole(role);
         Student student = new Student();
         List<User> userList = userService.findAllUser();
@@ -74,6 +76,10 @@ public class AuthorizationController {
                 student.setId_user(user);
                 studentService.save(student);
                 model.addAttribute("student", student);
+
+                attributes.addFlashAttribute("student", student);
+                stud = student.getId_student();
+
             }
             /*student.get
             studentService.save()*/
@@ -85,17 +91,19 @@ public class AuthorizationController {
         }
 
 
-        return "StudentFirst";
+        return "redirect:/student";
     }
     @PostMapping ("/authorization1")
     public String authorization(@RequestParam String email2, @RequestParam String pass, RedirectAttributes attributes, HttpServletResponse response, Model model) throws IOException {
-
+        String salt = BCrypt.gensalt();
         List<User> list = userService.findAllUser();
         User user = new User();
         List<Role> roleList = roleService.findAllRoles();
         int c = 0;
+        //String arina16 = BCrypt.hashpw("arina16", salt);
+        //System.out.println(arina16);
         for (User user1:list) {
-            if(user1.getMail().equals(email2)&&user1.getPassword().equals(pass)){
+            if(user1.getMail().equals(email2)&&BCrypt.checkpw(pass, user1.getPassword())){
                 user.setId_user(user1.getId_user());
                 user.setName(user1.getName());
                 user.setSurname(user1.getSurname());

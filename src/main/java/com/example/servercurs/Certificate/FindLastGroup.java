@@ -1,7 +1,6 @@
 package com.example.servercurs.Certificate;
 
-import com.example.servercurs.entities.Group;
-import com.example.servercurs.entities.Student;
+import com.example.servercurs.entities.*;
 import com.example.servercurs.service.GroupService;
 import com.example.servercurs.service.StudentService;
 
@@ -13,6 +12,24 @@ import java.util.Set;
 public class FindLastGroup {
     public List<Group> findLastGroupsStudent(StudentService studentService, GroupService groupService, int id_stud){
         Student student = studentService.findById(id_stud);
+        if(student.getCourses()==null){
+            student.setCourses("0,");
+        }
+        /*Group group = new Group();
+        Course course1 = new Course();
+        Skills skills = new Skills();
+        Language language = new Language();
+
+        skills.setName_skills("None");
+        language.setName_language("None");
+        course1.setCourse_name("Никакой курс не проходится");
+        course1.setId_skills(skills);
+        course1.setId_language(language);
+
+        if(student.getId_group()==null){
+            group.setCourse(course1);
+            student.setId_group(group);
+        }*/
         List<Group> list = groupService.findAllGroups();
         String grs = student.getCourses();
         String[] last = grs.split(",");

@@ -70,7 +70,7 @@ public class StudentMainController {
         System.out.println(k);
         model.addAttribute("k", k);
         attributes.addFlashAttribute("student", student);
-        return "StudentCourses";
+        return "FindGroupsStudent";
     }
 
     @PostMapping("/student/groups/{id_student}/{id_group}/enroll")
@@ -141,11 +141,15 @@ public class StudentMainController {
         return "StudentFirst";
     }
     @GetMapping("/students/lastMyGroups/{id}")
-    public String findLastGroups(@PathVariable(name="id") int id, Model model){
+    public String findLastGroups(RedirectAttributes attributes,@PathVariable(name="id") int id, Model model){
         Student student = studentService.findById(id);
         List<Group> list = groupService.findAllGroups();
+        if(student.getCourses()==null){
+            student.setCourses("0,");
+        }
         String grs = student.getCourses();
         String[] last = grs.split(",");
+
         /*String[] lastgr = (String[]) Arrays.stream(last).distinct().toArray();
          */
         Set<String> set = new HashSet<>();
@@ -167,6 +171,12 @@ public class StudentMainController {
 
             }
 
+        }
+        if(groupList.size()==0){
+            String err = "Никаких курсов не пройдено";
+            attributes.addFlashAttribute("err", err);
+            attributes.addFlashAttribute("student", student);
+            return "redirect:/student/{id}";
         }
 
         model.addAttribute("list", groupList);
