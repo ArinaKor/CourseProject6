@@ -87,7 +87,7 @@ public class AuthorizationController {
         }
 
 
-        return "redirect:/student";
+        return "redirect:/student/{id}";
     }
     @PostMapping ("/authorization1")
     public String authorization(@RequestParam String email2, @RequestParam String pass, RedirectAttributes attributes, HttpServletResponse response, Model model) throws IOException {
@@ -133,7 +133,7 @@ public class AuthorizationController {
             model.addAttribute("student", student);
             attributes.addFlashAttribute("student", student);
             stud = student.getId_student();
-            return "redirect:/student";
+            return "redirect:/student/"+student.getId_student();
         }
         /*else if(!(user.getRole().equals(roleList.get(0))||user.getRole().equals(roleList.get(1))||user.getRole().equals(roleList.get(2)))){
 

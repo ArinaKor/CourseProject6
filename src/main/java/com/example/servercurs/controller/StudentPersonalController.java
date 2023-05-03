@@ -96,37 +96,57 @@ public class StudentPersonalController {
         return "redirect:/student/{id}";
     }
 
-    @GetMapping("/student/personal/{id}/edit")
+    @GetMapping("/students/personal/edit/{id}")
     public String edit(@PathVariable("id") int id,Model model){
         Student student = studentService.findById(id);
         model.addAttribute("student", student);
         return "EditPersonalStudent";
     }
-    @PostMapping("/student/personal/{id}/edit")
+    @PostMapping("/students/personal/edit/{id}")
     public String editPersonInformation(@PathVariable("id") int id,@RequestParam("surname") String surname, @RequestParam("name") String name,
                                         @RequestParam("mail") String mail, RedirectAttributes attributes, Model model){
         Student student = studentService.findById(id);
         User user = userService.findById(student.getId_user().getId_user());
         List<User> userList = userService.findAllUser();
-        user.setMail(mail);
-        user.setSurname(surname);
-        user.setName(name);
-        int count = 0;
-        for (User user1:userList) {
-            if(user1.getMail().equals(user.getMail())){
-                count++;
-            }
-
-        }
-        if(count==0){
+        if(user.getMail().equals(mail)){
+            //user.setMail(mail);
+            user.setSurname(surname);
+            user.setName(name);
             userService.save(user);
+            student.setId_user(user);
+            studentService.save(student);
+
         }
         else{
-            String error="We have user with this mail.Enter another mail please!";
-            attributes.addFlashAttribute("error", error);
+            user.setMail(mail);
+            user.setSurname(surname);
+            user.setName(name);
+            int count = 0;
+            for (User user1:userList) {
+                if(user1.getMail().equals(user.getMail())){
+                    count++;
+                }
+            }
+            if(count==0){
+                userService.save(user);
+                student.setId_user(user);
+                studentService.save(student);
+            }
+            else{
+                String error="We have user with this mail.Enter another mail please!";
+                attributes.addFlashAttribute("error", error);
 
-            return "redirect:/student/personal/{id}/edit";
+                return "redirect:/students/personal/edit/{id}";
+            }
         }
-        return "redirect:/student/personal";
+
+        List<Group> listLast = findLastGroup.findLastGroupsStudent(studentService, groupService, id);
+        for (Group course : listLast) {
+            course.setProgress(ThreadLocalRandom.current().nextInt(0, 101));
+        }
+        //model.addAttribute("courses", courses);
+        model.addAttribute("last", listLast);
+        model.addAttribute("student",student);
+        return "StudentPersonal";
     }
 }

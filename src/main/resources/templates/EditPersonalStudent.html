@@ -285,16 +285,17 @@
                     </ul>
                 </div>
             </div>
-            <form th:action="@{/student/personal/{id}(id=${student.id_student})/edit}" method="post">
+
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
+                        <form method="post">
                         <div class="row mb-3">
                             <div class="col-sm-2">
                                 <h6 class="mb-0">Surname</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" th:value="${student.id_user.surname}">
+                                <input type="text" class="form-control" th:value="${student.id_user.surname}" name="surname">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -302,7 +303,7 @@
                                 <h6 class="mb-0">Name</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" th:value="${student.id_user.name}">
+                                <input type="text" class="form-control" th:value="${student.id_user.name}" name="name">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -310,7 +311,7 @@
                                 <h6 class="mb-0">Email</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" th:value="${student.id_user.mail}">
+                                <input type="text" class="form-control" th:value="${student.id_user.mail}" name="mail">
                             </div>
                         </div>
                         <!--<div class="row mb-3">
@@ -343,10 +344,11 @@
                                 <input type="submit" class="btn btn-primary px-4" value="Save Changes">
                             </div>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
-            </form>
+
         </div>
     </div>
 </div>

@@ -57,7 +57,7 @@ public class StudentMainController {
     @GetMapping("/student")
     private String student(Model model){
         //model.addAttribute("student", studentService.findById(id));
-        return "StudentFirst";
+        return "StudentPersonal";
     }
 
     @GetMapping("/students/groups/{id_student}")
