@@ -23,6 +23,42 @@
   </script>
 </head>
 <body>
+<nav class="navbar navbar-expand-sm navbar-light" id="neubar">
+  <div class="container">
+    <!--
+        <a class="navbar-brand" href="static/index.html"><img src="" height="60" /></a>
+    -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ms-auto ">
+        <li class="nav-item">
+          <a class="nav-link mx-2 active" aria-current="page" th:href="@{/student/{id}(id=${student.id_student})}">Home</a>
+        </li>
+        <!--<li class="nav-item">
+            <a class="nav-link mx-2" th:href="@{/student/{id}(id=${student.id_student})}">Personal</a>
+        </li>-->
+
+        <!--<li class="nav-item">
+          <a class="nav-link mx-2" href="/maps">Maps</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-2" th:href="@{/students/groups/{id}(id=${student.id_student})}">All Groups</a>
+        </li>
+        &lt;!&ndash;<li class="nav-item">
+            <a class="nav-link mx-2" th:href="@{/students/lastMyGroups/{id}(id=${student.id_student})}">My last Groups</a>
+        </li>&ndash;&gt;
+        <li class="nav-item">
+          <a class="nav-link mx-2" th:href="@{/students/mygroup/{id}(id=${student.id_student})}">My Group</a>
+        </li>
+-->
+
+      </ul>
+    </div>
+  </div>
+</nav>
 <div id="map" style="width: 100%; height: 500px"></div>
 </body>
 </html>

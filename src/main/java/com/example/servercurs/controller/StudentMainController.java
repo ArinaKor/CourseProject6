@@ -55,8 +55,10 @@ public class StudentMainController {
     static int id = AuthorizationController.stud;
     List<String> listLastGroups = new ArrayList<>();
     @GetMapping("/student")
-    private String student(Model model){
+    private String student(RedirectAttributes attributes,Model model){
         //model.addAttribute("student", studentService.findById(id));
+       // model.addAttribute("student", student);
+
         return "StudentPersonal";
     }
 
@@ -102,7 +104,7 @@ public class StudentMainController {
 
             String message="На вашем балансе недостаточно средст, пополните баланс и попробуйте ещё раз)";
             attributes.addFlashAttribute("message", message);
-            return "redirect:/students/groups/{id_student}";
+            return "redirect:/students/groups/"+student.getId_student();
         }
         else{
             student.setId_group(group);
@@ -121,7 +123,7 @@ public class StudentMainController {
         String subject = "IT Company Education Courses";
         emailService.sendSimpleEmail(mail, subject, body);
         attributes.addFlashAttribute("student", student);
-        return "userEnrollGroup";
+        return "redirect:/student/"+student.getId_student();
     }
     @GetMapping("/students/mygroup/{id}")
     public String checkMyGroup(@PathVariable(name="id") int id,RedirectAttributes attributes, Model model){
@@ -162,11 +164,12 @@ public class StudentMainController {
         attributes.addFlashAttribute("student", student);
 
 
-        return "StudentFirst";
+
+        return "redirect:/student/"+student.getId_student();
     }
     @GetMapping("/students/lastMyGroups/{id}")
-    public String findLastGroups(RedirectAttributes attributes,@PathVariable(name="id") int id, Model model){
-        Student student = studentService.findById(id);
+    public String findLastGroups(RedirectAttributes attributes,@PathVariable(name="id") int id_student, Model model){
+        Student student = studentService.findById(id_student);
         List<Group> list = groupService.findAllGroups();
         if(student.getCourses()==null){
             student.setCourses("0,");
@@ -200,10 +203,11 @@ public class StudentMainController {
             String err = "Никаких курсов не пройдено";
             attributes.addFlashAttribute("err", err);
             attributes.addFlashAttribute("student", student);
-            return "redirect:/student/{id}";
+            return "StudentPersonal";
         }
 
         model.addAttribute("list", groupList);
+        model.addAttribute("student",student);
 
         return "LastGroup";
     }

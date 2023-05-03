@@ -35,6 +35,11 @@ public class AuthorizationController {
     private StudentRepository studentRepository;
 
     static int stud;
+    @GetMapping("/")
+    public String index(){
+
+        return "authorization";
+    }
 
     @GetMapping("/authorization")
     public String authorization(HttpServletResponse response){
@@ -70,6 +75,7 @@ public class AuthorizationController {
             userService.save(user);
             if(user.getRole().equals(role)){
                 student.setId_user(user);
+                student.setCourses("0,");
                 studentService.save(student);
                 model.addAttribute("student", student);
 

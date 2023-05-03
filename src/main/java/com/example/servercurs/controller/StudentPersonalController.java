@@ -58,6 +58,7 @@ public class StudentPersonalController {
         model.addAttribute("last", listLast);
 
 
+
         return "StudentPersonal";
     }
     @GetMapping("/students/personal/{id}")

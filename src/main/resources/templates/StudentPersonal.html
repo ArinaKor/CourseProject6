@@ -231,7 +231,7 @@
                 </li>-->
 
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="/maps">Maps</a>
+                    <a class="nav-link mx-2" th:href="@{/maps/{id}(id=${student.id_student})}">Maps</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link mx-2" th:href="@{/students/groups/{id}(id=${student.id_student})}">All Groups</a>
@@ -241,6 +241,9 @@
                 </li>-->
                 <li class="nav-item">
                     <a class="nav-link mx-2" th:href="@{/students/mygroup/{id}(id=${student.id_student})}">My Group</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-2" href="/quiz">Skills</a>
                 </li>
 
 
