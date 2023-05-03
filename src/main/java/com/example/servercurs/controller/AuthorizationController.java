@@ -87,7 +87,7 @@ public class AuthorizationController {
         }
 
 
-        return "redirect:/student/{id}";
+        return "redirect:/student/"+student.getId_student();
     }
     @PostMapping ("/authorization1")
     public String authorization(@RequestParam String email2, @RequestParam String pass, RedirectAttributes attributes, HttpServletResponse response, Model model) throws IOException {

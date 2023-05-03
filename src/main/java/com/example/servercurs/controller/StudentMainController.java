@@ -38,8 +38,8 @@ public class StudentMainController {
     private CourseService courseService;
     @Autowired
     private GroupService groupService;
-   /* @Autowired
-    private EmailService emailSender;*/
+    @Autowired
+    private EmailSenderService emailService;
     @Autowired
     private TeacherService teacherService;
    @Autowired
@@ -115,7 +115,11 @@ public class StudentMainController {
        // emailSender.sendSimpleMessage(student.getId_user().getMail(), "subject", "body");
         model.addAttribute("student", student);
         model.addAttribute("group", group);
-
+        String mail = student.getId_user().getMail();
+        String body = "Поздавряем, "+student.getId_user().getSurname()+" "+student.getId_user().getName()+"!\nВы были зачислены на курс "+group.getCourse().getCourse_name()+"\nС направлением "+group.getCourse().getId_skills().getName_skills()+" "
+                +group.getCourse().getId_language().getName_language()+"\n Спасибо, что выбрали нашу компанию для вашего будущего";
+        String subject = "IT Company Education Courses";
+        emailService.sendSimpleEmail(mail, subject, body);
         attributes.addFlashAttribute("student", student);
         return "userEnrollGroup";
     }
