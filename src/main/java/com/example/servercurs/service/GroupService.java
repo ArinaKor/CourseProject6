@@ -7,6 +7,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -34,6 +35,12 @@ public class GroupService {
     public void delete(int id){
         groupRepository.deleteById(id);
     }
+    /*public List<Group> findByTime(String date){
+        return groupRepository.findGroupsByGroup_time(date);
+    }
+    public List<Group> findByDate(Date date){
+        return groupRepository.findGroupsByDate_start(date);
+    }*/
 /*
     public List<Group> findAllByTimetable(){
         return groupRepository.findAllByTimetable();

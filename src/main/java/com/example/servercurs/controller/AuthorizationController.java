@@ -30,13 +30,9 @@ public class AuthorizationController {
     @Autowired
     private CourseService courseService;
     @Autowired
-    private GroupRepository groupRepository;
-    @Autowired
     private TeacherRepository teacherRepository;
     @Autowired
     private StudentRepository studentRepository;
-    @Autowired
-    private GroupService groupService;
 
     static int stud;
 

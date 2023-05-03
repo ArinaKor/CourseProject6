@@ -1,9 +1,9 @@
 package com.example.servercurs.controller;
 
 import com.example.servercurs.Rating.RatingTeacher;
-import com.example.servercurs.entities.Group;
-import com.example.servercurs.entities.Student;
-import com.example.servercurs.entities.Teacher;
+import com.example.servercurs.Singleton.SingletonEnum;
+import com.example.servercurs.entities.*;
+import com.example.servercurs.repository.CourseRepository;
 import com.example.servercurs.repository.GroupRepository;
 import com.example.servercurs.repository.StudentRepository;
 import com.example.servercurs.service.*;
@@ -22,6 +22,8 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.*;
 
 @Controller
@@ -36,10 +38,19 @@ public class StudentMainController {
     private CourseService courseService;
     @Autowired
     private GroupService groupService;
-    @Autowired
-    private EmailService emailSender;
+   /* @Autowired
+    private EmailService emailSender;*/
     @Autowired
     private TeacherService teacherService;
+   @Autowired
+    private SkillsService skillsService;
+   @Autowired
+   private LanguageService languageService;
+   @Autowired
+   private CourseRepository courseRepository;
+
+    SingletonEnum se = SingletonEnum.INSTANCE;
+    //List<Group> listGroups;
     RatingTeacher ratingTeacher = new RatingTeacher();
     static int id = AuthorizationController.stud;
     List<String> listLastGroups = new ArrayList<>();
@@ -59,6 +70,10 @@ public class StudentMainController {
         model.addAttribute("student", student);
         List<Group> listCourse = groupService.findAllGroups();
         model.addAttribute("list", listCourse);
+        List<Skills> skillsList = skillsService.findAllSkillss();
+        model.addAttribute("skills", skillsList);
+        List<Language> langList = languageService.findAllLanguages();
+        model.addAttribute("lang", langList);
 
         int k=0;
         if(student.getId_group()==null){
@@ -70,6 +85,11 @@ public class StudentMainController {
         System.out.println(k);
         model.addAttribute("k", k);
         attributes.addFlashAttribute("student", student);
+       /* List<Skills> list = skillsService.findAllSkillss();
+        model.addAttribute("list", list);
+        List<Language> lang = languageService.findAllLanguages();
+        model.addAttribute("lang", lang);
+*/
         return "FindGroupsStudent";
     }
 
@@ -182,5 +202,43 @@ public class StudentMainController {
         model.addAttribute("list", groupList);
 
         return "LastGroup";
+    }
+    @PostMapping("/students/groups/{id_student}")
+    public String findGroups(RedirectAttributes attributes,@PathVariable("id_student") int id_student, @RequestParam(required = false) String contact,  @RequestParam("groupTime") String groupTime,
+                             @RequestParam Date date1,@RequestParam(value = "selected", required = false) List<Integer> selected,@RequestParam(value = "finding", required = false) List<Integer> finding,  Model model){
+        //listGroups = se.getDbDataField();
+        Student student = studentService.findById(id_student);
+        model.addAttribute("student",student);
+        attributes.addFlashAttribute("student", student);
+        List<Group> lst = new ArrayList<>();
+
+        if(contact.equals("3")){
+            lst = groupRepository.findByDateStart(date1);
+        } else if (contact.equals("2")) {
+            lst = groupRepository.findByGroup_time(groupTime);
+        }else if(contact.equals("4")){
+            List<Course> allCourses = courseRepository.findBySkills(selected);
+            lst = groupRepository.findByCourse(allCourses);
+
+        }else if(contact.equals("5")){
+            List<Course> allCourses = courseRepository.findByLang(finding);
+            lst = groupRepository.findByCourse(allCourses);
+
+        }
+        if(lst.isEmpty()){
+            String notFound = "We can not found this!!!";
+
+            model.addAttribute("notFound", notFound);
+            return "FindGroupsStudent";
+        }
+        else{
+            model.addAttribute("list", lst);
+            return "FindGroupsStudent";
+        }
+
+
+
+
+       // return "FindGroupsStudent";
     }
 }

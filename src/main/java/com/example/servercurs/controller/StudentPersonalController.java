@@ -95,4 +95,38 @@ public class StudentPersonalController {
         attributes.addFlashAttribute("student", student);
         return "redirect:/student/{id}";
     }
+
+    @GetMapping("/student/personal/{id}/edit")
+    public String edit(@PathVariable("id") int id,Model model){
+        Student student = studentService.findById(id);
+        model.addAttribute("student", student);
+        return "EditPersonalStudent";
+    }
+    @PostMapping("/student/personal/{id}/edit")
+    public String editPersonInformation(@PathVariable("id") int id,@RequestParam("surname") String surname, @RequestParam("name") String name,
+                                        @RequestParam("mail") String mail, RedirectAttributes attributes, Model model){
+        Student student = studentService.findById(id);
+        User user = userService.findById(student.getId_user().getId_user());
+        List<User> userList = userService.findAllUser();
+        user.setMail(mail);
+        user.setSurname(surname);
+        user.setName(name);
+        int count = 0;
+        for (User user1:userList) {
+            if(user1.getMail().equals(user.getMail())){
+                count++;
+            }
+
+        }
+        if(count==0){
+            userService.save(user);
+        }
+        else{
+            String error="We have user with this mail.Enter another mail please!";
+            attributes.addFlashAttribute("error", error);
+
+            return "redirect:/student/personal/{id}/edit";
+        }
+        return "redirect:/student/personal";
+    }
 }
