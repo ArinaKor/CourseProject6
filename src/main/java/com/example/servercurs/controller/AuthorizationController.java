@@ -126,13 +126,14 @@ public class AuthorizationController {
             return "redirect:/admin";
         }else if(user.getRole().equals(roleList.get(1))){
             Teacher teacher = teacherRepository.findTeacherById_user(user);
+            teacher.setCheck("0");
             model.addAttribute("teacher", teacher);
             attributes.addFlashAttribute("teacher", teacher);
 /*
 
             response.setHeader("Location", "/teacher");
             //response.sendRedirect("/teacher");*/
-            return "redirect:/teacher";
+            return "redirect:/teacher/"+teacher.getId_teacher();
             /*return "redirect:/teacher";*/
         }else if(user.getRole().equals(roleList.get(2))){
             Student student = studentRepository.findStudentById_user(user);

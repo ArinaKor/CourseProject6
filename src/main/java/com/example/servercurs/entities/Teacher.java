@@ -29,6 +29,10 @@ public class Teacher {
     @ColumnDefault("0")
     private String count_rating;
 
+    @Column(name="ckeck")
+    private String check;
+
+
     //without foreight keys
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="id_user")

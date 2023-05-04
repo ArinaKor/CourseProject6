@@ -7,8 +7,9 @@ import com.example.servercurs.repository.CourseRepository;
 import com.example.servercurs.repository.GroupRepository;
 import com.example.servercurs.repository.StudentRepository;
 import com.example.servercurs.service.*;
-import com.lowagie.text.DocumentException;
+//import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.xhtmlrenderer.pdf.ITextRenderer;
 
 //import javax.mail.MessagingException;
 import jakarta.servlet.http.HttpServletResponse;
@@ -163,6 +163,29 @@ public class StudentMainController {
         model.addAttribute("student", student);
         attributes.addFlashAttribute("student", student);
 
+
+
+
+        /*@PostMapping("/certificate/pdf")
+        public ResponseEntity<byte[]> generateCertificatePdf(@ModelAttribute("certificate") Certificate certificate) throws IOException, DocumentException {
+            // Логика генерации PDF сертификата
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            Document document = new Document();
+            PdfWriter.getInstance(document, baos);
+            document.open();
+            document.add(new Paragraph("Сертификат"));
+            document.add(new Paragraph("Имя: " + certificate.getFirstName()));
+            document.add(new Paragraph("Фамилия: " + certificate.getLastName()));
+            document.add(new Paragraph("Курс: " + certificate.getCourse()));
+            document.add(new Paragraph("Оценка: " + certificate.getGrade()));
+            document.close();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentDispositionFormData("certificate.pdf", "certificate.pdf");
+            headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+            ResponseEntity<byte[]> response = new ResponseEntity<>(baos.toByteArray(), headers, HttpStatus.OK);
+            return response;
+        }*/
 
 
         return "redirect:/student/"+student.getId_student();

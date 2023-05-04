@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{margin-top:20px;
+            font-family: "Sitka Display"}
+        .shadow {
+            box-shadow: 0 0 3px rgb(53 64 78 / 20%) !important;
+        }
+        .rounded {
+            border-radius: 5px !important;
+        }
+        .bg-light {
+            background-color: #f7f8fa !important;
+        }
+        .bg-primary, .btn-primary, .btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active, .btn-outline-primary.active, .btn-outline-primary.focus, .btn-outline-primary:not(:disabled):not(.disabled):active, .badge-primary, .nav-pills .nav-link.active, .pagination .active a, .custom-control-input:checked ~ .custom-control-label:before, #preloader #status .spinner > div, .social-icon li a:hover, .back-to-top:hover, .back-to-home a, ::selection, #topnav .navbar-toggle.open span:hover, .owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots.clickable .owl-dot:hover span, .watch-video a .play-icon-circle, .sidebar .widget .tagcloud > a:hover, .flatpickr-day.selected, .flatpickr-day.selected:hover, .tns-nav button.tns-nav-active, .form-check-input.form-check-input:checked {
+            background-color: #6dc77a !important;
+        }
+
+        .badge {
+            padding: 5px 8px;
+            border-radius: 3px;
+            letter-spacing: 0.5px;
+            font-size: 12px;
+        }
+        .decor .form-inner .type{
+            display: none;
+        }
+        .btn-primary, .btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active, .btn-outline-primary.active, .btn-outline-primary.focus, .btn-outline-primary:not(:disabled):not(.disabled):active {
+            box-shadow: 0 3px 7px rgb(109 199 122 / 50%) !important;
+        }
+        .btn-primary, .btn-outline-primary, .btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active, .btn-outline-primary.active, .btn-outline-primary.focus, .btn-outline-primary:not(:disabled):not(.disabled):active, .bg-soft-primary .border, .alert-primary, .alert-outline-primary, .badge-outline-primary, .nav-pills .nav-link.active, .pagination .active a, .form-group .form-control:focus, .form-group .form-control.active, .custom-control-input:checked ~ .custom-control-label:before, .custom-control-input:focus ~ .custom-control-label::before, .form-control:focus, .social-icon li a:hover, #topnav .has-submenu.active.active .menu-arrow, #topnav.scroll .navigation-menu > li:hover > .menu-arrow, #topnav.scroll .navigation-menu > li.active > .menu-arrow, #topnav .navigation-menu > li:hover > .menu-arrow, .flatpickr-day.selected, .flatpickr-day.selected:hover, .form-check-input:focus, .form-check-input.form-check-input:checked, .container-filter li.active, .container-filter li:hover {
+            border-color: #6dc77a !important;
+        }
+        .bg-primary, .btn-primary, .btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active, .btn-outline-primary.active, .btn-outline-primary.focus, .btn-outline-primary:not(:disabled):not(.disabled):active, .badge-primary, .nav-pills .nav-link.active, .pagination .active a, .custom-control-input:checked ~ .custom-control-label:before, #preloader #status .spinner > div, .social-icon li a:hover, .back-to-top:hover, .back-to-home a, ::selection, #topnav .navbar-toggle.open span:hover, .owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots.clickable .owl-dot:hover span, .watch-video a .play-icon-circle, .sidebar .widget .tagcloud > a:hover, .flatpickr-day.selected, .flatpickr-day.selected:hover, .tns-nav button.tns-nav-active, .form-check-input.form-check-input:checked {
+            background-color: #6dc77a !important;
+        }
+        .btn {
+            padding: 8px 20px;
+            outline: none;
+            text-decoration: none;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            font-weight: 600;
+            border-radius: 5px;
+        }
+        .btn-primary {
+            background-color: #6dc77a !important;
+            border: 1px solid #6dc77a !important;
+            color: #fff !important;
+            box-shadow: 0 3px 7px rgb(109 199 122 / 50%);
+        }
+        #neubar {
+            background: #c9e9ff;
+            box-shadow: 4px 6px 12px rgba(0,0,0,0.4)
+        }
+
+        .nav-item .active {
+            border-radius: 6px;
+            background: linear-gradient(145deg, #50b1f3, #50B1F3FF);
+            box-shadow:  4px 4px 8px #c9e9ff,
+            -4px -4px 8px #c9e9ff;
+        }
+        #neubar .dropdown-menu a:hover {
+            color: #454545
+        }
+        #neubar .nav-item {
+            margin : auto 4px;
+        }
+        #neubar a {
+
+            padding-left:12px;
+            padding-right:12px;
+        }
+        #neubar .dropdown-menu {
+            background : #545454
+        }
+        a.navbar-brand {
+            color: #454545
+        }
+
+        a {
+            text-decoration:none;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .row > div {
+            flex: 1 0 30%;
+            margin: 10px;
+        }
+        .decor {
+            position: relative;
+            max-width: 250px;
+
+            /*margin: 50px auto 0;*/
+            /*
+            background: white;
+            */
+            border-radius: 30px;
+        }
+
+        .form-left-decoration:before {
+            top: -20px;
+        }
+        .form-left-decoration:after {
+            top: 20px;
+            left: 10px;
+        }
+        .form-right-decoration:before {
+            top: -20px;
+            right: 0;
+        }
+        .form-right-decoration:after {
+            top: 20px;
+            right: 10px;
+        }
+        .circle {
+            position: absolute;
+            bottom: 80px;
+            left: -55px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+        }
+        .form-inner {
+            padding: 10px;
+        }
+        .form-inner input, .form-inner textarea {
+            display: block;
+            width: 100%;
+            padding: 0 20px;
+            margin-bottom: 10px;
+            background: #E9EFF6;
+            line-height: 40px;
+            border-width: 0;
+            border-radius: 20px;
+            font-family: 'Roboto', sans-serif;
+        }
+        .form-inner input[type="submit"] {
+            margin-top: 30px;
+            background: #54ace8;
+            border-bottom: 4px solid #50b1f3;
+            color: #daeaff;
+            font-size: 14px;
+            width: 50%;
+            margin-left: 25%;
+        }
+        .form-inner h3 {
+            margin-top: 0;
+            /*font-family: 'Roboto', sans-serif;*/
+            font-weight: 500;
+            font-size: 24px;
+            color: #daeaff;
+        }
+        .btn-group{
+            margin-left: 2%;
+
+        }
+        .btn{
+            background: white;
+            color: #54ace8;
+            border: 2px solid #009dda;
+            margin-left: 12%;
+            border-radius: 8px;
+        }
+        .btn:before {
+            content: "";
+            background: linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
+            height: 50px;
+            width: 50px;
+            position: absolute;
+            top: -8px;
+            left: -75px;
+            transform: skewX(-45deg);
+        }
+        .btn:hover {
+            background: #009dda;
+            color: #c9e9ff;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Bootstrap Bundle JS (jsDelivr CDN) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-sm navbar-light" id="neubar">
+    <div class="container">
+        <a class="navbar-brand" href="static/index.html"><img src="" height="60" /></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            <h4>Hello Student,</h4>
+            <!--<p th:text="${student.id_student}"/>-->
+            <!-- <p th:text="${student.id_user.surname}"/>-->
+        </button>
+
+        <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto ">
+                <!--<li class="nav-item">
+                    <a class="nav-link mx-2 active" aria-current="page" th:href="@{/student/{id}(id=${student.id_student})}">Home</a>
+                </li>-->
+
+                <!--<li class="nav-item">
+                  <a class="nav-link mx-2" th:href="@{/student/{id}(id=${student.id_student})}">Personal</a>
+                </li>-->
+                <!--<li class="nav-item">
+                    <a class="nav-link mx-2 active" aria-current="page" th:href="@{/teacher/{id}(id=${teacher.id_teacher})}">Home</a>
+                </li>-->
+
+
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<!--<div class="container mt-5 pt-4">
+   <div class="filter-toggle ng-scope">
+       <form onclick="openClose()">
+        <input type="text" class="form-control form-control-lg" value="Параметры поиска" id="input" readonly/>
+
+    </div>
+   <div style="display: none" id="div">
+        <form  method="post">
+            <fieldset>
+                <legend>Please select for search:</legend>
+                <div class="btn-group ">
+                    &lt;!&ndash; <input type="radio" id="contactChoice1" name="contact" value="1" />
+                     <label for="contactChoice1">Find By Town</label>&ndash;&gt;
+
+                    &lt;!&ndash;<input class="btn-check" type="radio" id="contactChoice2" name="contact" onclick="showInput('group')" value="1" />&lt;!&ndash;&ndash;&gt;
+                    <label class="btn btn-outline-primary" for="contactChoice2">Find By number group</label>
+          &ndash;&gt;
+                    <input class="btn-check" type="radio" id="contactChoice3" name="contact" onclick="showInput('groupTime')" value="2" />&lt;!&ndash;onclick="showInput('town')"&ndash;&gt;
+                    <label class="btn btn-outline-primary" for="contactChoice3">Find By GroupTime</label>
+
+                    <input class="btn-check" type="radio" id="contactChoice4" name="contact" onclick="showInput('date1')" value="3"  />&lt;!&ndash;onclick="showInput2('date1', 'date2')"&ndash;&gt;
+                    <label class="btn btn-outline-primary" for="contactChoice4">Find By Date Start</label>
+
+                    <input class="btn-check" type="radio" id="contactChoice5" name="contact" onclick="showInput('sk')" value="4" />&lt;!&ndash;onclick="showInput2('time1', 'time2')"&ndash;&gt;
+                    <label class="btn btn-outline-primary" for="contactChoice5">Find By Skills</label>
+
+                    <input class="btn-check" type="radio" id="contactChoice6" name="contact" onclick="showInput('lang')" value="5" />&lt;!&ndash;onclick="showInput2('time1', 'time2')"&ndash;&gt;
+                    <label class="btn btn-outline-primary" for="contactChoice6">Find By Programming Language</label>
+                </div>
+                <div class="decor">
+                    <div class="form-left-decoration"></div>
+                    <div class="form-right-decoration"></div>
+                    <div class="circle"></div>
+                    <div class="form-inner">
+                        &lt;!&ndash;<input type="number" name="group" id="group" class="type" placeholder="Number Group">id="groupTime"&ndash;&gt;
+                        <div class="type" id="groupTime"><input type="text" name="groupTime"  placeholder="Group Time" list="time" />
+                            <datalist id="time">
+                                <option value="Утреннее"/>
+                                <option value="Вечернее"/>
+                                <option value="Дневное"/>
+                            </datalist>
+                        </div>
+
+                        &lt;!&ndash;<div th:each="skils : ${skills}" id="sk" name="sk" class="type">
+
+                            <input  name="selected" type="checkbox" th:value="${skils.id_skills}"  th:text="${skils.name_skills}"/>&lt;!&ndash;th:text="${skils.name_skills}"&ndash;&gt;
+                            &lt;!&ndash;<span th:text="${skils.name_skills}"></span>&ndash;&gt;
+
+                        </div>&ndash;&gt;
+                        <div class="type" id="sk">
+                            <div th:each="skils : ${skills}" >
+                                <label>
+                                    <input  name="selected" type="checkbox" th:value="${skils.id_skills}"  th:text="${skils.name_skills}"/>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="type" id="lang">
+                            <div th:each="lg : ${lang}"  >
+                                <label>
+                                    <input  name="finding" type="checkbox" th:value="${lg.id_language}"  th:text="${lg.name_language}"/>
+
+                                </label>
+                            </div></div>
+                        <input type="date" name="date1" id="date1" value="2023-05-04" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" class="type" >
+
+                    </div>
+                    <input type="submit" value="Find Ticket" class="btn btn-primary" >
+                </div>
+            </fieldset>
+        </form>
+          </div>
+        </div>
+    </div>-->
+    <div class="row" >
+        <h2 th:text="${notFound}"/>
+        <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2" th:each="ac,iterStat : ${free}" th:classappend="${iterStat.index % 3 == 0} ? 'row'">
+            <div class="card border-0 bg-light rounded shadow">
+                <div class="card-body p-4">
+                    <span class="badge rounded-pill bg-primary float-md-end mb-3 mb-sm-0">Full time</span>
+                    <h5 th:text="${ac.course.id_skills.name_skills}+' Developer'"/>
+                    <h6 th:text="${ac.course.id_language.name_language}"/>
+                    <h6 th:text="${ac.course.course_name}"/>
+                    <div class="mt-3">
+                        <span class="text-muted d-block"><i class="fa fa-map-marker" aria-hidden="true"></i> Belarus</span>
+                    </div>
+                    <div class="mt-1">
+                        <span class="text-muted d-block" th:text="'Тип группы '+${ac.group_time}"/>
+                        <span class="text-muted d-block" th:text="'Свободные места '+(${ac.count_student_all}-${ac.recorded_count})+' из '+${ac.count_student_all}"/>
+                        <span th:text="'Дата старта '+${ac.date_start}" class="text-muted d-block"/>
+                    </div>
+                    <!--<div class="mt-3">
+                      <a href="#" class="btn btn-primary">View Details</a>
+                    </div>-->
+                    <div class="check">
+
+                            <div>
+                                <div th:if="${ac.count_student_all}!=${ac.recorded_count}">
+                                    <!--<form th:action="'/student/groups/'+${student.id_student}+'/'+${ac.id_group}+'/enroll'" method="post">
+                                        <button type="submit" class="btn-primary">Enroll</button>
+                                    </form>-->
+                                    <form method="post" th:action="'/teacher/groups/teach/'+${teacher.id_teacher}+'/'+${ac.id_group}">
+                                        <button type="submit" class="btn-primary">StartTeach</button>
+                                    </form>
+                                </div>
+                                <div th:unless="${ac.count_student_all}!=${ac.recorded_count}">
+                                    <p>Мест нет!</p>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-4 pt-2 d-block d-md-none text-center">
+                <a href="#" class="btn btn-primary">View more Jobs <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right fea icon-sm"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div>
+</div>
+
+</body>
+<script>
+    let input = document.getElementById("input");
+    let div = document.getElementById("div");
+
+    input.addEventListener("click", function() {
+        if (div.style.display === "none") {
+            div.style.display = "block";
+        } else {
+            div.style.display = "none";
+        }
+    });
+    function showInput(inputId) {
+        // Получаем элемент input по его id
+        var input = document.getElementById(inputId);
+
+        // Если radiobutton выбран, то показываем input
+        if (input.style.display === "none") {
+            input.style.display = "block";
+        }
+        // Иначе скрываем input
+        else {
+            input.style.display = "none";
+        }
+    }
+    const findBySkills = document.getElementById('contactChoice5');
+    const findByProgrammingLanguage = document.getElementById('contactChoice6');
+    const skills = document.getElementById('sk');
+    const language = document.getElementById('lang');
+
+    findBySkills.addEventListener('click', () => {
+        skills.style.display = 'block';
+        language.style.display = 'none';
+    });
+
+    findByProgrammingLanguage.addEventListener('click', () => {
+        skills.style.display = 'none';
+        language.style.display = 'block';
+    });
+</script>
+</html>

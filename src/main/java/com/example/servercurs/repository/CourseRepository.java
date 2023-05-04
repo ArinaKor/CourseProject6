@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Integer> {
@@ -23,4 +24,9 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
     List<Course> findBySkills(List<Integer> selected);
     @Query("SELECT c FROM Course c WHERE c.id_language.id_language IN :finding")
     List<Course> findByLang(List<Integer> finding);
+
+    @Query("SELECT c.id_skills.name_skills, COUNT(c) FROM Course c GROUP BY c.id_skills")
+    List<Object[]> findGroupedCourses();
+    @Query("SELECT c.id_language.name_language, COUNT(c) FROM Course c GROUP BY c.id_language")
+    List<Object[]> findGroupedCoursesLang();
 }

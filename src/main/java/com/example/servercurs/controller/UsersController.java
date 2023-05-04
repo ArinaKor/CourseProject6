@@ -4,10 +4,8 @@ import com.example.servercurs.entities.*;
 import com.example.servercurs.repository.RoleRepository;
 import com.example.servercurs.repository.StudentRepository;
 import com.example.servercurs.repository.TeacherRepository;
-import com.example.servercurs.service.RoleService;
-import com.example.servercurs.service.StudentService;
-import com.example.servercurs.service.TeacherService;
-import com.example.servercurs.service.UserService;
+import com.example.servercurs.service.*;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +34,8 @@ public class UsersController {
     private TeacherRepository teacherRepository;
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private EmailSenderService emailSenderService;
     @GetMapping("/admin")
     public String admin(Model model){
 
@@ -94,6 +94,8 @@ public class UsersController {
     @PostMapping("/admin/users/add")
     public String addUser( @RequestParam String surname, @RequestParam String name,
                          @RequestParam String roleName,@RequestParam String pass, @RequestParam String mail, Model model){
+        String salt = BCrypt.gensalt();
+        String hashedPassword = BCrypt.hashpw(pass, salt);
         Role role = roleRepository.findRoleByRoleName(roleName);
         List<Role> roleCheck = roleService.findAllRoles();
         User user = new User();
@@ -102,7 +104,7 @@ public class UsersController {
         user.setSurname(surname);
         user.setName(name);
         user.setMail(mail);
-        user.setPassword(pass);
+        user.setPassword(hashedPassword);
         user.setRole(role);
 
         List<User> userList = userService.findAllUser();
@@ -148,21 +150,23 @@ public class UsersController {
         List<Student> studentList = studentService.findAllStudents();
         Teacher teacher = new Teacher();
         Student student = new Student();
-        user.setSurname(surname);
+        if(user.getMail().equals(mail)){
+
+            user.setSurname(surname);
         user.setName(name);
         user.setMail(mail);/*
         user.setPassword(pass);*/
         user.setRole(role);
         //userService.save(user);
         List<User> userList = userService.findAllUser();
-        int count = 0;
+        /*int count = 0;
         for (User user1:userList) {
             if(user1.getMail().equals(user.getMail())){
                 count++;
             }
 
-        }
-        if(count==0){
+        }*/
+
             userService.save(user);
         }
         else{
@@ -205,5 +209,40 @@ public class UsersController {
         userService.save(user);
 
         return "redirect:/admin/users";
+    }
+
+    @GetMapping("/admin/checkDelete")
+    public String deleteTeach(Model model){
+        List<Teacher> deleteList = teacherRepository.findTeacherByCheck("1");
+        model.addAttribute("delete", deleteList);
+        return "CheckApplications";
+    }
+    @PostMapping("/admin/checkDelete/faild/{id_user}")
+    public String deleteFailed(@PathVariable("id_user") int id_user, Model model,RedirectAttributes redirectAttributes){
+        User user = userService.findById(id_user);
+        String mail = user.getMail();
+        String body = "Уважаемый(-ая), "+ user.getSurname()+" "+user.getName()+"\nВаша заявка на увольнение была рассмотрена и отклонена.\nПо все вопросам просьба общаться к руководству.\n\nС уважением, Администрация IT Company Education Courses";
+        String subject = "IT Company Education Courses";
+        emailSenderService.sendSimpleEmail(mail, subject, body);
+        Teacher teacher = teacherRepository.findTeacherById_user(user);
+        teacher.setCheck("0");
+        teacherService.save(teacher);
+        return "redirect:/admin";
+    }
+    @PostMapping("/admin/checkDelete/success/{id_user}")
+    public String deleteSuccess(@PathVariable("id_user") int id_user, Model model,RedirectAttributes redirectAttributes){
+        User user = userService.findById(id_user);
+        String mail = user.getMail();
+        String body = "Уважаемый(-ая), "+ user.getSurname()+" "+user.getName()+"\nВаша заявка на увольнение была рассмотрена и одобрена.\nС данного момента доступ к рабочему аккаунту закрыт.\nПо все вопросам просьба общаться к руководству.\n\nС уважением, Администрация IT Company Education Courses";
+        String subject = "IT Company Education Courses";
+        emailSenderService.sendSimpleEmail(mail, subject, body);
+
+        userService.delete(id_user);
+        List<Teacher> deleteList = teacherRepository.findTeacherByCheck("1");
+        //model.addAttribute("delete", deleteList);
+        if(deleteList.size()==0){
+            return "redirect:/admin";
+        }
+        return "CheckApplications";
     }
 }

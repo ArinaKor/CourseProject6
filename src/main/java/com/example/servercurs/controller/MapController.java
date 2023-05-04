@@ -25,14 +25,14 @@ public class MapController {
     @Autowired
     private StudentService studentService;
 
-    @GetMapping("/maps/{id}")
-    public String showMap(@PathVariable("id") int id, Model model, RedirectAttributes attributes) {
-        Student student = studentService.findById(id);
+    @GetMapping("/maps")
+    public String showMap( Model model, RedirectAttributes attributes) {
+        /*Student student = studentService.findById(id);*/
         String address = "Минск, улица Петруся Бровки 39";
         model.addAttribute("address", address);
-        model.addAttribute("apiKey", API_KEY);
+        model.addAttribute("apiKey", API_KEY);/*
         model.addAttribute("student", student);
-        attributes.addFlashAttribute("student", student);
+        attributes.addFlashAttribute("student", student);*/
         return "YandexMaps";
     }
 
