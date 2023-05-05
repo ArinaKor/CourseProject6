@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Title</title>
   <style>
     body{margin-top:20px;
-    font-family: "Sitka Display"}
+      font-family: "Sitka Display"}
     .shadow {
       box-shadow: 0 0 3px rgb(53 64 78 / 20%) !important;
     }
@@ -197,7 +197,7 @@
       <span class="navbar-toggler-icon"></span>
       <h4>Hello Student,</h4>
       <!--<p th:text="${student.id_student}"/>-->
-     <!-- <p th:text="${student.id_user.surname}"/>-->
+      <!-- <p th:text="${student.id_user.surname}"/>-->
     </button>
 
     <div class=" collapse navbar-collapse" id="navbarNavDropdown">
@@ -221,11 +221,11 @@
 </nav>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <div class="container mt-5 pt-4">
-<div class="filter-toggle ng-scope">
-  <!--<form onclick="openClose()">-->
+  <div class="filter-toggle ng-scope">
+    <!--<form onclick="openClose()">-->
     <input type="text" class="form-control form-control-lg" value="Параметры поиска" id="input" readonly/>
-  <!--</form>-->
-</div>
+    <!--</form>-->
+  </div>
   <div style="display: none" id="div"><!--To chto poyavl-->
     <form  method="post">
       <fieldset>
@@ -256,11 +256,11 @@
           <div class="form-inner">
             <!--<input type="number" name="group" id="group" class="type" placeholder="Number Group">id="groupTime"-->
             <div class="type" id="groupTime"><input type="text" name="groupTime"  placeholder="Group Time" list="time" />
-            <datalist id="time">
-              <option value="Утреннее"/>
-              <option value="Вечернее"/>
-              <option value="Дневное"/>
-            </datalist>
+              <datalist id="time">
+                <option value="Утреннее"/>
+                <option value="Вечернее"/>
+                <option value="Дневное"/>
+              </datalist>
             </div>
 
             <!--<div th:each="skils : ${skills}" id="sk" name="sk" class="type">
@@ -290,9 +290,9 @@
         </div>
       </fieldset>
     </form>
-<!--
-  </div>
-</div>-->
+    <!--
+      </div>
+    </div>-->
   </div>
   <div class="row" >
     <h2 th:text="${notFound}"/>
@@ -301,15 +301,15 @@
         <div class="card-body p-4">
           <span class="badge rounded-pill bg-primary float-md-end mb-3 mb-sm-0">Full time</span>
           <h5 th:text="${ac.course.id_skills.name_skills}+' Developer'"/>
-          <h6 th:text="${ac.course.id_language.name_language}"/>
-          <h6 th:text="${ac.course.course_name}"/>
+          <h6 th:text="'Teacher is '+${ac.teacher.id_user.surname}+' '+${ac.teacher.id_user.name} "/>
+          <h6 th:text="${ac.course.course_name}+ ' Language '+${ac.course.id_language.name_language}"/>
           <div class="mt-3">
             <span class="text-muted d-block"><i class="fa fa-map-marker" aria-hidden="true"></i> Belarus</span>
           </div>
           <div class="mt-1">
             <span class="text-muted d-block" th:text="'Тип группы '+${ac.group_time}"/>
             <span class="text-muted d-block" th:text="'Свободные места '+(${ac.count_student_all}-${ac.recorded_count})+' из '+${ac.count_student_all}"/>
-           <span th:text="'Дата старта '+${ac.date_start}" class="text-muted d-block"/>
+            <span th:text="'Дата старта '+${ac.date_start}" class="text-muted d-block"/>
           </div>
           <!--<div class="mt-3">
             <a href="#" class="btn btn-primary">View Details</a>
@@ -331,14 +331,14 @@
             <div th:unless="${k==0}">
               <p>Вы не можете записаться на данный курс</p>
             </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-12 mt-4 pt-2 d-block d-md-none text-center">
-      <a href="#" class="btn btn-primary">View more Jobs <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right fea icon-sm"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-    </div><!--end col-->
-  </div><!--end row-->
-</div>
+      <div class="col-12 mt-4 pt-2 d-block d-md-none text-center">
+        <a href="#" class="btn btn-primary">View more Jobs <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right fea icon-sm"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+      </div><!--end col-->
+    </div><!--end row-->
+  </div>
 </div>
 
 </body>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #0C4160;
+
+      padding: 30px 10px;
+    }
+
+    .card {
+      max-width: 500px;
+      margin: auto;
+      color: black;
+      border-radius: 20px;
+    }
+
+    p {
+      margin: 0px;
+    }
+
+    .container .h8 {
+      font-size: 30px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .btn.btn-primary {
+      width: 100%;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px;
+      background-image: linear-gradient(to right, #77A1D3 0%, #79CBCA 51%, #77A1D3 100%);
+      border: none;
+      transition: 0.5s;
+      background-size: 200% auto;
+
+    }
+
+
+    .btn.btn.btn-primary:hover {
+      background-position: right center;
+      color: #fff;
+      text-decoration: none;
+    }
+
+
+
+    .btn.btn-primary:hover .fas.fa-arrow-right {
+      transform: translate(15px);
+      transition: transform 0.2s ease-in;
+    }
+
+    .form-control {
+      color: white;
+      background-color: #223C60;
+      border: 2px solid transparent;
+      height: 60px;
+      padding-left: 20px;
+      vertical-align: middle;
+    }
+
+    .form-control:focus {
+      color: white;
+      background-color: #0C4160;
+      border: 2px solid #2d4dda;
+      box-shadow: none;
+    }
+
+    .text {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    ::placeholder {
+      font-size: 14px;
+      font-weight: 600;
+    }
+  </style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<form  th:action="@{/sendCode/mail/{id}(id=${student.id_student})}" method="post">
+<div class="container p-0">
+  <div class="card px-4">
+    <p class="h8 py-3">Payment Details</p>
+    <div class="row gx-3">
+      <div class="col-12">
+        <div class="d-flex flex-column">
+          <p class="text mb-1">Person Name</p>
+          <input class="form-control mb-3" type="text" placeholder="Name" value="Barry Allen">
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="d-flex flex-column">
+          <p class="text mb-1">Card Number</p>
+          <input class="form-control mb-3" type="text" placeholder="1234 5678 4356 7889">
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="d-flex flex-column">
+          <p class="text mb-1">Expiry</p>
+          <input class="form-control mb-3" type="text" placeholder="MM/YYYY">
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="d-flex flex-column">
+          <p class="text mb-1">CVV/CVC</p>
+          <input class="form-control mb-3 pt-2 " type="password" placeholder="***">
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="d-flex flex-column">
+          <p class="text mb-1">Count of money</p>
+          <input class="form-control mb-3 pt-2 " required name="money"  type="text" placeholder="Enter Count of money">
+        </div>
+      </div>
+      <div class="col-12">
+
+
+          <button type="submit" class="btn btn-primary">Отправить</button>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+<!--<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Введите код</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control" id="codeInput">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+        <button type="button" class="btn btn-primary" onclick="checkCode()">Перевести</button>
+      </div>
+    </div>
+  </div>
+</div>-->
+</body>
+<!--<script>
+  function checkCode() {
+    var code = document.getElementById("codeInput").value;
+    $.ajax({
+      url: "/checkCode",
+      type: "POST",
+      data: {code: code},
+      success: function (response) {
+        if (response === "success") {
+          alert("Деньги успешно переведены!");
+        } else {
+          alert("Неверный код!");
+        }
+      }
+    });
+  }
+</script>-->
+</html>

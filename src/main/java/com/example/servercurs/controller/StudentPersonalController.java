@@ -2,6 +2,7 @@ package com.example.servercurs.controller;
 
 import com.example.servercurs.Certificate.FindLastGroup;
 import com.example.servercurs.entities.*;
+import com.example.servercurs.service.EmailSenderService;
 import com.example.servercurs.service.GroupService;
 import com.example.servercurs.service.StudentService;
 import com.example.servercurs.service.UserService;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Controller
@@ -26,6 +29,8 @@ public class StudentPersonalController {
     private GroupService groupService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private EmailSenderService emailSenderService;
     FindLastGroup findLastGroup = new FindLastGroup();
     @GetMapping("/student/{id}")
     private String checkPersonalPage(@PathVariable(name="id") int id, RedirectAttributes attributes, Model model){
@@ -62,8 +67,10 @@ public class StudentPersonalController {
         return "StudentPersonal";
     }
     @GetMapping("/students/personal/{id}")
-    public String change(@PathVariable("id") int id_stud, Model model){
+    public String change(@PathVariable("id") int id_stud, Model model, RedirectAttributes attributes){
         model.addAttribute("student", studentService.findById(id_stud));
+        attributes.addFlashAttribute("student", studentService.findById(id_stud));
+
         return "ChangePassword";
     }
     @PostMapping("/students/personal/{id}")
@@ -80,11 +87,13 @@ public class StudentPersonalController {
         }
         else if (BCrypt.checkpw(lastPass, user.getPassword())){
             String err = "Это не ваш старый пароль!";
-            attributes.addFlashAttribute("err", err);
+           // attributes.addFlashAttribute("err", err);
             attributes.addFlashAttribute("err", err);
             model.addAttribute("err", err);
             attributes.addFlashAttribute("student", student);
             model.addAttribute("user", user);
+            attributes.addFlashAttribute("user", user);
+            model.addAttribute("student", student);
             return "redirect:/students/personal/{id}";
         }else{
             String salt = BCrypt.gensalt();
@@ -150,4 +159,63 @@ public class StudentPersonalController {
         model.addAttribute("student",student);
         return "StudentPersonal";
     }
+
+    @GetMapping("/sendCode/{id}")
+    public String send(@PathVariable("id") int id, Model model){
+        Student student = studentService.findById(id);
+        model.addAttribute("student", student);
+        return "AddMoney";
+    }
+
+    @PostMapping("/sendCode/mail/{id}")
+    public String sendCode(@PathVariable("id") int id,@RequestParam String money, RedirectAttributes attributes,Model model){
+
+        Student student = studentService.findById(id);
+        String codeMail = "";
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        int length = 6;
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(characters.length());
+            codeMail += characters.charAt(index);
+        }
+        double balance = Double.parseDouble(money);
+
+        String mail = student.getId_user().getMail();
+        String body = "Для подтверждения вашей личности мы высылаем данный код\nВаш код: "+codeMail+"\nУбедительная просьба" +
+                " не разглашайте данный код и не отвечайне на данное сообщение если запрос сделали не вы\n" +
+                "С уважением,IT Company Education Courses";
+        String subject = "IT Company Education Courses";
+        emailSenderService.sendSimpleEmail(mail, subject, body);
+        attributes.addFlashAttribute("student", student);
+        model.addAttribute("student", student);
+        model.addAttribute("money", money);
+        model.addAttribute("code", codeMail);
+
+
+        return "writeCode";
+    }
+    /*@GetMapping("/sendMail/checkCode/{id}")
+    public String checkPage(@PathVariable("id") int id, RedirectAttributes redirectAttributes, Model model){
+
+        return "writeCode";
+    }*/
+
+    @PostMapping("/sendMail/checkCode/{id}")
+    public String checkCode(@PathVariable("id") int id_student, @RequestParam String money, @RequestParam String code, @RequestParam String codeMail,Model model ,RedirectAttributes attributes){
+        Student student = studentService.findById(id_student);
+        if(codeMail.equals(code)){
+            student.setBalance(student.getBalance()+Double.parseDouble(money));
+            studentService.save(student);
+            attributes.addFlashAttribute("student", student);
+            return "redirect:/student/"+student.getId_student();
+        }else{
+            String err="Error code";
+            model.addAttribute("err", err);
+            return "writeCode";
+        }
+
+        //return "";
+    }
+
 }

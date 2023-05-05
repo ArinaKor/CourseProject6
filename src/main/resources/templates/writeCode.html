@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form  th:action="@{/sendMail/checkCode/{id}(id=${student.id_student})}" method="post">
+    <!--<input type="text" name="name" placeholder="Введите ваше имя" required>
+    <input type="email" name="email" placeholder="Введите ваш email" required>
+    <textarea name="message" placeholder="Введите ваше сообщение" required></textarea>-->
+    <input type="hidden" required th:value="${student.id_student}" id="codeInput" />
+    <input type="hidden" th:value="${code}" name="code">
+    <input type="hidden" th:value="${money}" required name="money"/>
+    <input type="text" name="codeMail">
+
+    <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
+</body>
+</html>

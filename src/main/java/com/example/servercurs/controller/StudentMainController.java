@@ -71,6 +71,21 @@ public class StudentMainController {
         Student student = studentService.findById(id_student);
         model.addAttribute("student", student);
         List<Group> listCourse = groupService.findAllGroups();
+       // int tch = 0;
+        List<Group> list = new ArrayList<>();
+        Teacher teacher = new Teacher();
+        User user = new User();
+        for (Group gr:listCourse) {
+            if(gr.getTeacher()==null){
+                user.setSurname("not found");
+                user.setName("yet");
+                teacher.setId_user(user);
+                gr.setTeacher(teacher);
+            }
+
+
+        }
+        //model.addAttribute("tch", tch);
         model.addAttribute("list", listCourse);
         List<Skills> skillsList = skillsService.findAllSkillss();
         model.addAttribute("skills", skillsList);
@@ -164,35 +179,27 @@ public class StudentMainController {
         attributes.addFlashAttribute("student", student);
 
 
-
-
-        /*@PostMapping("/certificate/pdf")
-        public ResponseEntity<byte[]> generateCertificatePdf(@ModelAttribute("certificate") Certificate certificate) throws IOException, DocumentException {
-            // Логика генерации PDF сертификата
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            Document document = new Document();
-            PdfWriter.getInstance(document, baos);
-            document.open();
-            document.add(new Paragraph("Сертификат"));
-            document.add(new Paragraph("Имя: " + certificate.getFirstName()));
-            document.add(new Paragraph("Фамилия: " + certificate.getLastName()));
-            document.add(new Paragraph("Курс: " + certificate.getCourse()));
-            document.add(new Paragraph("Оценка: " + certificate.getGrade()));
-            document.close();
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_PDF);
-            headers.setContentDispositionFormData("certificate.pdf", "certificate.pdf");
-            headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
-            ResponseEntity<byte[]> response = new ResponseEntity<>(baos.toByteArray(), headers, HttpStatus.OK);
-            return response;
-        }*/
-
-
         return "redirect:/student/"+student.getId_student();
     }
     @GetMapping("/students/lastMyGroups/{id}")
     public String findLastGroups(RedirectAttributes attributes,@PathVariable(name="id") int id_student, Model model){
         Student student = studentService.findById(id_student);
+        /*if(student.getId_group()==null){
+            attributes.addFlashAttribute("")
+            return "redirect:/student/"+student.getId_student();
+
+        }*/
+        Group group = new Group();
+        Course course = new Course();
+        Skills skills = new Skills();
+        skills.setName_skills("nothing");
+        Language lang = new Language();
+        lang.setName_language("nothing");
+        course.setCourse_name("nothing");
+        course.setId_skills(skills);
+        course.setId_language(lang);
+        group.setCourse(course);
+        student.setId_group(group);
         List<Group> list = groupService.findAllGroups();
         if(student.getCourses()==null){
             student.setCourses("0,");
@@ -222,15 +229,29 @@ public class StudentMainController {
             }
 
         }
+        Teacher teacher = new Teacher();
+        User user = new User();
+        for (Group gr:groupList) {
+            if(gr.getTeacher()==null){
+                user.setSurname("not found");
+               // user.setName("yet");
+                teacher.setId_user(user);
+                gr.setTeacher(teacher);
+            }
+
+
+        }
         if(groupList.size()==0){
             String err = "Никаких курсов не пройдено";
             attributes.addFlashAttribute("err", err);
             attributes.addFlashAttribute("student", student);
+            model.addAttribute("student", student);
             return "StudentPersonal";
         }
 
         model.addAttribute("list", groupList);
         model.addAttribute("student",student);
+        attributes.addFlashAttribute("student", student);
 
         return "LastGroup";
     }
@@ -247,6 +268,7 @@ public class StudentMainController {
             lst = groupRepository.findByDateStart(date1);
         } else if (contact.equals("2")) {
             lst = groupRepository.findByGroup_time(groupTime);
+
         }else if(contact.equals("4")){
             List<Course> allCourses = courseRepository.findBySkills(selected);
             lst = groupRepository.findByCourse(allCourses);
@@ -263,6 +285,18 @@ public class StudentMainController {
             return "FindGroupsStudent";
         }
         else{
+            Teacher teacher = new Teacher();
+            User user = new User();
+            for (Group gr:lst) {
+                if(gr.getTeacher()==null){
+                    user.setSurname("not found");
+                    user.setName("yet");
+                    teacher.setId_user(user);
+                    gr.setTeacher(teacher);
+                }
+
+
+            }
             model.addAttribute("list", lst);
             return "FindGroupsStudent";
         }
