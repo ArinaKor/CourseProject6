@@ -1,6 +1,7 @@
 package com.example.servercurs.controller;
 
 import com.example.servercurs.Certificate.FindLastGroup;
+import com.example.servercurs.Config.ConvertToByte;
 import com.example.servercurs.entities.*;
 import com.example.servercurs.service.EmailSenderService;
 import com.example.servercurs.service.GroupService;
@@ -35,6 +36,7 @@ public class StudentPersonalController {
     @Autowired
     private EmailSenderService emailSenderService;
     FindLastGroup findLastGroup = new FindLastGroup();
+    ConvertToByte convertToByte = new ConvertToByte();
     @GetMapping("/student/{id}")
     private String checkPersonalPage(@PathVariable(name="id") int id, RedirectAttributes attributes, Model model){
         Student student = studentService.findById(id);
@@ -116,9 +118,16 @@ public class StudentPersonalController {
     }
 
     @GetMapping("/students/personal/edit/{id}")
-    public String edit(@PathVariable("id") int id,Model model){
+    public String edit(@PathVariable("id") int id,Model model,RedirectAttributes attributes){
         Student student = studentService.findById(id);
         model.addAttribute("student", student);
+        byte[] imageBytes = student.getId_user().getPhoto();
+
+        // Кодирование изображения в base64
+        String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
+        model.addAttribute("encodedImage", encodedImage);
+        attributes.addFlashAttribute("encodedImage", encodedImage);
+
         return "EditPersonalStudent";
     }
     @PostMapping("/students/personal/edit/{id}")
@@ -127,7 +136,18 @@ public class StudentPersonalController {
         Student student = studentService.findById(id);
         User user = userService.findById(student.getId_user().getId_user());
         List<User> userList = userService.findAllUser();
-        if(user.getMail().equals(mail)){
+        String encodedImage = null;
+        if (photo.isEmpty()) {
+            //user.setPhoto(convertToByte.convertImageToByteArray("D:\\unik\\sem6\\курсовой\\photo\\2.png"));
+            byte[] imageBytes = student.getId_user().getPhoto();
+
+            // Кодирование изображения в base64
+            encodedImage = Base64.getEncoder().encodeToString(imageBytes);
+
+        } else {
+            user.setPhoto(photo.getBytes());
+        }
+        if (user.getMail().equals(mail)) {
             //user.setMail(mail);
             user.setSurname(surname);
             user.setName(name);
@@ -136,24 +156,22 @@ public class StudentPersonalController {
             student.setId_user(user);
             studentService.save(student);
 
-        }
-        else{
+        } else {
             user.setMail(mail);
             user.setSurname(surname);
             user.setName(name);
             int count = 0;
-            for (User user1:userList) {
-                if(user1.getMail().equals(user.getMail())){
+            for (User user1 : userList) {
+                if (user1.getMail().equals(user.getMail())) {
                     count++;
                 }
             }
-            if(count==0){
+            if (count == 0) {
                 userService.save(user);
                 student.setId_user(user);
                 studentService.save(student);
-            }
-            else{
-                String error="We have user with this mail.Enter another mail please!";
+            } else {
+                String error = "We have user with this mail.Enter another mail please!";
                 attributes.addFlashAttribute("error", error);
 
                 return "redirect:/students/personal/edit/{id}";
@@ -166,7 +184,11 @@ public class StudentPersonalController {
         }
         //model.addAttribute("courses", courses);
         model.addAttribute("last", listLast);
-        model.addAttribute("student",student);
+        model.addAttribute("student", student);
+        attributes.addFlashAttribute("student", student);
+        model.addAttribute("encodedImage", encodedImage);
+        attributes.addFlashAttribute("encodedImage", encodedImage);
+
         return "redirect:/student/{id}";
     }
 
@@ -207,14 +229,7 @@ public class StudentPersonalController {
         //return "AddMoney";
         return "AddMoney";
     }
-    /*@GetMapping("/sendMail/checkCode/{id}")
-    public String checkPage(@PathVariable("id") int id, RedirectAttributes redirectAttributes, Model model){
-
-        return "writeCode";
-    }*/
-
     @PostMapping("/sendMail/checkCode/{id}")
-    //@ResponseBody
     public String checkCode(@PathVariable("id") int id_student, @RequestParam String money, @RequestParam String code, @RequestParam String codeMail,Model model ,RedirectAttributes attributes){
         Student student = studentService.findById(id_student);
         if(codeMail.equals(code)){

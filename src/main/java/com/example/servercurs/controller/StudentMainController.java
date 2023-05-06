@@ -142,6 +142,7 @@ public class StudentMainController {
 
             String message="На вашем балансе недостаточно средст, пополните баланс и попробуйте ещё раз)";
             attributes.addFlashAttribute("message", message);
+            model.addAttribute("message", message);
             return "redirect:/students/groups/"+student.getId_student();
         }
         else{

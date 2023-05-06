@@ -13,12 +13,12 @@
       font-family: 'Montserrat', sans-serif;
     }
 
-    body {
+    .body {
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      background-color: #0C4160;
+
 
       padding: 30px 10px;
     }
@@ -93,6 +93,34 @@
       font-size: 14px;
       font-weight: 600;
     }
+    #neubar {
+      background: #c9e9ff;
+      box-shadow: 4px 6px 12px rgba(0,0,0,0.4)
+    }
+
+    .nav-item .active {
+      border-radius: 6px;
+      background: linear-gradient(145deg, #50b1f3, #50B1F3FF);
+      box-shadow:  4px 4px 8px #c9e9ff,
+      -4px -4px 8px #c9e9ff;
+    }
+    #neubar .dropdown-menu a:hover {
+      color: #454545
+    }
+    #neubar .nav-item {
+      margin : auto 4px;
+    }
+    #neubar a {
+
+      padding-left:12px;
+      padding-right:12px;
+    }
+    #neubar .dropdown-menu {
+      background : #545454
+    }
+    a.navbar-brand {
+      color: #454545
+    }
   </style>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -100,6 +128,20 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
+<nav class="navbar navbar-expand-sm navbar-light" id="neubar">
+  <div class="container">
+
+    <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ms-auto ">
+        <li class="nav-item">
+          <a class="nav-link mx-2 active" aria-current="page" th:href="@{/student/{id}(id=${student.id_student})}">Home</a>
+        </li>
+
+        </ul>
+    </div>
+  </div>
+</nav>
+<div class="body">
 <form  th:action="@{/sendCode/mail/{id}(id=${student.id_student})}" method="post">
 <div class="container p-0">
   <div class="card px-4">
@@ -108,13 +150,13 @@
       <div class="col-12">
         <div class="d-flex flex-column">
           <p class="text mb-1">Person Name</p>
-          <input class="form-control mb-3" type="text" placeholder="Name" value="Barry Allen">
+          <input class="form-control mb-3" type="text" placeholder="Name" th:value="${student.id_user.surname}+' '+${student.id_user.name}">
         </div>
       </div>
       <div class="col-12">
         <div class="d-flex flex-column">
           <p class="text mb-1">Card Number</p>
-          <input class="form-control mb-3" type="text" placeholder="1234 5678 4356 7889">
+          <input class="form-control mb-3" type="text" pattern="[0-9]{16}" placeholder="1234 5678 4356 7889">
         </div>
       </div>
       <div class="col-6">
@@ -126,7 +168,7 @@
       <div class="col-6">
         <div class="d-flex flex-column">
           <p class="text mb-1">CVV/CVC</p>
-          <input class="form-control mb-3 pt-2 " type="password" placeholder="***">
+          <input class="form-control mb-3 pt-2 " pattern="[0-9]{3}" type="password" placeholder="***">
         </div>
       </div>
       <div class="col-12">
@@ -142,16 +184,6 @@
   </div>
 </div>
 </form>
-<!--<div th:if="${showCodeInput}">
-  <h3 th:text="${err}"/>
-  <form method="post" th:action="@{/sendMail/checkCode/{id}(id=${student.id_student})}">
-    <input type="hidden" required th:value="${student.id_student}" id="codeInput" />
-    <input type="hidden" th:value="${code}" name="code">
-    <input type="hidden" th:value="${money}" required name="money"/>
-    <input type="text" name="codeMail">
-    <button type="submit" class="btn btn-primary">Отправить</button>
-  </form>
-</div>-->
 <div th:if="${showCodeInput}">
 <div>
 
@@ -164,20 +196,7 @@
           </form>
 </div>
 </div>
-<!--<div id="myModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <form method="post" th:action="@{/sendMail/checkCode/{id}(id=${student.id_student})}">
-      <input type="hidden" required th:value="${student.id_student}" id="codeInput" />
-      <input type="hidden" th:value="${code}" name="code">
-      <input type="hidden" th:value="${money}" required name="money"/>
-      <input type="text" name="codeMail">
-      <button type="submit" class="btn btn-primary">Отправить</button>
-    </form>
-  </div>
-</div>-->
-
-
+</div>
 </body>
 
 </html>

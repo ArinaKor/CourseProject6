@@ -206,13 +206,7 @@
           <a class="nav-link mx-2 active" aria-current="page" th:href="@{/student/{id}(id=${student.id_student})}">Home</a>
         </li>
 
-        <!--<li class="nav-item">
-          <a class="nav-link mx-2" th:href="@{/student/{id}(id=${student.id_student})}">Personal</a>
-        </li>-->
 
-        <li class="nav-item">
-          <a class="nav-link mx-2" href="/maps">Maps</a>
-        </li>
 
 
       </ul>
@@ -296,6 +290,7 @@
   </div>
   <div class="row" >
     <h2 th:text="${notFound}"/>
+    <h4 th:text="${message}"/>
     <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2" th:each="ac,iterStat : ${list}" th:classappend="${iterStat.index % 3 == 0} ? 'row'">
       <div class="card border-0 bg-light rounded shadow">
         <div class="card-body p-4">
@@ -317,12 +312,12 @@
           <div class="check">
             <div th:if="${k==0}" >
               <div>
-                <div th:if="${ac.count_student_all}!=${ac.recorded_count}">
+                <div th:if="${ac.count_student_all}>${ac.recorded_count}">
                   <form th:action="'/student/groups/'+${student.id_student}+'/'+${ac.id_group}+'/enroll'" method="post">
                     <button type="submit" class="btn-primary">Enroll</button>
                   </form>
                 </div>
-                <div th:unless="${ac.count_student_all}!=${ac.recorded_count}">
+                <div th:unless="${ac.count_student_all}>${ac.recorded_count}">
                   <p>Мест нет!</p>
                 </div>
               </div>
@@ -334,9 +329,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 mt-4 pt-2 d-block d-md-none text-center">
-        <a href="#" class="btn btn-primary">View more Jobs <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right fea icon-sm"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-      </div><!--end col-->
+
     </div><!--end row-->
   </div>
 </div>
