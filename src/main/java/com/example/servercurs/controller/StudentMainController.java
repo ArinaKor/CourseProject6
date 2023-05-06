@@ -29,6 +29,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
+import javax.mail.MessagingException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -61,7 +62,8 @@ public class StudentMainController {
    private CourseRepository courseRepository;
     @Autowired
     private DocumentGenerator documentGenerator;
-
+    @Autowired
+    private EmailSenderService emailSenderService;
     @Autowired
     private SpringTemplateEngine springTemplateEngine;
 
@@ -172,7 +174,7 @@ public class StudentMainController {
     }
 
     @PostMapping("/students/mygroup/{id}")
-    public String completeCourse(HttpServletResponse response, @PathVariable(name="id") int id, @RequestParam(name="rating") String rating, RedirectAttributes attributes, Model model) throws IOException {
+    public String completeCourse(HttpServletResponse response, @PathVariable(name="id") int id, @RequestParam(name="rating") String rating, RedirectAttributes attributes, Model model) throws IOException, MessagingException, jakarta.mail.MessagingException {
 
 
         /*=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
@@ -182,23 +184,6 @@ public class StudentMainController {
 
         ratingTeacher.checkRatingTeacher(rating, id, studentService, groupService, teacherService);
 
-        group.setRecorded_count(group.getRecorded_count()+1);
-        groupService.save(group);
-        if(student.getCourses()==null){
-            student.setCourses("");
-        }
-        StringBuilder crs = new StringBuilder(student.getCourses());
-        student.setCourses(String.valueOf(crs.append(student.getId_group().getId_group()+",")));
-        String[] courses = student.getCourses().split(",");
-        for (int i = 0; i < courses.length; i++) {
-            listLastGroups.add(courses[i]);
-        }
-        student.setRating(0);
-        student.setCount_rating("");
-
-        student.setId_group(null);
-        model.addAttribute("student", student);
-        attributes.addFlashAttribute("student", student);
 
         String finalHtml = null;
         //List<Student> employeeList = studentService.findAllStudents();
@@ -210,7 +195,44 @@ public class StudentMainController {
 
         //pdfController.generatePdf(response, springTemplateEngine, dataContext);
 
+        if(student.getRating()>4){
+            String mail = student.getId_user().getMail();
+            String body = "Вы завершили курс "+group.getCourse().getCourse_name()+"\nВаш рейтинг составил "+student.getRating()+
+                    "\nВ связи с этим наша компания выдает вам сертификат за отличную успеваемость\nСпасибо, что выбрали наш учебный цент";
+            String subject = "IT Company Education Courses";
+            emailSenderService.sendEmailWithAttachment(mail, subject, body, "employee3.pdf");
+
+        }
+        else{
+            String mail = student.getId_user().getMail();
+            String body = "Вы завершили курс "+group.getCourse().getCourse_name()+"\nВаш рейтинг составил "+studentService.findById(id).getRating()+
+                    "\nВ связи с этим наша компания не выдает вам сертификат за отличную успеваемость\nСпасибо, что выбрали наш учебный цент";
+            String subject = "IT Company Education Courses";
+            emailSenderService.sendSimpleEmail(mail, subject, body);
+        }
+        group.setRecorded_count(group.getRecorded_count()+1);
+        groupService.save(group);
+        if(student.getCourses()==null){
+            student.setCourses("");
+        }
+        StringBuilder crs = new StringBuilder(student.getCourses());
+        student.setCourses(String.valueOf(crs.append(student.getId_group().getId_group()+",")));
+        String[] courses = student.getCourses().split(",");
+        for (int i = 0; i < courses.length; i++) {
+            listLastGroups.add(courses[i]);
+        }
+
+
+        student.setId_group(null);
+        model.addAttribute("student", student);
+        attributes.addFlashAttribute("student", student);
+
+        student.setRating(0);
+        student.setCount_rating("");
         studentService.save(student);
+
+
+
 
 
         return "redirect:/student/"+student.getId_student();
