@@ -1,36 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Title</title>
   <style>
     body{
       background-color: #a9dffd;
-
+      background-image: url("https://data.terabox.com/thumbnail/ccf17f612211df265720093e5705bd4e?fid=4401312576584-250528-413251139428095&rt=pr&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-ZQZDDiRO%2fWE8BONa%2bbGuR9udyVU%3d&expires=8h&chkbd=0&chkv=0&dp-logid=8682925441037027921&dp-callid=0&time=1683370800&size=c1536_u864&quality=90&vuk=4401312576584&ft=image&autopolicy=1");
+background-repeat: no-repeat;
+        background-size: auto;
     }
 
   </style>
 </head>
 <body>
-<img src="img/photo.jpg" alt="Orange">
-<table class="table">
-<!--  <img th:src="@{https://cdn.example.com/static/rm435-053.jpg}" />-->
-  
+<!--<div style="position: relative; width: 100%; height: 0; padding-top: 141.4286%;
+ padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+ border-radius: 8px; will-change: transform;">
+    <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+            src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAFiIzIVbe8&#x2F;view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+    </iframe>
+</div>-->
+<!--
+<img src="https://data.terabox.com/thumbnail/00ad9ae615f59b505994a198e2b67ab5?fid=4401312576584-250528-836377081539981&time=1683370800&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-BBU5nzBdUInBkk%2BEM7t11ONn8%2Bw%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=8682279161566605190&dp-callid=0&size=c1600_u1600&quality=100&vuk=-&ft=video"/>
+-->
+<!--<table>
   <thead>
   <tr>
     <th> Employee First Name</th>
-    <!--<th> Employee Last Name</th>
-    <th> Employee Email</th>-->
+    &lt;!&ndash;<th> Employee Last Name</th>
+    <th> Employee Email</th>&ndash;&gt;
   </tr>
 
   </thead>
   <tbody>
   <tr th:each="employee : ${employees}">
-    <td th:text="${employee.id_user.surname}"></td><!--
+    <td th:text="${employee.id_user.surname}"></td>&lt;!&ndash;
     <td th:text="${employee.lastName}"></td>
-    <td th:text="${employee.email}"></td>-->
+    <td th:text="${employee.email}"></td>&ndash;&gt;
   </tr>
   </tbody>
-</table>
+</table>-->
+<h1>Certificate</h1>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--
+<h2 th:text="'С окончанием курса '+${st.id_group.course.course_name}"/>
+-->
+<h2 th:text="${st.id_user.surname}+' '+${st.id_user.name}" style="  text-align: center;"/>
 
 
 </body>

@@ -13,13 +13,13 @@ import org.thymeleaf.context.Context;
 @Service
 public class DataMapper {
 
-    public Context setData(List<Student> empolyeeList) {
+    public Context setData(Student student) {
 
         Context context = new Context();
 
         Map<String, Object> data = new HashMap<>();
 
-        data.put("employees", empolyeeList);
+        data.put("st", student);
 
         context.setVariables(data);
 

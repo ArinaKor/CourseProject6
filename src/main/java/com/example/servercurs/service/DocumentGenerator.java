@@ -29,7 +29,7 @@ public class DocumentGenerator {
             DefaultFontProvider defaultFont = new DefaultFontProvider(true, true, true);
 
             ConverterProperties converterProperties = new ConverterProperties();
-        converterProperties.setBaseUri("file:/D:/unik/sem6/курсовой/code/serverCurs/");
+        //converterProperties.setBaseUri("serverCurs/main");
 
             converterProperties.setFontProvider(defaultFont);
 
@@ -37,16 +37,16 @@ public class DocumentGenerator {
 
             HtmlConverter.convertToPdf(processedHtml, pdfwriter, converterProperties);
 
-            /*FileOutputStream fout = new FileOutputStream("employee2.pdf");
+            FileOutputStream fout = new FileOutputStream("employee3.pdf");
 
             byteArrayOutputStream.writeTo(fout);
             byteArrayOutputStream.close();
 
             byteArrayOutputStream.flush();
-            fout.close();*/
-            PdfDocument pdfDoc = new PdfDocument(new PdfReader(new ByteArrayInputStream(byteArrayOutputStream.toByteArray())), pdfwriter);
+            fout.close();
+            /*PdfDocument pdfDoc = new PdfDocument(new PdfReader(new ByteArrayInputStream(byteArrayOutputStream.toByteArray())), pdfwriter);
             pdfDoc.setDefaultPageSize(PageSize.A4.rotate());
-            pdfDoc.close();
+            pdfDoc.close();*/
 
             return null;
 

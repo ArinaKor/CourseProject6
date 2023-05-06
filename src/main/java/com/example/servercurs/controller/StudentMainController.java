@@ -177,6 +177,7 @@ public class StudentMainController {
 
         /*=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
         Student student = studentService.findById(id);
+
         Group group = groupService.findById(student.getId_group().getId_group());
 
         ratingTeacher.checkRatingTeacher(rating, id, studentService, groupService, teacherService);
@@ -196,19 +197,20 @@ public class StudentMainController {
         student.setCount_rating("");
 
         student.setId_group(null);
-        studentService.save(student);
         model.addAttribute("student", student);
         attributes.addFlashAttribute("student", student);
 
         String finalHtml = null;
-        List<Student> employeeList = studentService.findAllStudents();
-        Context dataContext = dataMapper.setData(employeeList);
+        //List<Student> employeeList = studentService.findAllStudents();
+        //dataContext = dataMapper.setData(student);
+        Context dataContext = dataMapper.setData(studentService.findById(id));
 
         finalHtml = springTemplateEngine.process("Cert",dataContext);
         documentGenerator.htmlToPdf(finalHtml);
 
         //pdfController.generatePdf(response, springTemplateEngine, dataContext);
 
+        studentService.save(student);
 
 
         return "redirect:/student/"+student.getId_student();
