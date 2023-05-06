@@ -1,5 +1,6 @@
 package com.example.servercurs.controller;
 
+import com.example.servercurs.Config.ConvertToByte;
 import com.example.servercurs.entities.*;
 import com.example.servercurs.repository.*;
 import com.example.servercurs.service.*;
@@ -33,6 +34,7 @@ public class AuthorizationController {
     private TeacherRepository teacherRepository;
     @Autowired
     private StudentRepository studentRepository;
+    ConvertToByte convertToByte = new ConvertToByte();
 
     static int stud;
     @GetMapping("/")
@@ -49,7 +51,7 @@ public class AuthorizationController {
         return "authorization";
     }
     @PostMapping("/authorization")
-    public String registration(RedirectAttributes attributes,@RequestParam String email, @RequestParam String password, Model model){
+    public String registration(RedirectAttributes attributes,@RequestParam String email, @RequestParam String password, Model model) throws IOException {
         String salt = BCrypt.gensalt();
         String hashedPassword = BCrypt.hashpw(password, salt);
         User user = new User();/*
@@ -59,6 +61,7 @@ public class AuthorizationController {
         user.setMail(email);
         user.setPassword(hashedPassword);
         user.setRole(role);
+        user.setPhoto(convertToByte.convertImageToByteArray("D:\\unik\\sem6\\курсовой\\photo\\2.png"));
         Student student = new Student();
         List<User> userList = userService.findAllUser();
         //List<Group> group = groupRepository.findAll();

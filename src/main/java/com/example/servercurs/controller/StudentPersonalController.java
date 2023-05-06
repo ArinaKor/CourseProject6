@@ -11,8 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -37,6 +43,12 @@ public class StudentPersonalController {
         Course course1 = new Course();
         Skills skills = new Skills();
         Language language = new Language();
+        byte[] imageBytes = student.getId_user().getPhoto();
+
+        // Кодирование изображения в base64
+        String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
+        model.addAttribute("encodedImage", encodedImage);
+        attributes.addFlashAttribute("encodedImage", encodedImage);
 
         skills.setName_skills("None");
         language.setName_language("None");
@@ -110,8 +122,8 @@ public class StudentPersonalController {
         return "EditPersonalStudent";
     }
     @PostMapping("/students/personal/edit/{id}")
-    public String editPersonInformation(@PathVariable("id") int id,@RequestParam("surname") String surname, @RequestParam("name") String name,
-                                        @RequestParam("mail") String mail, RedirectAttributes attributes, Model model){
+    public String editPersonInformation(@PathVariable("id") int id, @RequestParam("surname") String surname, @RequestParam("name") String name,
+                                        @RequestParam("mail") String mail, @RequestParam("photo") MultipartFile photo, RedirectAttributes attributes, Model model) throws IOException {
         Student student = studentService.findById(id);
         User user = userService.findById(student.getId_user().getId_user());
         List<User> userList = userService.findAllUser();
@@ -119,6 +131,7 @@ public class StudentPersonalController {
             //user.setMail(mail);
             user.setSurname(surname);
             user.setName(name);
+            user.setPhoto(photo.getBytes());
             userService.save(user);
             student.setId_user(user);
             studentService.save(student);
@@ -154,7 +167,7 @@ public class StudentPersonalController {
         //model.addAttribute("courses", courses);
         model.addAttribute("last", listLast);
         model.addAttribute("student",student);
-        return "StudentPersonal";
+        return "redirect:/student/{id}";
     }
 
     @GetMapping("/sendCode/{id}")
@@ -218,5 +231,7 @@ public class StudentPersonalController {
 
         //return "";
     }
+
+
 
 }

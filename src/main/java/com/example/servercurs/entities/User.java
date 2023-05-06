@@ -34,6 +34,10 @@ public class User {
     @JoinColumn(name="role", nullable = false)
     @JsonIgnore
     private Role role;
+
+    @Lob
+    @Column(name="photo")
+    private byte[] photo;
     /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="role_id_role", nullable = false)
     @JsonIgnore
