@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Title</title>
+  <style>
+    body{
+      background-color: #a9dffd;
+
+    }
+
+  </style>
+</head>
+<body>
+<img src="img/photo.jpg" alt="Orange">
+<table class="table">
+<!--  <img th:src="@{https://cdn.example.com/static/rm435-053.jpg}" />-->
+  
+  <thead>
+  <tr>
+    <th> Employee First Name</th>
+    <!--<th> Employee Last Name</th>
+    <th> Employee Email</th>-->
+  </tr>
+
+  </thead>
+  <tbody>
+  <tr th:each="employee : ${employees}">
+    <td th:text="${employee.id_user.surname}"></td><!--
+    <td th:text="${employee.lastName}"></td>
+    <td th:text="${employee.email}"></td>-->
+  </tr>
+  </tbody>
+</table>
+
+
+</body>
+</html>

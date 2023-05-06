@@ -8,6 +8,11 @@ import com.example.servercurs.repository.GroupRepository;
 import com.example.servercurs.repository.StudentRepository;
 import com.example.servercurs.service.*;
 //import com.lowagie.text.DocumentException;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.tool.xml.XMLWorkerHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,8 +25,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 //import javax.mail.MessagingException;
 import jakarta.servlet.http.HttpServletResponse;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
+
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.*;
@@ -48,6 +59,16 @@ public class StudentMainController {
    private LanguageService languageService;
    @Autowired
    private CourseRepository courseRepository;
+    @Autowired
+    private DocumentGenerator documentGenerator;
+
+    @Autowired
+    private SpringTemplateEngine springTemplateEngine;
+
+    @Autowired
+    private DataMapper dataMapper;
+    PdfController pdfController = new PdfController();
+
 
     SingletonEnum se = SingletonEnum.INSTANCE;
     //List<Group> listGroups;
@@ -111,7 +132,7 @@ public class StudentMainController {
     }
 
     @PostMapping("/student/groups/{id_student}/{id_group}/enroll")
-    public String enrollCourse(@PathVariable(name="id_student") int id_student, @PathVariable(name="id_group") int id_group, Model model, RedirectAttributes attributes) {
+    public String enrollCourse(@PathVariable(name="id_student") int id_student, @PathVariable(name="id_group") int id_group, Model model, RedirectAttributes attributes){
         Student student = studentService.findById(id_student);
         Group group = groupService.findById(id_group);
 
@@ -138,6 +159,8 @@ public class StudentMainController {
         String subject = "IT Company Education Courses";
         emailService.sendSimpleEmail(mail, subject, body);
         attributes.addFlashAttribute("student", student);
+
+
         return "redirect:/student/"+student.getId_student();
     }
     @GetMapping("/students/mygroup/{id}")
@@ -149,7 +172,7 @@ public class StudentMainController {
     }
 
     @PostMapping("/students/mygroup/{id}")
-    public String completeCourse(HttpServletResponse response, @PathVariable(name="id") int id, @RequestParam(name="rating") String rating, RedirectAttributes attributes, Model model) {
+    public String completeCourse(HttpServletResponse response, @PathVariable(name="id") int id, @RequestParam(name="rating") String rating, RedirectAttributes attributes, Model model) throws IOException {
 
 
         /*=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
@@ -157,7 +180,6 @@ public class StudentMainController {
         Group group = groupService.findById(student.getId_group().getId_group());
 
         ratingTeacher.checkRatingTeacher(rating, id, studentService, groupService, teacherService);
-
 
         group.setRecorded_count(group.getRecorded_count()+1);
         groupService.save(group);
@@ -177,6 +199,16 @@ public class StudentMainController {
         studentService.save(student);
         model.addAttribute("student", student);
         attributes.addFlashAttribute("student", student);
+
+        String finalHtml = null;
+        List<Student> employeeList = studentService.findAllStudents();
+        Context dataContext = dataMapper.setData(employeeList);
+
+        finalHtml = springTemplateEngine.process("Cert",dataContext);
+        documentGenerator.htmlToPdf(finalHtml);
+
+        //pdfController.generatePdf(response, springTemplateEngine, dataContext);
+
 
 
         return "redirect:/student/"+student.getId_student();

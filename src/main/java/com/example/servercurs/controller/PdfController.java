@@ -19,29 +19,22 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-@Controller
 public class PdfController {
 
-    private final SpringTemplateEngine templateEngine;
 
-    public PdfController(SpringTemplateEngine templateEngine) {
-        this.templateEngine = templateEngine;
-    }
-
-    @GetMapping("/generate-pdf")
-    public void generatePdf(HttpServletResponse response) {
+    public void generatePdf(HttpServletResponse response, SpringTemplateEngine templateEngine,Context dataContext) {
         try {
             response.setContentType("application/pdf");
             response.setHeader("Content-Disposition", "attachment; filename=\"example.pdf\"");
 
             OutputStream outputStream = response.getOutputStream();
-           // response.reset();
+            // response.reset();
 
             Document document = new Document(PageSize.A4.rotate());
             PdfWriter writer = PdfWriter.getInstance(document, outputStream);
             document.open();
 
-            String html = templateEngine.process("pdf-template.html", new Context());
+            String html = templateEngine.process("Cert.html", new Context());
             XMLWorkerHelper.getInstance().parseXHtml(writer, document, new ByteArrayInputStream(html.getBytes()));
 
             document.close();

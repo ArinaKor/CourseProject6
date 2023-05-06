@@ -136,50 +136,48 @@
         </div>
       </div>
       <div class="col-12">
-
-
-          <button type="submit" class="btn btn-primary">Отправить</button>
-
-
+          <button type="submit" class="btn btn-primary" id="modalBtn" >Отправить</button>
       </div>
     </div>
   </div>
 </div>
 </form>
+<!--<div th:if="${showCodeInput}">
+  <h3 th:text="${err}"/>
+  <form method="post" th:action="@{/sendMail/checkCode/{id}(id=${student.id_student})}">
+    <input type="hidden" required th:value="${student.id_student}" id="codeInput" />
+    <input type="hidden" th:value="${code}" name="code">
+    <input type="hidden" th:value="${money}" required name="money"/>
+    <input type="text" name="codeMail">
+    <button type="submit" class="btn btn-primary">Отправить</button>
+  </form>
+</div>-->
+<div th:if="${showCodeInput}">
+<div>
 
-<!--<div class="modal fade" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Введите код</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <div class="modal-body">
-        <input type="text" class="form-control" id="codeInput">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-        <button type="button" class="btn btn-primary" onclick="checkCode()">Перевести</button>
-      </div>
-    </div>
+          <form method="post" th:action="@{/sendMail/checkCode/{id}(id=${student.id_student})}">
+            <input type="hidden" required th:value="${student.id_student}" id="codeInput" />
+            <input type="hidden" th:value="${code}" name="code">
+            <input type="hidden" th:value="${money}" required name="money"/>
+            <input type="text" name="codeMail">
+            <button type="submit" class="btn btn-primary">Отправить</button>
+          </form>
+</div>
+</div>
+<!--<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <form method="post" th:action="@{/sendMail/checkCode/{id}(id=${student.id_student})}">
+      <input type="hidden" required th:value="${student.id_student}" id="codeInput" />
+      <input type="hidden" th:value="${code}" name="code">
+      <input type="hidden" th:value="${money}" required name="money"/>
+      <input type="text" name="codeMail">
+      <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
   </div>
 </div>-->
+
+
 </body>
-<!--<script>
-  function checkCode() {
-    var code = document.getElementById("codeInput").value;
-    $.ajax({
-      url: "/checkCode",
-      type: "POST",
-      data: {code: code},
-      success: function (response) {
-        if (response === "success") {
-          alert("Деньги успешно переведены!");
-        } else {
-          alert("Неверный код!");
-        }
-      }
-    });
-  }
-</script>-->
+
 </html>

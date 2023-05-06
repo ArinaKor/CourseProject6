@@ -102,6 +102,12 @@
             <artifactId>itextpdf</artifactId>
             <version>5.5.13</version>
         </dependency>
+        <dependency>
+            <groupId>org.xhtmlrenderer</groupId>
+            <artifactId>flying-saucer-pdf</artifactId>
+            <version>9.1.20</version>
+        </dependency>
+
         <!--<dependency>
             <groupId>com.yookassa</groupId>
             <artifactId>yookassa-sdk-java</artifactId>
@@ -114,11 +120,11 @@
             <version>5.4.1</version>
         </dependency>
 
-        <!-- <dependency>
+         <dependency>
              <groupId>com.itextpdf</groupId>
              <artifactId>html2pdf</artifactId>
              <version>2.1.2</version>
-         </dependency>-->
+         </dependency>
         <dependency>
             <groupId>org.xhtmlrenderer</groupId>
             <artifactId>flying-saucer-pdf</artifactId>

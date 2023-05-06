@@ -10,10 +10,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -168,6 +165,7 @@ public class StudentPersonalController {
     }
 
     @PostMapping("/sendCode/mail/{id}")
+    //@ResponseBody
     public String sendCode(@PathVariable("id") int id,@RequestParam String money, RedirectAttributes attributes,Model model){
 
         Student student = studentService.findById(id);
@@ -191,9 +189,10 @@ public class StudentPersonalController {
         model.addAttribute("student", student);
         model.addAttribute("money", money);
         model.addAttribute("code", codeMail);
+        model.addAttribute("showCodeInput", true);
 
-
-        return "writeCode";
+        //return "AddMoney";
+        return "AddMoney";
     }
     /*@GetMapping("/sendMail/checkCode/{id}")
     public String checkPage(@PathVariable("id") int id, RedirectAttributes redirectAttributes, Model model){
@@ -202,6 +201,7 @@ public class StudentPersonalController {
     }*/
 
     @PostMapping("/sendMail/checkCode/{id}")
+    //@ResponseBody
     public String checkCode(@PathVariable("id") int id_student, @RequestParam String money, @RequestParam String code, @RequestParam String codeMail,Model model ,RedirectAttributes attributes){
         Student student = studentService.findById(id_student);
         if(codeMail.equals(code)){
@@ -212,7 +212,8 @@ public class StudentPersonalController {
         }else{
             String err="Error code";
             model.addAttribute("err", err);
-            return "writeCode";
+            model.addAttribute("student", student);
+            return "AddMoney";
         }
 
         //return "";
