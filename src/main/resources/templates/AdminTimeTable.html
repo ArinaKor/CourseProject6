@@ -37,10 +37,16 @@
             color: #454545
         }
 
-        html, body {
+        html, body{
+            /*background-color: #d0e5fd;*/
+            background-image: url("https://funart.pro/uploads/posts/2022-08/thumbs/1659952773_11-funart-pro-p-fon-dlya-veb-stranitsi-krasivo-11.png");
+            background-size: 101% ;
+            background-repeat: no-repeat;
+            /*
             margin: 0;
+            */
             font-family: "Karla";
-            color: #546E7A;
+            color: #b4d5ec;
         }
 
         * {
@@ -48,7 +54,7 @@
             box-sizing: content-box;
         }
         .content{
-            line-height: 3.65;
+            line-height: 1.7;
         }
         .main{
             display: flex;
@@ -65,6 +71,9 @@
             grid-template-rows: 60px;
             width: 70vw;
             height: 70vh;
+            /*
+            background-color: #d0e5fd;
+            */
         }
         .timetable .accent-pink-gradient {
             display: flex;
@@ -72,6 +81,8 @@
             height: 100%;
             background: linear-gradient(135deg, #ee8ebc, #eea08e);
             transition: 0.2s ease box-shadow, 0.2s ease transform;
+            color: #0C4160;
+
         }
         .timetable .accent-pink-gradient:hover {
             box-shadow: 0 20px 30px 0 rgba(238, 142, 188, 0.3);
@@ -83,6 +94,8 @@
             height: 100%;
             background: linear-gradient(135deg, #eec08e, #dcee8e);
             transition: 0.2s ease box-shadow, 0.2s ease transform;
+            color: #0C4160;
+
         }
         .timetable .accent-orange-gradient:hover {
             box-shadow: 0 20px 30px 0 rgba(238, 192, 142, 0.3);
@@ -94,6 +107,8 @@
             height: 100%;
             background: linear-gradient(135deg, #bcee8e, #8eeea0);
             transition: 0.2s ease box-shadow, 0.2s ease transform;
+            color: #0C4160;
+
         }
         .timetable .accent-green-gradient:hover {
             box-shadow: 0 20px 30px 0 rgba(188, 238, 142, 0.3);
@@ -105,6 +120,8 @@
             height: 100%;
             background: linear-gradient(135deg, #8eeec0, #8edcee);
             transition: 0.2s ease box-shadow, 0.2s ease transform;
+            color: #0C4160;
+
         }
         .timetable .accent-cyan-gradient:hover {
             box-shadow: 0 20px 30px 0 rgba(142, 238, 192, 0.3);
@@ -116,6 +133,9 @@
             height: 100%;
             background: linear-gradient(135deg, #8ebcee, #a08eee);
             transition: 0.2s ease box-shadow, 0.2s ease transform;
+            padding-left: 1%;
+            color: #0C4160;
+            padding-top: 0;
         }
         .timetable .accent-blue-gradient:hover {
             box-shadow: 0 20px 30px 0 rgba(142, 188, 238, 0.3);
@@ -133,7 +153,7 @@
             transform: scale(1.05);
         }
         .timetable .weekend {
-            background: #fbfbfc;
+            /*background-color: #d0e5fd;*/
             color: #87a1ad;
         }
         .timetable .week-names {
@@ -173,6 +193,16 @@
         }
         .timetable .content > div {
             box-shadow: inset 1px 0 0 #ECEFF1, inset 0 1px 0 0 #ECEFF1;
+        }
+        /*.div{
+            margin-top: 1%;
+            padding-top: 1%;
+        }*/
+        .p{
+            margin: 0;
+            /*
+            margin-top: 1%;
+            */
         }
     </style>
     <!--=СОЗДАТЬ МАССИВ, СОДЕРЖАЩИЙ СТРОКИ С ВРЕМЕНЕМ И ПРОСТО ПРОВЕРЯТЬ ВРЕМЯ!!!!1=-->
@@ -231,36 +261,34 @@
     </div>
     <div class="content" th:each="ac:${list}">
 
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='08:00-10:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Monday'}">
                     <!--<div>-->
                     <div class="accent-blue-gradient" >
-                        <p th:text="${ac.id_group}"/>
-                        <p th:text="${ac.teacher.id_user.surname}"/>
-                    </div>
-
-                    <!-- </div>-->
-                </div>
-                <!--ДЛЯ ТОГО, ЧТОБ ВЫВОДИТЬ СРАЗУ НЕСКОЛЬКО ГРУПП
-                <div th:if="${ac.timetable.dayOfWeek=='Monday'}">
-                        &lt;!&ndash;<div>&ndash;&gt;
-                        <div class="accent-pink-gradient" >
-                            <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
+                    </div>
+                    <!-- </div>-->
 
-                        &lt;!&ndash; </div>&ndash;&gt;
-                    </div>-->
+                </div>
             </div>
             <div th:unless="${ac.timetable.dayOfWeek=='Monday'&& ac.timetable.time=='08:00-10:00'}">
             </div>
         </div>
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='08:00-10:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Tuesday'}">
                     <!--<div>-->
                     <div class="accent-blue-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}" class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -268,12 +296,16 @@
             <div th:unless="${ac.timetable.dayOfWeek=='Tuesday'&& ac.timetable.time=='08:00-10:00'}">
             </div>
         </div>
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='08:00-10:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Wednesday'}">
                     <!--<div>-->
                     <div class="accent-purple-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -281,12 +313,16 @@
             <div th:unless="${ac.timetable.dayOfWeek=='Wednesday'&& ac.timetable.time=='08:00-10:00'}">
             </div>
         </div>
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='08:00-10:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Thursday'}">
                     <!--<div>-->
                     <div class="accent-green-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -294,12 +330,16 @@
             <div th:unless="${ac.timetable.dayOfWeek=='Thursday'&& ac.timetable.time=='08:00-10:00'}">
             </div>
         </div>
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='8:00-10:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Friday'}">
                     <!--<div>-->
                     <div class="accent-blue-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -310,28 +350,34 @@
         <div class="weekend"></div>
         <div class="weekend"></div>
         <!--<div>-->
-            <div class="check">
-                <div th:if="${ac.timetable.time=='10:00-12:00'}">
-                    <div th:if="${ac.timetable.dayOfWeek=='Monday'}">
-                        <!--<div>-->
-                        <div class="accent-pink-gradient" >
-                            <p th:text="${ac.id_group}"/>
+        <div>
+            <div th:if="${ac.timetable.time=='10:00-12:00'}">
+                <div th:if="${ac.timetable.dayOfWeek=='Monday'}">
+                    <!--<div>-->
+                    <div class="accent-pink-gradient" >
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
-
-                        <!-- </div>-->
                     </div>
-
-                </div>
-                <div th:unless="${ac.timetable.dayOfWeek=='Monday'&& ac.timetable.time=='10:00-12:00'}">
+                    <!-- </div>-->
                 </div>
             </div>
+            <div th:unless="${ac.timetable.dayOfWeek=='Monday'&& ac.timetable.time=='10:00-12:00'}">
+            </div>
+        </div>
         <!--</div>-->
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='10:00-12:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Tuesday'}">
                     <!--<div>-->
                     <div class="accent-cyan-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -339,12 +385,16 @@
             <div th:unless="${ac.timetable.dayOfWeek=='Tuesday'&& ac.timetable.time=='10:00-12:00'}">
             </div>
         </div>
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='10:00-12:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Wednesday'}">
                     <!--<div>-->
                     <div class="accent-orange-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -352,12 +402,16 @@
             <div th:unless="${ac.timetable.dayOfWeek=='Wednesday'&& ac.timetable.time=='10:00-12:00'}">
             </div>
         </div>
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='10:00-12:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Thursday'}">
                     <!--<div>-->
                     <div class="accent-purple-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -365,12 +419,16 @@
             <div th:unless="${ac.timetable.dayOfWeek=='Thursday'&& ac.timetable.time=='10:00-12:00'}">
             </div>
         </div>
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='10:00-12:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Friday'}">
                     <!--<div>-->
                     <div class="accent-cyan-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -380,12 +438,16 @@
         </div>
         <div class="weekend"></div>
         <div class="weekend"></div>
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='12:00-14:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Monday'}">
                     <!--<div>-->
                     <div class="accent-blue-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -394,12 +456,16 @@
             </div>
         </div>
         <!--</div>-->
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='12:00-14:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Tuesday'}">
                     <!--<div>-->
                     <div class="accent-green-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -407,12 +473,16 @@
             <div th:unless="${ac.timetable.dayOfWeek=='Tuesday'&& ac.timetable.time=='12:00-14:00'}">
             </div>
         </div>
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='12:00-14:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Wednesday'}">
                     <!--<div>-->
                     <div class="accent-pink-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -420,12 +490,16 @@
             <div th:unless="${ac.timetable.dayOfWeek=='Wednesday'&& ac.timetable.time=='12:00-14:00'}">
             </div>
         </div>
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='12:00-14:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Thursday'}">
                     <!--<div>-->
                     <div class="accent-blue-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -433,12 +507,16 @@
             <div th:unless="${ac.timetable.dayOfWeek=='Thursday'&& ac.timetable.time=='12:00-14:00'}">
             </div>
         </div>
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='12:00-14:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Friday'}">
                     <!--<div>-->
                     <div class="accent-green-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -448,12 +526,16 @@
         </div>
         <div class="weekend"></div>
         <div class="weekend"></div>
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='14:00-16:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Monday'}">
                     <!--<div>-->
                     <div class="accent-pink-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -462,12 +544,16 @@
             </div>
         </div>
         <!--</div>-->
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='14:00-16:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Tuesday'}">
                     <!--<div>-->
                     <div class="accent-blue-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -475,12 +561,16 @@
             <div th:unless="${ac.timetable.dayOfWeek=='Tuesday'&& ac.timetable.time=='14:00-16:00'}">
             </div>
         </div>
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='14:00-16:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Wednesday'}">
                     <!--<div>-->
                     <div class="accent-blue-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -488,12 +578,16 @@
             <div th:unless="${ac.timetable.dayOfWeek=='Wednesday'&& ac.timetable.time=='14:00-16:00'}">
             </div>
         </div>
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='14:00-16:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Thursday'}">
                     <!--<div>-->
                     <div class="accent-orange-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -501,12 +595,16 @@
             <div th:unless="${ac.timetable.dayOfWeek=='Thursday'&& ac.timetable.time=='14:00-16:00'}">
             </div>
         </div>
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='14:00-16:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Friday'}">
                     <!--<div>-->
                     <div class="accent-blue-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -516,12 +614,16 @@
         </div>
         <div class="weekend"></div>
         <div class="weekend"></div>
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='16:00-18:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Monday'}">
                     <!--<div>-->
                     <div class="accent-blue-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -530,12 +632,16 @@
             </div>
         </div>
         <!--</div>-->
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='16:00-18:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Tuesday'}">
                     <!--<div>-->
                     <div class="accent-blue-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -543,12 +649,16 @@
             <div th:unless="${ac.timetable.dayOfWeek=='Tuesday'&& ac.timetable.time=='16:00-18:00'}">
             </div>
         </div>
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='16:00-18:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Wednesday'}">
                     <!--<div>-->
                     <div class="accent-blue-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -556,13 +666,16 @@
             <div th:unless="${ac.timetable.dayOfWeek=='Wednesday'&& ac.timetable.time=='16:00-18:00'}">
             </div>
         </div>
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='16:00-18:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Thursday'}">
                     <!--<div>-->
                     <div class="accent-blue-gradient" >
-                        <p th:text="${ac.id_group}"/>
-                        <p th:text="${ac.teacher.id_user.surname}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -570,12 +683,16 @@
             <div th:unless="${ac.timetable.dayOfWeek=='Thursday'&& ac.timetable.time=='16:00-18:00'}">
             </div>
         </div>
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='16:00-18:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Friday'}">
                     <!--<div>-->
                     <div class="accent-blue-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -585,12 +702,16 @@
         </div>
         <div class="weekend"></div>
         <div class="weekend"></div>
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='18:00-20:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Monday'}">
                     <!--<div>-->
                     <div class="accent-blue-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -599,12 +720,16 @@
             </div>
         </div>
         <!--</div>-->
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='18:00-20:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Tuesday'}">
                     <!--<div>-->
                     <div class="accent-blue-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -612,12 +737,16 @@
             <div th:unless="${ac.timetable.dayOfWeek=='Tuesday'&& ac.timetable.time=='18:00-20:00'}">
             </div>
         </div>
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='18:00-20:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Wednesday'}">
                     <!--<div>-->
                     <div class="accent-blue-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -625,12 +754,16 @@
             <div th:unless="${ac.timetable.dayOfWeek=='Wednesday'&& ac.timetable.time=='18:00-20:00'}">
             </div>
         </div>
-        <div class="check">
+        <div>
             <div th:if="${ac.timetable.time=='18:00-20:00'}">
                 <div th:if="${ac.timetable.dayOfWeek=='Thursday'}">
                     <!--<div>-->
                     <div class="accent-blue-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -638,12 +771,16 @@
             <div th:unless="${ac.timetable.dayOfWeek=='Thursday'&& ac.timetable.time=='18:00-20:00'}">
             </div>
         </div>
-        <div class="check">
-            <div th:if="${ac.timetable.time=='18:00-20:00'}" >
-                <div th:if="${ac.timetable.dayOfWeek=='Friday'}" class="parent">
+        <div>
+            <div th:if="${ac.timetable.time=='18:00-20:00'}" class="parent">
+                <div th:if="${ac.timetable.dayOfWeek=='Friday'}" >
                     <!--<div>-->
                     <div class="accent-blue-gradient" >
-                        <p th:text="${ac.id_group}"/>
+                        <div class="div">
+                            <p th:text="${ac.id_group}" class="p"/>
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
+                        </div>
                     </div>
                     <!-- </div>-->
                 </div>
@@ -657,4 +794,9 @@
 </div>
 </div>
 </body>
-</html>
+<script>
+    const parent = document.getElementById('parent');
+    const child = document.createElement('div');
+    child.textContent = 'New Content';
+    parent.appendChild(child);
+</script>

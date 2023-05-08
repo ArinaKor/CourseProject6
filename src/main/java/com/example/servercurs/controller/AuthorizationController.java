@@ -20,6 +20,7 @@ import java.util.List;
 @Controller
 public class AuthorizationController {
 
+
     @Autowired
     private UserService userService;
     @Autowired
@@ -126,6 +127,9 @@ public class AuthorizationController {
         }
         if(user.getRole().equals(roleList.get(0))){
            // attributes.addFlashAttribute("user", user);
+
+
+
             return "redirect:/admin";
         }else if(user.getRole().equals(roleList.get(1))){
             Teacher teacher = teacherRepository.findTeacherById_user(user);

@@ -2,10 +2,7 @@ package com.example.servercurs.controller;
 
 import com.example.servercurs.Config.ConvertToByte;
 import com.example.servercurs.entities.*;
-import com.example.servercurs.repository.RoleRepository;
-import com.example.servercurs.repository.StudentRepository;
-import com.example.servercurs.repository.TeacherRepository;
-import com.example.servercurs.repository.UserRepository;
+import com.example.servercurs.repository.*;
 import com.example.servercurs.service.*;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class UsersController {
@@ -42,6 +37,10 @@ public class UsersController {
     private EmailSenderService emailSenderService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+            private CourseRepository courseRepository;
+   // private static final String API_KEY = "9d4a8d8c-7bb1-4267-891c-7f1c8bbd0509";
+
     ConvertToByte convertToByte = new ConvertToByte();
     @GetMapping("/admin")
     public String admin( Model model){
@@ -52,6 +51,8 @@ public class UsersController {
         // Кодирование изображения в base64
         String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
         model.addAttribute("encodedImage", encodedImage);
+
+
         return "AdminFirst";
     }
     @GetMapping("/admin/users")

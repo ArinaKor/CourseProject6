@@ -1,0 +1,226 @@
+body{/*
+            background-image: url("https://data.terabox.com/thumbnail/388a93206118d514f7ed47361be21fab?fid=4401312576584-250528-863061987675297&rt=pr&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-sisz7%2b%2fWUBMS88SW%2fKYDsfd5k9c%3d&expires=8h&chkbd=0&chkv=0&dp-logid=9142637985452482966&dp-callid=0&time=1680789600&size=c1536_u864&quality=90&vuk=4401312576584&ft=image&autopolicy=1");
+            background-color: #a9dffd;
+            background-repeat: no-repeat;
+            background-size: cover;*/
+    /*
+    font-family: "Sitka Display";
+    */
+    background-color: #c7dfff;
+}
+* {
+    box-sizing: border-box;
+}
+.decor {
+    position: relative;
+    max-width: 900px;
+    margin: 50px auto 0;
+    background: white;
+    border-radius: 30px;
+}
+.form-left-decoration, .form-right-decoration {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 20px;
+    background: #50b1f3;
+    border-radius: 20px;
+}
+.form-left-decoration {
+    bottom: 60px;
+    left: -30px;
+}
+.form-right-decoration {
+    top: 60px;
+    right: -30px;
+}
+.form-left-decoration:before, .form-left-decoration:after, .form-right-decoration:before, .form-right-decoration:after {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 20px;
+    border-radius: 30px;
+    background: white;
+}
+.form-left-decoration:before {
+    top: -20px;
+}
+.form-left-decoration:after {
+    top: 20px;
+    left: 10px;
+}
+.form-right-decoration:before {
+    top: -20px;
+    right: 0;
+}
+.form-right-decoration:after {
+    top: 20px;
+    right: 10px;
+}
+.circle {
+    position: absolute;
+    bottom: 80px;
+    left: -55px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: white;
+}
+.form-inner {
+    padding: 50px;
+}
+.form-inner input, .form-inner textarea {
+    display: block;
+    width: 100%;
+    padding: 0 20px;
+    margin-bottom: 10px;
+    background: #E9EFF6;
+    line-height: 40px;
+    border-width: 0;
+    border-radius: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+.form-inner input[type="submit"] {
+    margin-top: 30px;
+    background: #54ace8;
+    border-bottom: 4px solid #50b1f3;
+    color: white;
+    font-size: 14px;
+    width: 50%;
+    margin-left: 25%;
+}
+.form-inner h3 {
+    margin-top: 0;
+    font-weight: 500;
+    font-size: 24px;
+    color: #707981;
+}
+.input1{
+    display: flex;
+    flex-direction: row;
+}
+input{
+    margin-left: 1%;
+}
+/*-=-=-=-=-=-=-=-=-=-=-=*/
+#neubar {
+    background: #c9e9ff;
+    box-shadow: 4px 6px 12px rgba(0,0,0,0.4)
+}
+
+.nav-item .active {
+    border-radius: 6px;
+    background: linear-gradient(145deg, #50b1f3, #50B1F3FF);
+    box-shadow:  4px 4px 8px #c9e9ff,
+    -4px -4px 8px #c9e9ff;
+}
+#neubar .dropdown-menu a:hover {
+    color: #454545
+}
+#neubar .nav-item {
+    margin : auto 4px;
+}
+#neubar a {
+
+    padding-left:12px;
+    padding-right:12px;
+}
+#neubar .dropdown-menu {
+    background : #545454
+}
+a.navbar-brand {
+    color: #454545
+}
+.main-form{
+    display: flex;
+}
+/**/
+
+.main-body {
+    padding: 15px;
+}
+.card {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+}
+
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1rem;
+}
+
+.gutters-sm {
+    margin-right: -8px;
+    margin-left: -8px;
+}
+.checked {
+    color: yellow;
+}
+.gutters-sm>.col, .gutters-sm>[class*=col-] {
+    padding-right: 8px;
+    padding-left: 8px;
+}
+.mb-3, .my-3 {
+    margin-bottom: 0.9rem!important;
+}/*
+        hr{
+            margin: 10px;
+        }*/
+
+.bg-gray-300 {
+    background-color: #e2e8f0;
+}
+.h-100 {
+    height: 100%!important;
+}
+.shadow-none {
+    box-shadow: none!important;
+}
+p{
+    margin-bottom: 0;
+}
+/*#width{
+    width: var(--random-width)
+}*/
+.browse {
+    display: inline-block;
+    position:relative;
+}
+
+.browse-file {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    text-align: right;
+    opacity: 0;
+    z-index: 2;
+}
+
+.browse-file-img {
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 1;
+
+}
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1rem;
+}
+
+.gutters-sm {
+    margin-right: -8px;
+    margin-left: -8px;
+}
+.checked {
+    color: yellow;
+}
+.gutters-sm>.col, .gutters-sm>[class*=col-] {
+    padding-right: 8px;
+    padding-left: 8px;
+}
+.mb-3, .my-3 {
+    margin-bottom: 0.9rem!important;
+}
