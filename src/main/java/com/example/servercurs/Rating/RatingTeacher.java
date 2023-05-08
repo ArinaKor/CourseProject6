@@ -13,9 +13,9 @@ public class RatingTeacher {
         Student student = studentService.findById(id);
         Group group = groupService.findById(student.getId_group().getId_group());
         Teacher teacher = group.getTeacher();
-        /*if(teacher.getCount_rating()==null){
+        if(teacher.getCount_rating()==null){
             teacher.setCount_rating("");
-        }*/
+        }
         StringBuilder crs = new StringBuilder(String.valueOf(teacher.getCount_rating()));
         teacher.setCount_rating(String.valueOf(crs.append(rating+",")));
         String[] cnt_rating = teacher.getCount_rating().split(",");

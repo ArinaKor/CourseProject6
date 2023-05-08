@@ -12,6 +12,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("SELECT DISTINCT user FROM User user " +
             "JOIN FETCH user.role id_role")
     List<User> findWithRole();
+    @Query("from User us where us.role.roleName=:admin")
+    User findByRole(String admin);
 /*
     @Query("SELECT User.id_user, User.surname, User.name, User.login, User.password, User.mail , Role.roleName FROM User INNER JOIN Role ")
     List<User> joinUserAndRole();

@@ -140,8 +140,8 @@ public class GroupConroller {
 
         return "redirect:/admin/groups";
     }
-    @GetMapping("/admin/groups/{id_group}/edit")
-    public String edit(RedirectAttributes attributes,@PathVariable(name="id_group") int id_group, Model model){
+    @GetMapping("/admin/groups/edit/{id}")
+    public String edit(RedirectAttributes attributes,@PathVariable(name="id") int id_group, Model model){
 
         List<TimeTable> timeTable = timetableService.findAllTimeTables();
         //List<String> dayOfWeek = Arrays.asList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday");
@@ -160,19 +160,70 @@ public class GroupConroller {
                 tm2.add(t);
             }
         }
-        if(tm2.size()==0){
+        /*if(tm2.size()==0){
             String err = "Места в расписании закончены. Мы сообщим вам если они появятся)";
             attributes.addFlashAttribute("err", err);
 
             return "redirect:/admin/groups";
 
         }
-
-
+*/
+        model.addAttribute("timeTable", tm2);
+        List<Teacher> teacherList = teacherService.findAllTeachers();
+model.addAttribute("teachers", teacherList);
         model.addAttribute("group", groupService.findById(id_group));
         model.addAttribute("listSkills", skillsRepository.findAll());
         model.addAttribute("listLang", languageRepository.findAll());
         return "EditGroup";
     }
+    @PostMapping("/admin/groups/edit/{id}")
+    public String editGroup(@PathVariable("id") int id, @RequestParam(name="count_all") int count_all, @RequestParam(name="dateStart") Date dateStart, @RequestParam(name = "groupTime") String groupTime, @RequestParam("timetable") String timeTable,@RequestParam("course") String course,@RequestParam("teacher") String teach, Model model){
+        Group group = groupService.findById(id);
+       group.setCount_student_all(count_all);
+        TimeTable timeTable1  = new TimeTable();
+        System.out.println(timeTable);
+        List<TimeTable> timeTableList = timetableService.findAllTimeTables();
+
+        String[] parts = timeTable.split(":|-");
+        String dayOfWeek = parts[0];
+        String startTime = parts[1] + ":" + parts[2];
+        String endTime = parts[3] + ":" + parts[4];
+        String resultTime = startTime+"-"+endTime;
+        /*System.out.println(dayOfWeek);
+        System.out.println(resultTime);*/
+
+        for(TimeTable tb: timeTableList){
+            if(tb.getDayOfWeek().equals(dayOfWeek)&&tb.getTime().equals(resultTime)){
+                timeTable1.setId_timetable(tb.getId_timetable());
+                timeTable1.setDayOfWeek(tb.getDayOfWeek());
+                timeTable1.setTime(tb.getTime());
+                break;
+            }
+        }
+
+        String[] courses = course.split("/");
+        //System.out.println(courses.toString());
+        Skills skills  = skillsRepository.findSkillsByName_skills(courses[1]);
+        Language language = languageRepository.findLanguageByName_language(courses[2]);
+        Course course1 = courseRepository.findCourse(skills, language, courses[0]);
+        //System.out.println(course1);
+
+        String[] tch = teach.split("-");
+        Teacher teacher = teacherService.findById(Integer.parseInt(tch[0]));
+        System.out.println(teacher);
+
+        //group.setDate_start(dateStart);
+        group.setGroup_time(groupTime);
+        group.setDate_start(dateStart);
+        group.setTimetable(timeTable1);
+        group.setCourse(course1);
+        group.setTeacher(teacher);
+        groupService.save(group);
+
+
+        return "redirect:/admin/groups";
+    }
+
+
 
 }

@@ -125,7 +125,7 @@ public class AuthorizationController {
             return "redirect:/authorization";
         }
         if(user.getRole().equals(roleList.get(0))){
-
+           // attributes.addFlashAttribute("user", user);
             return "redirect:/admin";
         }else if(user.getRole().equals(roleList.get(1))){
             Teacher teacher = teacherRepository.findTeacherById_user(user);
@@ -153,11 +153,6 @@ public class AuthorizationController {
         model.addAttribute("err", err);*/
         return "authorization";
     }
-    /*@GetMapping("/authorization1")
-    public String findAllUsers(Model model){
-        List<User> list = userService.findAllUser();
-        model.addAttribute("list", list);
-        return "AdminFirst";
-    }*/
+
 
 }

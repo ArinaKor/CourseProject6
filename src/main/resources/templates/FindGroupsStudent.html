@@ -289,12 +289,13 @@
     </div>-->
   </div>
   <div class="row" >
+    <h2 th:text="${work}"/>
     <h2 th:text="${notFound}"/>
     <h4 th:text="${message}"/>
     <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2" th:each="ac,iterStat : ${list}" th:classappend="${iterStat.index % 3 == 0} ? 'row'">
       <div class="card border-0 bg-light rounded shadow">
         <div class="card-body p-4">
-          <span class="badge rounded-pill bg-primary float-md-end mb-3 mb-sm-0">Full time</span>
+          <span class="badge rounded-pill bg-primary float-md-end mb-3 mb-sm-0" th:text="${ac.course.duration}+' month'"></span>
           <h5 th:text="${ac.course.id_skills.name_skills}+' Developer'"/>
           <h6 th:text="'Teacher is '+${ac.teacher.id_user.surname}+' '+${ac.teacher.id_user.name} "/>
           <h6 th:text="${ac.course.course_name}+ ' Language '+${ac.course.id_language.name_language}"/>

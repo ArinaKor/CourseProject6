@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Title</title>
   <style>
     body{
       background-image: url("https://data.terabox.com/thumbnail/388a93206118d514f7ed47361be21fab?fid=4401312576584-250528-863061987675297&rt=pr&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-sisz7%2b%2fWUBMS88SW%2fKYDsfd5k9c%3d&expires=8h&chkbd=0&chkv=0&dp-logid=9142637985452482966&dp-callid=0&time=1680789600&size=c1536_u864&quality=90&vuk=4401312576584&ft=image&autopolicy=1");
@@ -156,7 +156,7 @@
     <div class=" collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav ms-auto ">
         <li class="nav-item">
-          <a class="nav-link mx-2 active" aria-current="page" href="/admin/courses">Courses</a>
+          <a class="nav-link mx-2 active" aria-current="page" href="/admin">Home</a>
         </li>
         <!--<li class="nav-item">
             <a class="nav-link mx-2" href="#">Ticket</a>
@@ -171,46 +171,47 @@
   </div>
 </nav>
 
-<form class="decor" action="/admin/courses/add" method="post">
+<form class="decor"   method="post">
   <div class="form-left-decoration"></div>
   <div class="form-right-decoration"></div>
   <div class="circle"></div>
   <div class="form-inner">
-    <h3>NEW COURSE</h3>
+    <h3>NEW PASSWORD</h3>
+    <p th:text="${err}"/>
     <div class="input1">
-      <input type="text" name="course_name"  placeholder="Course Name">
-      <!--<input type="text" name="level"  placeholder="level">-->
-      <input name="level" list="level" />
-      <datalist id="level">
-        <option value="Professional" />
-        <option value="Starter" />
-        <option value="Base" />
-        <option value="Advensed" />
-      </datalist>
+      <input type="password" id="last"  name="lastPass"  placeholder="Your Last Password">
+      <!-- <input type="text" name="newPass" id="pass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Your New Password">
+       <input type="text"  name="newPass2" id="passch" placeholder="Repeat your new password'">
+   --></div>
+    <div class="input1">
+      <input type="password" name="newPass" id="pass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Your New Password">
+      <!--<input type="text"  name="newPass2" id="passch" placeholder="Repeat your new password'">-->
     </div>
     <div class="input1">
-      <input type="number" name="price" placeholder="Price">
-      <input type="number"  name="duration" placeholder="Dlitelnost'">    </div>
-    <div class="input1">
-      <input name="skills" list="skills" />
-      <datalist id="skills">
-        <div th:each="ac : ${listSkills}">
-        <option th:value="${ac.name_skills}" />
-        </div>
-      </datalist>
-      <input name="lang" list="lang" />
-      <datalist id="lang">
-        <div th:each="ac : ${listLang}">
-          <option th:value="${ac.name_language}" />
-        </div>
-
-      </datalist>
-      <!--<input type="text" name="skills" placeholder="Skills">
-      <input type="text"  name="lang" placeholder="lang">-->
+      <input type="text"  name="newPass2" id="passch" placeholder="Repeat your new password'">
     </div>
 
-    <input type="submit" value="Save Ticket">
+    <input type="submit" onclick="checkPass()" value="Save Password">
   </div>
 </form>
 </body>
+<script>
+  function checkPass() {
+    if (document.getElementById('pass').value != document.getElementById('passch').value) {
+      alert('Новые Пароли не совпадают!')
+      return false;
+    } else return true;
+    if (document.getElementById('pass').value === document.getElementById('last').value) {
+      alert('Новый и старый пароли совпадают')
+      return false;
+    } else return true;
+
+    var input = document.getElementById("pass");
+    var pattern = input.pattern;
+    var value = input.value;
+    if (!value.match(pattern)) {
+      alert("Пароль должен содержать не менее 8 символов, иметь хотя бы одну заглавную букву, буквы должны быть латинского алфавита и один специальный символ. Попробуйте подумать ещё и придумать правильный пароль) Мы просто не хотим, чтоб ваш аккаунт взломали");
+    }
+  }
+</script>
 </html>

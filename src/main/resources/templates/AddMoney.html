@@ -186,14 +186,17 @@
 </form>
 <div th:if="${showCodeInput}">
 <div>
+   <form method="post" th:action="@{/sendMail/checkCode/{id}(id=${student.id_student})}">
+     <div class="cnt">
+       <input type="hidden" required th:value="${student.id_student}" id="codeInput" />
+    <input type="hidden" th:value="${code}" name="code">
+    <input type="hidden" th:value="${money}" required name="money"/>
+    <input type="text" name="codeMail">
+    <button type="submit" class="btn btn-primary">Отправить</button>
+     </div>
 
-          <form method="post" th:action="@{/sendMail/checkCode/{id}(id=${student.id_student})}">
-            <input type="hidden" required th:value="${student.id_student}" id="codeInput" />
-            <input type="hidden" th:value="${code}" name="code">
-            <input type="hidden" th:value="${money}" required name="money"/>
-            <input type="text" name="codeMail">
-            <button type="submit" class="btn btn-primary">Отправить</button>
-          </form>
+   </form>
+
 </div>
 </div>
 </div>

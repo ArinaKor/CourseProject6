@@ -1,9 +1,11 @@
 package com.example.servercurs.controller;
 
+import com.example.servercurs.Config.ConvertToByte;
 import com.example.servercurs.entities.*;
 import com.example.servercurs.repository.RoleRepository;
 import com.example.servercurs.repository.StudentRepository;
 import com.example.servercurs.repository.TeacherRepository;
+import com.example.servercurs.repository.UserRepository;
 import com.example.servercurs.service.*;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @Controller
@@ -36,15 +40,30 @@ public class UsersController {
     private StudentRepository studentRepository;
     @Autowired
     private EmailSenderService emailSenderService;
+    @Autowired
+    private UserRepository userRepository;
+    ConvertToByte convertToByte = new ConvertToByte();
     @GetMapping("/admin")
-    public String admin(Model model){
+    public String admin( Model model){
+        User user = userRepository.findByRole("admin");
+        model.addAttribute("user", user);
+        byte[] imageBytes = user.getPhoto();
 
+        // Кодирование изображения в base64
+        String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
+        model.addAttribute("encodedImage", encodedImage);
         return "AdminFirst";
     }
     @GetMapping("/admin/users")
     public String findUsers(Model model){
         List<User> users = userService.findAllUser();
-        model.addAttribute("users", users);
+        List<User> list = new ArrayList<>();
+        for (User user: users) {
+            if(user.getRole().getId_role()!=1){
+                list.add(user);
+            }
+        }
+        model.addAttribute("users", list);
         return "AdminUsers";
     }
     @PostMapping("/admin/users/{id_user}/delete")
@@ -93,7 +112,7 @@ public class UsersController {
     }
     @PostMapping("/admin/users/add")
     public String addUser( @RequestParam String surname, @RequestParam String name,
-                         @RequestParam String roleName,@RequestParam String pass, @RequestParam String mail, Model model){
+                         @RequestParam String roleName,@RequestParam String pass, @RequestParam String mail, Model model) throws IOException {
         String salt = BCrypt.gensalt();
         String hashedPassword = BCrypt.hashpw(pass, salt);
         Role role = roleRepository.findRoleByRoleName(roleName);
@@ -106,6 +125,7 @@ public class UsersController {
         user.setMail(mail);
         user.setPassword(hashedPassword);
         user.setRole(role);
+
 
         List<User> userList = userService.findAllUser();
         int count = 0;
@@ -126,11 +146,15 @@ public class UsersController {
 
             if(role.getRoleName().equals("student")){
                 student.setId_user(user);
+                user.setPhoto(convertToByte.convertImageToByteArray("D:\\unik\\sem6\\курсовой\\photo\\2.png"));
+                userService.save(user);
                 studentService.save(student);
 
             }
             else if(role.getRoleName().equals("teacher")) {
                 teacher.setId_user(user);
+                user.setPhoto(convertToByte.convertImageToByteArray("D:\\unik\\sem6\\курсовой\\photo\\3.png"));
+                userService.save(user);
                 teacherService.save(teacher);
             }
 
@@ -212,8 +236,13 @@ public class UsersController {
     }
 
     @GetMapping("/admin/checkDelete")
-    public String deleteTeach(Model model){
+    public String deleteTeach(Model model, RedirectAttributes attributes){
         List<Teacher> deleteList = teacherRepository.findTeacherByCheck("1");
+        if(deleteList.size()==0){
+            String msg = "Никто увольняться не хочет!)";
+            attributes.addFlashAttribute("msg",msg);
+            return "redirect:/admin";
+        }
         model.addAttribute("delete", deleteList);
         return "CheckApplications";
     }

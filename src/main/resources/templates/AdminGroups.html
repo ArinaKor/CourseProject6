@@ -50,7 +50,7 @@
         <div class=" collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto ">
                 <li class="nav-item">
-                    <a class="nav-link mx-2 active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link mx-2 active" aria-current="page" href="/admin">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link mx-2" href="/admin/group/add">Add</a>
@@ -84,7 +84,7 @@
     <p th:text="${ac.date_start}" class="ID"/><!--
     <p th:text="${ac.teacher.id_user.surname}"/>
     <p th:text="${ac.course.course_name}"/>-->
-    <a th:href="'/admin/groups/'+${ac.id_group}+'/edit'">Edit information</a>
+    <a th:href="@{/admin/groups/edit/{id}(id=${ac.id_group})}">Edit information</a>
 </div>
 
 </body>

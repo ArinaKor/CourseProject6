@@ -96,16 +96,19 @@
                             <input type="text" th:value="${student.id_group.course.course_name}" id="course" name="rating" placeholder="Password" disabled>
                         </div>
                     </div>
-                    <div class="input1">
-                        <input name="rating" placeholder="Rating" list="lang" type="text" required/>
-                        <datalist id="lang">
-                            <option value="1" />
-                            <option value="2" />
-                            <option value="3" />
-                            <option value="4" />
-                            <option value="5" />
-                        </datalist>
-                    </div>
+
+                            <div class="input1">
+                                <input name="rating" placeholder="Rating" list="lang" type="text" />
+                                <datalist id="lang">
+                                    <option value="1" />
+                                    <option value="2" />
+                                    <option value="3" />
+                                    <option value="4" />
+                                    <option value="5" />
+                                </datalist>
+                            </div>
+
+
                     <input type="submit" value="complete" id="submitBtn">
                     <!--<a th:href="@{/certificate}" download th:attr="href=@{/certificate}">Скачать сертификат</a>-->
 

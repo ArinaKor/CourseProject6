@@ -85,7 +85,7 @@ public class StudentPersonalController {
         return "ChangePassword";
     }
     @PostMapping("/students/personal/{id}")
-    public String changePassword(@PathVariable("id") int id,RedirectAttributes attributes, @RequestParam("lastPass") String lastPass, @RequestParam("newPass") String newPass, Model model){
+    public String changePassword(@PathVariable("id") int id, RedirectAttributes attributes, @RequestParam("lastPass") String lastPass, @RequestParam("newPass") String newPass, Model model){
         Student student = studentService.findById(id);
         User user = student.getId_user();
         if(BCrypt.checkpw(newPass, user.getPassword())){
@@ -96,15 +96,13 @@ public class StudentPersonalController {
             model.addAttribute("user", user);
             return "redirect:/students/personal/{id}";
         }
-        else if (BCrypt.checkpw(lastPass, user.getPassword())){
+        else if (!BCrypt.checkpw(lastPass, user.getPassword())){
             String err = "Это не ваш старый пароль!";
-           // attributes.addFlashAttribute("err", err);
             attributes.addFlashAttribute("err", err);
+            //attributes.addFlashAttribute("err", err);
             model.addAttribute("err", err);
             attributes.addFlashAttribute("student", student);
             model.addAttribute("user", user);
-            attributes.addFlashAttribute("user", user);
-            model.addAttribute("student", student);
             return "redirect:/students/personal/{id}";
         }else{
             String salt = BCrypt.gensalt();
@@ -120,14 +118,29 @@ public class StudentPersonalController {
     @GetMapping("/students/personal/edit/{id}")
     public String edit(@PathVariable("id") int id,Model model,RedirectAttributes attributes){
         Student student = studentService.findById(id);
-        model.addAttribute("student", student);
+
         byte[] imageBytes = student.getId_user().getPhoto();
 
         // Кодирование изображения в base64
         String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
         model.addAttribute("encodedImage", encodedImage);
         attributes.addFlashAttribute("encodedImage", encodedImage);
+        if(student.getId_group()==null){
+            Course course = new Course();
+            Skills skills = new Skills();
+            Language language = new Language();
+            Group group = new Group();
+           // course.setCourse_name("Nothing");
+            skills.setName_skills("None");
+            language.setName_language("None");
+            course.setCourse_name("Никакой курс не проходится");
+            course.setId_skills(skills);
+            course.setId_language(language);
+            group.setCourse(course);
+            student.setId_group(group);
 
+        }
+        model.addAttribute("student", student);
         return "EditPersonalStudent";
     }
     @PostMapping("/students/personal/edit/{id}")
@@ -143,6 +156,10 @@ public class StudentPersonalController {
 
             // Кодирование изображения в base64
             encodedImage = Base64.getEncoder().encodeToString(imageBytes);
+            user.setPhoto(imageBytes);
+            userService.save(user);
+            model.addAttribute("encodedImage", encodedImage);
+            attributes.addFlashAttribute("encodedImage", encodedImage);
 
         } else {
             user.setPhoto(photo.getBytes());
@@ -151,7 +168,7 @@ public class StudentPersonalController {
             //user.setMail(mail);
             user.setSurname(surname);
             user.setName(name);
-            user.setPhoto(photo.getBytes());
+            // user.setPhoto(photo.getBytes());
             userService.save(user);
             student.setId_user(user);
             studentService.save(student);

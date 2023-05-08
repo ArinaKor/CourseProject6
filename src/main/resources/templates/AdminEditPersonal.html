@@ -224,6 +224,26 @@
       z-index: 1;
 
     }
+    .card-body {
+      flex: 1 1 auto;
+      min-height: 1px;
+      padding: 1rem;
+    }
+
+    .gutters-sm {
+      margin-right: -8px;
+      margin-left: -8px;
+    }
+    .checked {
+      color: yellow;
+    }
+    .gutters-sm>.col, .gutters-sm>[class*=col-] {
+      padding-right: 8px;
+      padding-left: 8px;
+    }
+    .mb-3, .my-3 {
+      margin-bottom: 0.9rem!important;
+    }
   </style>
   <!-- <link rel="stylesheet" href="../style/style.css">-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -244,7 +264,7 @@
     <div class=" collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav ms-auto ">
         <li class="nav-item">
-          <a class="nav-link mx-2 active" aria-current="page" th:href="@{/teacher/{id}(id=${teacher.id_teacher})}">Home</a>
+          <a class="nav-link mx-2 active" aria-current="page" href="/admin">Home</a>
         </li>
         <!--<li class="nav-item">
             <a class="nav-link mx-2" href="#">Ticket</a>
@@ -281,10 +301,9 @@
 
                 </div>
                 <div class="mt-3">
-                  <h6 th:text="'I\'m a '+${teacher.id_user.role.roleName}"/>
-                  <h4 th:text="${teacher.id_user.surname}+' '+${teacher.id_user.name}"></h4>
-                  <p class="text-secondary mb-1" th:text="${teacher.speciality}+' Developer'"></p>
-                  <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+                  <h6 th:text="'I\'m a '+${user.role.roleName}"/>
+                  <h4 th:text="${user.surname}+' '+${user.name}"></h4>
+                  <p class="text-muted font-size-sm">Minsk, Belarus</p>
                   <!--<div class="rating">
                       <span th:each="star : ${#numbers.sequence(1, 5)}"
                             th:classappend="${student.rating >= star} ? 'checked' : ''">
@@ -301,7 +320,7 @@
                 <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
                   <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
                 </svg></h6>
-                <a class="nav-link mx-2" th:href="@{/teacher/personal/{id}(id=${teacher.id_teacher})}" >Change Password</a>
+                <a class="nav-link mx-2" href="/admin/change/password">Change Password</a>
               </li>
 
 
@@ -324,7 +343,7 @@
                   <h6 class="mb-0">Surname</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  <input type="text" class="form-control" th:value="${teacher.id_user.surname}" name="surname">
+                  <input type="text" class="form-control" th:value="${user.surname}" name="surname">
                 </div>
               </div>
               <div class="row mb-3">
@@ -332,7 +351,7 @@
                   <h6 class="mb-0">Name</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  <input type="text" class="form-control" th:value="${teacher.id_user.name}" name="name">
+                  <input type="text" class="form-control" th:value="${user.name}" name="name">
                 </div>
               </div>
               <div class="row mb-3">
@@ -340,33 +359,10 @@
                   <h6 class="mb-0">Email</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  <input type="text" class="form-control" th:value="${teacher.id_user.mail}" name="mail">
+                  <input type="text" class="form-control" th:value="${user.mail}" name="mail">
                 </div>
               </div>
-              <!--<div class="row mb-3">
-                  <div class="col-sm-3">
-                      <h6 class="mb-0">Phone</h6>
-                  </div>
-                  <div class="col-sm-9 text-secondary">
-                      <input type="text" class="form-control" value="(239) 816-9029">
-                  </div>
-              </div>
-              <div class="row mb-3">
-                  <div class="col-sm-3">
-                      <h6 class="mb-0">Mobile</h6>
-                  </div>
-                  <div class="col-sm-9 text-secondary">
-                      <input type="text" class="form-control" value="(320) 380-4539">
-                  </div>
-              </div>
-              <div class="row mb-3">
-                  <div class="col-sm-3">
-                      <h6 class="mb-0">Address</h6>
-                  </div>
-                  <div class="col-sm-9 text-secondary">
-                      <input type="text" class="form-control" value="Bay Area, San Francisco, CA">
-                  </div>
-              </div>-->
+
               <div class="row">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-9 text-secondary">

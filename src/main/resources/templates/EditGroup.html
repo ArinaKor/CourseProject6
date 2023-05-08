@@ -156,7 +156,7 @@
         <div class=" collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto ">
                 <li class="nav-item">
-                    <a class="nav-link mx-2 active" aria-current="page" href="/admin/courses">Home</a>
+                    <a class="nav-link mx-2 active" aria-current="page" href="/admin/groups">Groups</a>
                 </li>
                 <!--<li class="nav-item">
                     <a class="nav-link mx-2" href="#">Ticket</a>
@@ -178,23 +178,35 @@
     <div class="form-inner">
         <h3>NEW COURSE</h3>
         <div class="input1">
-            <input type="number" th:value="${group.count_student_all}"  name="count_all"  placeholder="All Count of Student">
+            <input type="number"  name="count_all"  placeholder="All Count of Student">
             <!--<input type="text" name="level"  placeholder="level">-->
-            <input type="date" th:value="${group.date_start}" name="dateStart" value="2023-05-01" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"  placeholder="Date of Start"/>
+            <input type="date" name="dateStart" value="2023-05-01" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"  placeholder="Date of Start"/>
         </div>
         <div class="input1">
-            <input name="course" type="text"  placeholder="Course">
+            <!--<input name="course" type="text"  placeholder="Course">-->
+            <input name="course" placeholder="Course" th:value="${group.course.course_name}+'/'+ ${group.course.id_skills.name_skills}+'/'+${group.course.id_language.name_language}" list="course" autocomplete="off"/>
+            <datalist id="course">
+                <div th:each="course : ${courses}">
+                    <option th:value="${course.course_name}+'/'+ ${course.id_skills.name_skills}+'/'+${course.id_language.name_language}"/>
+                </div>
+            </datalist>
+            <input name="teacher" placeholder="Teacher" list="teach" autocomplete="off" required/>
+            <datalist id="teach">
+                <div th:each="teacher : ${teachers}">
+                    <option th:value="${teacher.id_teacher}+'-'+ ${teacher.id_user.surname}"/>
+                </div>
+            </datalist>
             <!--<input type="text" name="level"  placeholder="level">-->
-            <input type="teacher" type="text" name="dateStart" value="2023-05-01" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"  placeholder="Date of Start"/>
+            <!--<input type="teacher" type="text" name="dateStart" value="2023-05-01" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"  placeholder="Date of Start"/>-->
         </div>
         <div class="input1">
-            <input name="groupTime"  placeholder="GroupTime" list="time" />
+            <input name="groupTime" placeholder="GroupTime" list="time" />
             <datalist id="time">
                 <option value="Утреннее"/>
                 <option value="Вечернее"/>
                 <option value="Дневное"/>
             </datalist>
-            <input name="timetable" placeholder="TimeTable" list="lang" disabled/>
+            <input name="timetable" placeholder="TimeTable" list="lang"autocomplete="off" />
             <datalist id="lang">
                 <div th:each="timeTable : ${timeTable}">
                     <option th:value="${timeTable.dayOfWeek}+':'+ ${timeTable.time}"/>

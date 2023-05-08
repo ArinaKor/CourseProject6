@@ -169,13 +169,20 @@ public class StudentMainController {
     @GetMapping("/students/mygroup/{id}")
     public String checkMyGroup(@PathVariable(name="id") int id,RedirectAttributes attributes, Model model){
         Student student = studentService.findById(id);
+        if(student.getId_group()==null){
+            String msg = "Никакой курс не проходится";
+            attributes.addFlashAttribute("msg", msg);
+            model.addAttribute("student", student);
+            attributes.addFlashAttribute("student", student);
+            return "redirect:/student/"+student.getId_student();
+        }
         model.addAttribute("student", student);
         attributes.addFlashAttribute("student", student);
         return "StudentGroup";
     }
 
     @PostMapping("/students/mygroup/{id}")
-    public String completeCourse(HttpServletResponse response, @PathVariable(name="id") int id, @RequestParam(name="rating") String rating, RedirectAttributes attributes, Model model) throws IOException, MessagingException, jakarta.mail.MessagingException {
+    public String completeCourse(HttpServletResponse response, @PathVariable(name="id") int id, @RequestParam(name="rating", required = false) String rating, RedirectAttributes attributes, Model model) throws IOException, MessagingException, jakarta.mail.MessagingException {
 
 
         /*=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
@@ -184,6 +191,7 @@ public class StudentMainController {
         Group group = groupService.findById(student.getId_group().getId_group());
 
         ratingTeacher.checkRatingTeacher(rating, id, studentService, groupService, teacherService);
+
 
 
         String finalHtml = null;
@@ -303,7 +311,7 @@ public class StudentMainController {
             attributes.addFlashAttribute("err", err);
             attributes.addFlashAttribute("student", student);
             model.addAttribute("student", student);
-            return "StudentPersonal";
+            return "redirect:/student/"+student.getId_student();
         }
 
         model.addAttribute("list", groupList);

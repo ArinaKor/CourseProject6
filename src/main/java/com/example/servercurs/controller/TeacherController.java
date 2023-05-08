@@ -17,10 +17,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.ws.rs.core.Form;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -46,44 +49,62 @@ public class TeacherController {
 
     @GetMapping("/teacher/{id}")
     public String teacher(@PathVariable("id") int id,Model model,RedirectAttributes attributes){
-        model.addAttribute("teacher", teacherService.findById(id));
+        Teacher teacher = teacherService.findById(id);
+        byte[] imageBytes = teacher.getId_user().getPhoto();
+
+        // Кодирование изображения в base64
+        String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
+        model.addAttribute("encodedImage", encodedImage);
+        attributes.addFlashAttribute("encodedImage", encodedImage);
+       // model.addAttribute("teacher", teacherService.findById(id));
         List<Group> groupList = groupRepository.findGroupsByTeacher(id);
         for (Group course : groupList) {
             course.setProgress(ThreadLocalRandom.current().nextInt(0, 101));
         }
         model.addAttribute("groupList", groupList);
-        attributes.addFlashAttribute("teacher", teacherService.findById(id));
+        attributes.addFlashAttribute("teacher", teacher);
+        model.addAttribute("teacher", teacher);
 
         return "TeacherFirst";
     }
     @GetMapping("/teacher/gr/{id}")
-    public String findGroups(@PathVariable int id, Model model){
+    public String findGroups(@PathVariable int id,RedirectAttributes attributes, Model model){
         List<Group> groupList = groupRepository.findGroupsByTeacher(id);
-
+Teacher teacher = teacherService.findById(id);
         model.addAttribute("list",groupList);
-        model.addAttribute("teacher", teacherService.findById(id));
+        model.addAttribute("teacher",teacher );
+        attributes.addFlashAttribute("teacher", teacher);
 
         return "findGroupsTeacher";
     }
     @GetMapping("/teacher/groups/{id}")
-    public String checkAllGroups(@PathVariable(name = "id") int id, Model model){
+    public String checkAllGroups(@PathVariable(name = "id") int id,RedirectAttributes attributes, Model model){
         model.addAttribute("teacher", teacherService.findById(id));
         List<Group> listGr = groupRepository.findGroupsByTeacher(id);
         model.addAttribute("groups", listGr);
+        attributes.addFlashAttribute("teacher", teacherService.findById(id));
         return "TeacherGroupRating";
     }
     @PostMapping("/teacher/groups/{id}")
-    public String findGroup(@PathVariable(name="id") int id, @RequestParam("group") int groupId, Model model){
+    public String findGroup(@PathVariable(name="id") int id,RedirectAttributes attributes, @RequestParam("group") int groupId, Model model){
         List<Student> stud = studentRepository.findStudentByGroup(groupId);
         model.addAttribute("students", stud);
+        if(stud.size()==0){
+            String msg = "В данной группе отсутсвуют студенты";
+            model.addAttribute("msg",msg);
+
+        }
+        List<Group> lst = groupRepository.findGroupsByTeacher(id);
+        model.addAttribute("groups", lst);
         model.addAttribute("teacher", teacherService.findById(id));
         model.addAttribute("gr", groupService.findById(groupId));
+        attributes.addFlashAttribute("teacher", teacherService.findById(id));
 
         return "TeacherGroupRating";
     }
 
     @PostMapping("/teacher/groups1/{id}/{id_student}/{id_group}")
-    public String sendMarks(@PathVariable(name="id") int id,@PathVariable(name="id_student") int id_student,@PathVariable(name="id_group") int id_group, @RequestParam String rating, Model model){
+    public String sendMarks(@PathVariable(name="id") int id,RedirectAttributes attributes,@PathVariable(name="id_student") int id_student,@PathVariable(name="id_group") int id_group, @RequestParam String rating, Model model){
         ratingStudents.checkRatingStudent(rating, id_student, studentService, groupService);
         model.addAttribute("teacher", teacherService.findById(id));
         List<Group> lst = groupRepository.findGroupsByTeacher(id);
@@ -91,6 +112,7 @@ public class TeacherController {
         model.addAttribute("gr", groupService.findById(id_group));
         List<Student> stud = studentRepository.findStudentByGroup(id_group);
         model.addAttribute("students", stud);
+        attributes.addFlashAttribute("teacher", teacherService.findById(id));
         return "TeacherGroupRating";
     }
 
@@ -133,59 +155,78 @@ public class TeacherController {
         return "redirect:/teacher/{id}";
     }
     @GetMapping("/teacher/personal/edit/{id}")
-    public String edit(@PathVariable("id") int id,Model model){
+    public String edit(@PathVariable("id") int id,Model model, RedirectAttributes attributes){
         Teacher teacher = teacherService.findById(id);
         model.addAttribute("teacher", teacher);
+        byte[] imageBytes = teacher.getId_user().getPhoto();
+
+        // Кодирование изображения в base64
+        String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
+        model.addAttribute("encodedImage", encodedImage);
+        attributes.addFlashAttribute("encodedImage", encodedImage);
+        attributes.addFlashAttribute("teacher", teacher);
         return "EditPersonalTeacher";
     }
     @PostMapping("/teacher/personal/edit/{id}")
-    public String editPersonInformation(@PathVariable("id") int id,@RequestParam("surname") String surname, @RequestParam("name") String name,
-                                        @RequestParam("mail") String mail, RedirectAttributes attributes, Model model){
+    public String editPersonInformation(@PathVariable("id") int id, @RequestParam("surname") String surname, @RequestParam("name") String name,
+                                        @RequestParam("mail") String mail, @RequestParam("photo") MultipartFile photo, RedirectAttributes attributes, Model model) throws IOException {
         Teacher teacher = teacherService.findById(id);
         User user = userService.findById(teacher.getId_user().getId_user());
         List<User> userList = userService.findAllUser();
-        if(user.getMail().equals(mail)){
+        String encodedImage = null;
+
+        if (photo.isEmpty()) {
+            //user.setPhoto(convertToByte.convertImageToByteArray("D:\\unik\\sem6\\курсовой\\photo\\2.png"));
+            byte[] imageBytes = teacher.getId_user().getPhoto();
+
+            // Кодирование изображения в base64
+            encodedImage = Base64.getEncoder().encodeToString(imageBytes);
+            user.setPhoto(imageBytes);
+            userService.save(user);
+
+            model.addAttribute("encodedImage", encodedImage);
+            attributes.addFlashAttribute("encodedImage", encodedImage);
+
+
+        } else {
+            user.setPhoto(photo.getBytes());
+        }
+        if (user.getMail().equals(mail)) {
             //user.setMail(mail);
             user.setSurname(surname);
             user.setName(name);
+            // user.setPhoto(photo.getBytes());
             userService.save(user);
             teacher.setId_user(user);
             teacherService.save(teacher);
 
-        }
-        else{
+        } else {
             user.setMail(mail);
             user.setSurname(surname);
             user.setName(name);
             int count = 0;
-            for (User user1:userList) {
-                if(user1.getMail().equals(user.getMail())){
+            for (User user1 : userList) {
+                if (user1.getMail().equals(user.getMail())) {
                     count++;
                 }
             }
-            if(count==0){
+            if (count == 0) {
                 userService.save(user);
                 teacher.setId_user(user);
                 teacherService.save(teacher);
-            }
-            else{
-                String error="We have user with this mail.Enter another mail please!";
+            } else {
+                String error = "We have user with this mail.Enter another mail please!";
                 attributes.addFlashAttribute("error", error);
 
-                return "redirect:/students/personal/edit/{id}";
+                return "redirect:/teacher/personal/edit/{id}";
             }
         }
 
-        /*List<Group> listLast = findLastGroup.findLastGroupsStudent(studentService, groupService, id);
-        for (Group course : listLast) {
-            course.setProgress(ThreadLocalRandom.current().nextInt(0, 101));
-        }
-        *///model.addAttribute("courses", courses);
-        //model.addAttribute("last", listLast);
-
+        model.addAttribute("encodedImage", encodedImage);
+        attributes.addFlashAttribute("encodedImage", encodedImage);
         model.addAttribute("teacher",teacher);
         attributes.addFlashAttribute("teacher", teacher);
-        return "TeacherFirst";
+        return "redirect:/teacher/{id}";
     }
     @GetMapping("/teacher/groups/teach/{id}")
     public String startTech(@PathVariable("id") int id, RedirectAttributes attributes, Model model){
@@ -199,29 +240,35 @@ public class TeacherController {
         }
         if(freeGroups.size()==0){
             String notFound = "У всех групп есть преподаватели, мы сообщим вам если появяться обновления";
-            model.addAttribute("notFound", notFound);
+            model.addAttribute("msg", notFound);
+            attributes.addFlashAttribute("msg", notFound);
+            return "redirect:/teacher/"+teacher.getId_teacher();
         }
         model.addAttribute("free",freeGroups);
+        attributes.addFlashAttribute("free",freeGroups);
         model.addAttribute("teacher", teacher);
+        attributes.addFlashAttribute("teacher", teacher);
         return "TeachCourse";
     }
-    @PostMapping("/teacher/groups/teach/{id_teacher}/{id_group}")
-    public String startedTeach(@PathVariable("id_teacher") int id,@PathVariable("id_group") int id_group, RedirectAttributes attributes, Model model){
-        Teacher teacher = teacherService.findById(id);
+    @PostMapping("/teacher/groups/teach/{id_teach}/{id_group}")
+    public String startedTeach(@PathVariable("id_teach") int id_teach,@PathVariable("id_group") int id_group, RedirectAttributes attributes, Model model){
+        Teacher teacher = teacherService.findById(id_teach);
         Group group1 = groupService.findById(id_group);
         group1.setTeacher(teacher);
         groupService.save(group1);
-        List<Group> groupList = groupRepository.findGroupsByTeacher(id);
+        List<Group> groupList = groupRepository.findGroupsByTeacher(id_teach);
 
         if(groupList.size()==0){
             String notFound = "У всех групп есть преподаватели, мы сообщим вам если появяться обновления";
-            model.addAttribute("notFound", notFound);
+            model.addAttribute("msg", notFound);
+            attributes.addFlashAttribute("msg", notFound);
+            return "redirect:/teacher"+teacher.getId_teacher();
         }
         model.addAttribute("list",groupList);
         model.addAttribute("teacher", teacher);
+attributes.addFlashAttribute("teacher", teacher);
 
-
-        return "findGroupsTeacher";
+        return "redirect:/teacher/"+teacher.getId_teacher();
     }
     @GetMapping("/teacher/personal/delete/{id}")
     public String delete(@PathVariable("id") int id, Model model, RedirectAttributes attributes){
@@ -230,7 +277,7 @@ public class TeacherController {
         teacherService.save(teacher);
         model.addAttribute("teacher",teacher);
         attributes.addFlashAttribute("teacher", teacher);
-        return "TeacherFirst";
+        return "redirect:/teacher/{id}";
     }
 
 }
