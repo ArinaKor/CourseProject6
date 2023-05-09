@@ -73,6 +73,24 @@
     .form-inner {
       padding: 50px;
     }
+    .shine-button {
+      /* text-decoration: none; */
+      /* display: inline-block; */
+      padding: 5px 20px;
+      /* margin: 10px 20px; */
+      /* position: relative; */
+      /* overflow: hidden; */
+      border: 2px solid #009dda;
+      border-radius: 8px;
+      /*
+      color: #009dda;
+      */
+
+      background: #009dda;
+      color: #c9e9ff;
+      transition: .2s ease-in-out;
+      font-size: medium;
+    }
     .form-inner input, .form-inner textarea {
       display: block;
       width: 100%;
@@ -284,8 +302,15 @@
                 <div class="mt-3">
                   <h6 th:text="'I\'m a '+${teacher.id_user.role.roleName}"/>
                   <h4 th:text="${teacher.id_user.surname}+' '+${teacher.id_user.name}"></h4>
-                  <p class="text-secondary mb-1" th:text="${teacher.speciality}+' Developer'"></p>
-                  <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+                  <div>
+                    <div th:if="${teacher.speciality}==null">
+                      <p class="text-secondary mb-1" >Developer</p>
+                    </div>
+                    <div th:unless="${teacher.speciality}==null">
+                      <p class="text-secondary mb-1" th:text="${teacher.speciality}+' Developer'"></p>
+                    </div>
+                  </div>
+                  <p class="text-muted font-size-sm">Minsk, Belarus</p>
                   <!--<div class="rating">
                       <span th:each="star : ${#numbers.sequence(1, 5)}"
                             th:classappend="${student.rating >= star} ? 'checked' : ''">
@@ -344,6 +369,22 @@
                   <input type="text" class="form-control" th:value="${teacher.id_user.mail}" name="mail">
                 </div>
               </div>
+              <div class="row mb-3">
+                <div class="col-sm-2">
+                  <h6 class="mb-0">Speciality</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input type="text" class="form-control" th:value="${teacher.speciality}" name="spec">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-2">
+                  <h6 class="mb-0">Work Experience</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input type="number" class="form-control" th:value="${teacher.work}" name="work">
+                </div>
+              </div>
               <!--<div class="row mb-3">
                   <div class="col-sm-3">
                       <h6 class="mb-0">Phone</h6>
@@ -369,9 +410,8 @@
                   </div>
               </div>-->
               <div class="row">
-                <div class="col-sm-3"></div>
                 <div class="col-sm-9 text-secondary">
-                  <input type="submit" class="btn btn-primary px-4" value="Save Changes">
+                  <input type="submit" class="shine-button text-decoration-none " value="Save Changes">
                 </div>
               </div>
             </div>

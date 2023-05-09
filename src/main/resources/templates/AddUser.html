@@ -177,7 +177,7 @@
   <div class="form-right-decoration"></div>
   <div class="circle"></div>
   <div class="form-inner">
-    <h3>NEW COURSE</h3>
+    <h3>NEW USER</h3>
     <p th:text="${error}"/>
     <div class="input1">
       <input type="text"  name="surname"  placeholder="Surname" autocomplete="off">
@@ -187,7 +187,7 @@
     </div>
     <div class="input1">
       <input type="text" name="mail" placeholder="Mail" autocomplete="off">
-      <input type="text" id="pass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  name="pass" placeholder="Password" autocomplete="off">
+      <input type="password" id="pass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  name="pass" placeholder="Password" autocomplete="off">
     </div>
     <div class="input1">
       <!--=Какие-то траблы с ролью, не выводится текущая роль :(=-->
@@ -200,7 +200,7 @@
       </datalist>
     </div>
 
-    <input type="submit" onclick="checkInput()" value="Save Ticket">
+    <input type="submit" onclick="checkInput()" value="Save User">
   </div>
 </form>
 <script>

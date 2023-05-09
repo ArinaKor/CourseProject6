@@ -24,7 +24,8 @@ public class RatingStudents {
             cnt+=Double.parseDouble(cnt_rating[i]);
         }
 
-        student.setRating(cnt/(cnt_rating.length));
+        double roundOff = (double) Math.round((cnt/(cnt_rating.length)) * 100) / 100;
+        student.setRating(roundOff);
         studentService.save(student);
 
     }

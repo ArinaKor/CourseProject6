@@ -24,8 +24,8 @@ public class RatingTeacher {
         for (int i = 0; i < cnt_rating.length; i++) {
             cnt+=Double.parseDouble(cnt_rating[i]);
         }
-
-        teacher.setRating(cnt/(cnt_rating.length));
+        double roundOff = (double) Math.round((cnt/(cnt_rating.length)) * 100) / 100;
+        teacher.setRating(roundOff);
         teacherService.save(teacher);
     }
 }

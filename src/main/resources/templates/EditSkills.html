@@ -178,8 +178,9 @@
     <div class="circle"></div>
     <div class="form-inner">
         <h3>EDIT SKILLS</h3>
+        <h3 th:text="${error}"/>
         <div class="input1">
-            <input type="text" name="skills"  th:value="${el.name_skills}" placeholder="Language Name">
+            <input type="text" name="skills"   th:value="${el.name_skills}" placeholder="Skills Name">
             <!--<input type="text" name="level"  placeholder="level">-->
 
         </div>

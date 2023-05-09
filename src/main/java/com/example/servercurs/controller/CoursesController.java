@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class CoursesController {
@@ -38,9 +38,30 @@ public class CoursesController {
     @Autowired
     private GroupService groupService;
     @GetMapping("/admin/courses")
-    public String workWithCourses(Model model){
+    public String workWithCourses(Model model, RedirectAttributes attributes){
         List<Course> listCourse = courseRepository.findWithAll();
         model.addAttribute("list", listCourse);
+        List<String> encodedImage = new ArrayList<>();
+        List<Language> list = languageService.findAllLanguages();
+        for (Course lg:listCourse) {
+            for(Language lang: list) {
+                String image = null;
+                if (lg.getId_language().getId_language()==lang.getId_language()) {
+                    image = Base64.getEncoder().encodeToString(lang.getLogo());
+                    encodedImage.add(image);
+                }
+                else {//encodedImage.put(lg.getName_language(), image);
+                    continue;
+                }
+            }
+        }
+        // byte[] imageBytes = language.getLogo();
+
+        // Кодирование изображения в base64
+        //encodedImage = Base64.getEncoder().encodeToString(imageBytes);
+
+        model.addAttribute("encodedImage", encodedImage);
+        attributes.addFlashAttribute("encodedImage", encodedImage);
         return "AdminCourses";
 
     }

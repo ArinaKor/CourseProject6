@@ -39,9 +39,49 @@
         body {
             background-color: #c7dfff;
             background-image: url("https://funart.pro/uploads/posts/2022-08/thumbs/1659952773_11-funart-pro-p-fon-dlya-veb-stranitsi-krasivo-11.png");
-            background-size: 101% 101%;
-            background-repeat: repeat-y;
+            background-size: 101% ;
+            background-repeat: no-repeat;
         }
+        .ch{
+            border: 2px solid #009dda;
+            border-radius: 8px;
+            background: #009dda;
+            color: #c9e9ff;
+        }
+        .shine-button {
+            /* text-decoration: none; */
+            /* display: inline-block; */
+            padding: 5px 20px;
+            /* margin: 10px 20px; */
+            /* position: relative; */
+            /* overflow: hidden; */
+            border: 2px solid #009dda;
+            border-radius: 8px;
+            color: #009dda;
+            transition: .2s ease-in-out;
+            font-size: medium;
+        }
+        .shine-button:before {
+            content: "";
+            /*
+            background: linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
+            */
+            height: 50px;
+            width: 50px;
+            position: absolute;
+            top: -8px;
+            left: -75px;
+            transform: skewX(-45deg);
+        }
+        .shine-button:hover {
+            background: #009dda;
+            color: #c9e9ff;
+        }
+        .shine-button:hover:before {
+            left: 150px;
+            transition: .5s ease-in-out;
+        }
+
 
     </style>
 </head>
@@ -72,13 +112,44 @@
         </div>
     </div>
 </nav>
-<div th:each="ac : ${list}" class="ticket">
+<!--<div th:each="ac : ${list}" class="ticket">
     <form th:action="'/admin/skills/'+${ac.id_skills}+'/delete'" method="post">
         <button type="submit" class="shine-button">Delete</button>
     </form>
     <p th:text="${ac.id_skills}" class="ID"/>
     <p th:text="${ac.name_skills}" class="ID"/>
     <a th:href="'/admin/skills/'+${ac.id_skills}+'/edit'">Edit information</a>
+</div>-->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<div class="container mt-3 pt-2">
+    <div class="row" >
+        <div class="col-lg-4 col-md-4 col-10 mt-2 pt-1" th:each="ac,iterStat : ${list}" th:classappend="${iterStat.index % 3 == 0} ? 'row'">
+            <div class="card border-0 bg-light rounded shadow">
+                <div class="card-body p-4">
+                    <div style="display: flex">
+                        <div>
+                            <h5 th:text="${ac.id_skills}+' '+${ac.name_skills}"/>
+
+                        </div>
+
+                    </div>
+
+
+                    <!--<div class="mt-3">
+                      <a href="#" class="btn btn-primary">View Details</a>
+                    </div>-->
+                    <div class="check" style="display: flex;flex-direction: row;align-items: flex-end;justify-content: space-between;">
+                        <form th:action="'/admin/skills/'+${ac.id_skills}+'/delete'" method="post">
+                            <button type="submit" class="shine-button">Delete</button>
+                        </form>
+                        <a th:href="'/admin/skills/'+${ac.id_skills}+'/edit'">Edit information</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div><!--end row-->
+    </div>
 </div>
 
 </body>

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 
 @Controller
@@ -32,10 +33,33 @@ public class GroupConroller {
     private CourseRepository courseRepository;
     @Autowired
     private TeacherService teacherService;
+    @Autowired
+    private LanguageService languageService;
     @GetMapping("/admin/groups")
-    private String findGroups(Model model){
+    private String findGroups(Model model, RedirectAttributes attributes){
         List<Group> list = groupService.findAllGroups();
         model.addAttribute("list",list);
+        List<String> encodedImage = new ArrayList<>();
+        List<Language> list1 = languageService.findAllLanguages();
+        for (Group lg:list) {
+            for(Language lang: list1) {
+                String image = null;
+                if (lg.getCourse().getId_language().getId_language()==lang.getId_language()) {
+                    image = Base64.getEncoder().encodeToString(lang.getLogo());
+                    encodedImage.add(image);
+                }
+                else {//encodedImage.put(lg.getName_language(), image);
+                    continue;
+                }
+            }
+        }
+        // byte[] imageBytes = language.getLogo();
+
+        // Кодирование изображения в base64
+        //encodedImage = Base64.getEncoder().encodeToString(imageBytes);
+
+        model.addAttribute("encodedImage", encodedImage);
+        attributes.addFlashAttribute("encodedImage", encodedImage);
         return "AdminGroups";
     }
     @PostMapping("/admin/groups/{id_group}/delete")

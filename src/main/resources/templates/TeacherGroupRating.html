@@ -12,19 +12,99 @@
         body {
             background-color: #c7dfff;
             background-image: url("https://funart.pro/uploads/posts/2022-08/thumbs/1659952773_11-funart-pro-p-fon-dlya-veb-stranitsi-krasivo-11.png");
-            background-size: 101% 101%;
-            background-repeat: repeat-y;
+            background-size: 101%;
+            background-repeat: no-repeat;
+            color:#c7dfff;
+
         }
+        .ch{
+            border: 2px solid #009dda;
+            border-radius: 8px;
+            background: #009dda;
+            color: #c9e9ff;
+        }
+        .shine-button {
+            /* text-decoration: none; */
+            /* display: inline-block; */
+            padding: 5px 20px;
+            /* margin: 10px 20px; */
+            /* position: relative; */
+            /* overflow: hidden; */
+            border: 2px solid #009dda;
+            border-radius: 8px;
+            /*
+            color: #009dda;
+            */
+
+            background: #009dda;
+            color: #c9e9ff;
+            transition: .2s ease-in-out;
+            font-size: medium;
+        }
+        .shine-button:before {
+            content: "";
+            /*
+            background: linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
+            */
+            height: 50px;
+            width: 50px;
+            position: absolute;
+            top: -8px;
+            left: -75px;
+            transform: skewX(-45deg);
+        }
+        .shine-button:hover {
+            border: 2px solid #009dda;
+            border-radius: 8px;
+            color: #009dda;
+            background-color: #a9dffd;
+        }
+        .shine-button:hover:before {
+            left: 150px;
+            transition: .5s ease-in-out;
+        }
+        #neubar {
+            background: #c9e9ff;
+            box-shadow: 4px 6px 12px rgba(0,0,0,0.4)
+        }
+
+        .nav-item .active {
+            border-radius: 6px;
+            background: linear-gradient(145deg, #50b1f3, #50B1F3FF);
+            box-shadow:  4px 4px 8px #c9e9ff,
+            -4px -4px 8px #c9e9ff;
+        }
+        #neubar .dropdown-menu a:hover {
+            color: #454545
+        }
+        #neubar .nav-item {
+            margin : auto 4px;
+        }
+        #neubar a {
+
+            padding-left:12px;
+            padding-right:12px;
+        }
+        #neubar .dropdown-menu {
+            background : #545454
+        }
+        a.navbar-brand {
+            color: #454545
+        }
+        .main-form{
+            display: flex;
+        }
+        fieldset{
+            margin-left: 9%;
+            color: #a9dffd;
+        }
+
     </style>
 
 </head>
 <body>
 <nav class="navbar navbar-expand-sm navbar-light" id="neubar">
   <div class="container">
-    <a class="navbar-brand" href="static/index.html"><img src="" height="60" /></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
 
     <div class=" collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav ms-auto ">
@@ -40,6 +120,8 @@
     </div>
   </div>
 </nav>
+<br>
+<br>
 <form method="post" th:action="@{/teacher/groups/{id}(id=${teacher.id_teacher})}" th:object="${form}">
   <fieldset>
     <legend>Please select group for search:</legend>
@@ -47,16 +129,16 @@
       <!-- <input type="radio" id="contactChoice1" name="contact" value="1" />
        <label for="contactChoice1">Find By Town</label>-->
       <div th:each="group : ${groups}">
-        <input type="radio" th:id="${group.id_group}" th:name="group" th:value="${group.id_group}" />
-        <label th:for="${group.id_group}" th:text="${group.id_group}"></label>
+        <input type="radio" class="btn-check " th:id="${group.id_group}" th:name="group" th:value="${group.id_group}" />
+        <label th:for="${group.id_group}" class="btn shine-button"th:text="${group.id_group}"></label>
       </div>
-      <input type="submit" value="Find Group" class="btn " >
+      <input type="submit" value="Find Group" class="btn shine-button" style="border-radius: 8px">
     </div>
   </fieldset>
 </form>
 
 <!--<h1 th:text="${gr.id_group}"></h1>-->
-<table class="table table-hover">
+<table class="table text-light" style="width:80%; margin-left: 9%">
   <thead>
   <tr>
     <th scope="col">#</th>
@@ -71,7 +153,7 @@
   </tr>
   </thead>
   </tbody>
-   <h3 th:text="${msg}"/>
+   <h3 th:text="${msg}" style="margin-left: 9%"/>
     <tr th:each="ac : ${students}" class="user" >
 
           <td  th:text="${ac.id_student}" class="user" name="id_student" th:value="${ac.id_student}"></td>

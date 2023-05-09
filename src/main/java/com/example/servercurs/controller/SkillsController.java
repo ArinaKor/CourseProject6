@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -61,30 +62,37 @@ public class SkillsController {
         return "redirect:/admin/skills";
     }
     @GetMapping("/admin/skills/{id_skills}/edit")
-    public String edit(@PathVariable(value = "id_skills") int id_skills, Model model){
+    public String edit(@PathVariable(value = "id_skills") int id_skills, RedirectAttributes attributes, Model model){
         Skills skills = skillsService.findById(id_skills);
         model.addAttribute("el", skills);
+        attributes.addFlashAttribute("el", skills);
         return "EditSkills";
     }
     @PostMapping("/admin/skills/{id_skills}/edit")
-    public String update(@PathVariable(value = "id_skills") int id_skills, @RequestParam String skills, Model model){
+    public String update(@PathVariable(value = "id_skills") int id_skills, @RequestParam("skills") String skills, Model model){
         Skills skill = skillsService.findById(id_skills);
-        skill.setName_skills(skills);
+        if((skill.getName_skills().toLowerCase()).equals(skills.toLowerCase())){
+            return "redirect:/admin/skills";
+        }
         List<Skills> list = skillsService.findAllSkillss();
         int count = 0;
         for (Skills sk:list) {
-            if((sk.getName_skills().toLowerCase()).equals(skill.getName_skills().toLowerCase())){
+            if((sk.getName_skills().toLowerCase()).equals(skills.toLowerCase())){
                 count++;
             }
 
         }
         if(count==0){
+            skill.setName_skills(skills);
+
             //userService.save(user);
             skillsService.save(skill);
         }
         else{
             String error="We have skills with this name.Enter another name please!";
             model.addAttribute("error", error);
+            model.addAttribute("el", skillsService.findById(id_skills));
+
             return "EditSkills";
         }
        // skillsService.save(skill);

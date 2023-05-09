@@ -21,6 +21,9 @@ public class Language {
     @Column(name="name_language")
     private String name_language;
 
+    @Lob
+    @Column(name="logo")
+    private byte[] logo;
     @Override
     public String toString() {
         return "Language{" +

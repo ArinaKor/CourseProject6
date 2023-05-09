@@ -2,16 +2,10 @@ package com.example.servercurs.controller;
 
 import com.example.servercurs.Certificate.FindLastGroup;
 import com.example.servercurs.Rating.RatingStudents;
-import com.example.servercurs.entities.Group;
-import com.example.servercurs.entities.Student;
-import com.example.servercurs.entities.Teacher;
-import com.example.servercurs.entities.User;
+import com.example.servercurs.entities.*;
 import com.example.servercurs.repository.GroupRepository;
 import com.example.servercurs.repository.StudentRepository;
-import com.example.servercurs.service.GroupService;
-import com.example.servercurs.service.StudentService;
-import com.example.servercurs.service.TeacherService;
-import com.example.servercurs.service.UserService;
+import com.example.servercurs.service.*;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,6 +35,8 @@ public class TeacherController {
     private StudentService studentService;
     @Autowired
             private UserService userService;
+    @Autowired
+            private LanguageService languageService;
 
     FindLastGroup findLastGroup = new FindLastGroup();
 
@@ -169,7 +165,8 @@ Teacher teacher = teacherService.findById(id);
     }
     @PostMapping("/teacher/personal/edit/{id}")
     public String editPersonInformation(@PathVariable("id") int id, @RequestParam("surname") String surname, @RequestParam("name") String name,
-                                        @RequestParam("mail") String mail, @RequestParam("photo") MultipartFile photo, RedirectAttributes attributes, Model model) throws IOException {
+                                        @RequestParam("mail") String mail, @RequestParam("photo") MultipartFile photo,@RequestParam("spec") String spec,
+                                        @RequestParam("work") int work, RedirectAttributes attributes, Model model) throws IOException {
         Teacher teacher = teacherService.findById(id);
         User user = userService.findById(teacher.getId_user().getId_user());
         List<User> userList = userService.findAllUser();
@@ -195,6 +192,8 @@ Teacher teacher = teacherService.findById(id);
             //user.setMail(mail);
             user.setSurname(surname);
             user.setName(name);
+            teacher.setSpeciality(spec);
+            teacher.setWork(work);
             // user.setPhoto(photo.getBytes());
             userService.save(user);
             teacher.setId_user(user);
@@ -204,6 +203,8 @@ Teacher teacher = teacherService.findById(id);
             user.setMail(mail);
             user.setSurname(surname);
             user.setName(name);
+            teacher.setSpeciality(spec);
+            teacher.setWork(work);
             int count = 0;
             for (User user1 : userList) {
                 if (user1.getMail().equals(user.getMail())) {
@@ -213,6 +214,8 @@ Teacher teacher = teacherService.findById(id);
             if (count == 0) {
                 userService.save(user);
                 teacher.setId_user(user);
+                teacher.setSpeciality(spec);
+                teacher.setWork(work);
                 teacherService.save(teacher);
             } else {
                 String error = "We have user with this mail.Enter another mail please!";
@@ -248,6 +251,27 @@ Teacher teacher = teacherService.findById(id);
         attributes.addFlashAttribute("free",freeGroups);
         model.addAttribute("teacher", teacher);
         attributes.addFlashAttribute("teacher", teacher);
+        List<String> encodedImage = new ArrayList<>();
+        List<Language> list1 = languageService.findAllLanguages();
+        for (Group lg:list) {
+            for(Language lang: list1) {
+                String image = null;
+                if (lg.getCourse().getId_language().getId_language()==lang.getId_language()) {
+                    image = Base64.getEncoder().encodeToString(lang.getLogo());
+                    encodedImage.add(image);
+                }
+                else {//encodedImage.put(lg.getName_language(), image);
+                    continue;
+                }
+            }
+        }
+        // byte[] imageBytes = language.getLogo();
+
+        // Кодирование изображения в base64
+        //encodedImage = Base64.getEncoder().encodeToString(imageBytes);
+
+        model.addAttribute("encodedImage", encodedImage);
+        attributes.addFlashAttribute("encodedImage", encodedImage);
         return "TeachCourse";
     }
     @PostMapping("/teacher/groups/teach/{id_teach}/{id_group}")

@@ -51,6 +51,20 @@ public class UsersController {
         // Кодирование изображения в base64
         String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
         model.addAttribute("encodedImage", encodedImage);
+        List<Object[]> courses = courseRepository.findGroupedCourses();
+        Map<String, Long> groupedCourses = new HashMap<>();
+        for (Object[] course : courses) {
+            String direction = (String) course[0];
+            Long count = (Long) course[1];
+            groupedCourses.put(direction, count);
+        }
+        System.out.println(groupedCourses);
+        model.addAttribute("map", groupedCourses);
+
+
+        List<Course> courseList = courseRepository.findAll();
+        List<Object[]> langs = courseRepository.findGroupedCoursesLang();
+        model.addAttribute("data", langs);
 
 
         return "AdminFirst";
