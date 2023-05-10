@@ -125,6 +125,27 @@ public class StudentMainController {
         System.out.println(k);
         model.addAttribute("k", k);
         attributes.addFlashAttribute("student", student);
+        List<String> encodedImage = new ArrayList<>();
+        List<Language> list1 = languageService.findAllLanguages();
+        for (Group lg:listCourse) {
+            for(Language lng: list1) {
+                String image = null;
+                if (lg.getCourse().getId_language().getId_language()==lng.getId_language()) {
+                    image = Base64.getEncoder().encodeToString(lng.getLogo());
+                    encodedImage.add(image);
+                }
+                else {//encodedImage.put(lg.getName_language(), image);
+                    continue;
+                }
+            }
+        }
+        // byte[] imageBytes = language.getLogo();
+
+        // Кодирование изображения в base64
+        //encodedImage = Base64.getEncoder().encodeToString(imageBytes);
+
+        model.addAttribute("encodedImage", encodedImage);
+        attributes.addFlashAttribute("encodedImage", encodedImage);
        /* List<Skills> list = skillsService.findAllSkillss();
         model.addAttribute("list", list);
         List<Language> lang = languageService.findAllLanguages();
@@ -313,6 +334,27 @@ public class StudentMainController {
             model.addAttribute("student", student);
             return "redirect:/student/"+student.getId_student();
         }
+        List<String> encodedImage = new ArrayList<>();
+        List<Language> list1 = languageService.findAllLanguages();
+        for (Group lg:list) {
+            for(Language lng: list1) {
+                String image = null;
+                if (lg.getCourse().getId_language().getId_language()==lng.getId_language()) {
+                    image = Base64.getEncoder().encodeToString(lng.getLogo());
+                    encodedImage.add(image);
+                }
+                else {//encodedImage.put(lg.getName_language(), image);
+                    continue;
+                }
+            }
+        }
+        // byte[] imageBytes = language.getLogo();
+
+        // Кодирование изображения в base64
+        //encodedImage = Base64.getEncoder().encodeToString(imageBytes);
+
+        model.addAttribute("encodedImage", encodedImage);
+        attributes.addFlashAttribute("encodedImage", encodedImage);
 
         model.addAttribute("list", groupList);
         model.addAttribute("student",student);

@@ -125,15 +125,15 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <div class="container mt-3 pt-2">
   <div class="row" >
-    <div class="col-lg-4 col-md-4 col-10 mt-2 pt-1" th:each="ac,iterStat : ${list}" th:classappend="${iterStat.index % 3 == 0} ? 'row'">
+    <div class="col-lg-3 col-md-4 col-10 mt-2 pt-1" th:each="ac,iterStat : ${list}" th:classappend="${iterStat.index % 4 == 0} ? 'row'">
       <div class="card border-0 bg-light rounded shadow">
-        <div class="card-body p-4">
-          <div style="display: flex">
+        <div class="card-body p-4" >
+          <div style="display: flex; justify-content: space-between;">
             <div>
               <h5 th:text="${ac.id_language}+' '+${ac.name_language}"/>
 
             </div>
-            <img th:src="@{'data:image/jpeg;base64,' + ${encodedImage.get((iterStat.count)-1)}}" alt="Admin" width="50">
+            <img th:src="@{'data:image/jpeg;base64,' + ${encodedImage.get((iterStat.count)-1)}}" alt="Admin" width="60">
           </div>
 
 
