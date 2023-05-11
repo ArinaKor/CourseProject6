@@ -78,6 +78,8 @@ public class AuthorizationController {
         if(count==0){
             userService.save(user);
             if(user.getRole().equals(role)){
+                user.setSurname("Surname");
+                user.setName("Name");
                 student.setId_user(user);
                 student.setCourses("0,");
                 studentService.save(student);

@@ -312,8 +312,16 @@
                             <img th:src="@{'data:image/jpeg;base64,' + ${encodedImage}}" alt="Admin" class="rounded-circle  p-1 bg-primary" width="150">
 
                             <div class="mt-3">
-                                <h6 th:text="'I\'m a '+${student.id_user.role.roleName}"/>
-                                <h4 th:text="${student.id_user.surname}+' '+${student.id_user.name}"></h4>
+                                <div>
+                                <div th:if="${student.id_user.surname}!='Surname'">
+                                    <div th:if="${student.id_user.name}!='Name'">
+                                        <h6 th:text="'I\'m a '+${student.id_user.role.roleName}"/>
+                                        <h4 th:text="${student.id_user.surname}+' '+${student.id_user.name}"></h4>
+                                    </div>
+
+                                </div>
+
+                                </div>
 <!--
                                 <p class="text-secondary mb-1" th:text="${student.id_group.course.id_skills.name_skills}+' Developer'"></p>
 -->
@@ -424,7 +432,7 @@
                             <div class="card-body">
                                 <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>All Courses</h6>
                                 <div th:each="lst: ${last}">
-                                <small th:text="${lst.course.id_skills.name_skills}"></small>
+                                <small th:text="${lst.course.id_language.name_language}+' '+${lst.course.id_skills.name_skills}"></small>
                                     <!--<div class="progress mb-3" style="height: 5px">
                                         <div class="progress-bar bg-primary" role="progressbar" id="width" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>-->

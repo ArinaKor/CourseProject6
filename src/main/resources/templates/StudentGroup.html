@@ -42,6 +42,98 @@
         a.navbar-brand {
             color: #454545
         }
+        .decor {
+            position: relative;
+            max-width: 500px;
+            margin: 50px auto 0;
+            background: white;
+            border-radius: 30px;
+        }
+        .form-left-decoration, .form-right-decoration {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 20px;
+            background: #50b1f3;
+            border-radius: 20px;
+        }
+        .form-left-decoration {
+            bottom: 60px;
+            left: -30px;
+        }
+        .form-right-decoration {
+            top: 60px;
+            right: -30px;
+        }
+        .form-left-decoration:before, .form-left-decoration:after, .form-right-decoration:before, .form-right-decoration:after {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 20px;
+            border-radius: 30px;
+            background: white;
+        }
+        .form-left-decoration:before {
+            top: -20px;
+        }
+        .form-left-decoration:after {
+            top: 20px;
+            left: 10px;
+        }
+        .form-right-decoration:before {
+            top: -20px;
+            right: 0;
+        }
+        .form-right-decoration:after {
+            top: 20px;
+            right: 10px;
+        }
+        .circle {
+            position: absolute;
+            bottom: 80px;
+            left: -55px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+        }
+        .form-inner {
+            padding: 50px;
+        }
+        .form-inner input, .form-inner textarea {
+            display: block;
+            width: 100%;
+            padding: 0 20px;
+            margin-bottom: 10px;
+            background: #E9EFF6;
+            line-height: 40px;
+            border-width: 0;
+            border-radius: 20px;
+            font-family: 'Roboto', sans-serif;
+        }
+        .form-inner input[type="submit"] {
+            margin-top: 30px;
+            background: #54ace8;
+            border-bottom: 4px solid #50b1f3;
+            color: white;
+            font-size: 14px;
+            width: 50%;
+            margin-left: 25%;
+        }
+        .form-inner h3 {
+            margin-top: 0;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 24px;
+            color: #707981;
+        }
+        .input1{
+            display: flex;
+            flex-direction: row;
+        }
+        input{
+            margin-left: 1%;
+        }
 
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -56,15 +148,7 @@
 <body>
 <nav class="navbar navbar-expand-sm navbar-light" id="neubar">
     <div class="container">
-        <a class="navbar-brand" href="static/index.html"><img src="" height="60" /></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            <h4>Hello Student,</h4>
-            <!--<p th:text="${student.id_student}"/>-->
-            <p th:text="${student.id_user.surname}"/>
-        </button>
-
-        <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+                <div class=" collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto ">
                 <li class="nav-item">
                     <a class="nav-link mx-2 active" aria-current="page" th:href="@{/student/{id}(id=${student.id_student})}">Home</a>
@@ -91,16 +175,26 @@
             <div class="circle"></div>
             <div class="main-form">
                 <div class="form-inner">
-                    <h3>INFORMATION STUDENT</h3>
+                    <h3>INFORMATION ABOUT GROUP</h3>
                     <div class="input1">
-                        <div>
-                            <label for="gr" style="margin-left: 5%">Balance</label>
-                            <input type="text" name="id_group" th:value="${student.id_group.date_start}" id="gr" placeholder="Now Role" disabled />
-                        </div>
-                        <div>
-                            <label for="course" style="margin-left: 5%">Name</label>
-                            <input type="text" th:value="${student.id_group.course.course_name}" id="course" name="rating" placeholder="Password" disabled>
-                        </div>
+                        <!--<input type="text" name="level"  placeholder="level">-->
+                        <input type="date" name="dateStart" disabled  th:value="${student.id_group.date_start}"  placeholder="Date of Start"/>
+                        <input type="text" name="teacher" placeholder="Teacher" th:value="${student.id_group.teacher.id_user.surname}+' '+${student.id_group.teacher.id_user.name}" disabled autocomplete="off" required/>
+
+                    </div>
+                    <div class="input1">
+                        <!--<input name="course" type="text"  placeholder="Course">-->
+                        <input  type="text" name="course" placeholder="Course" th:value="${student.id_group.course.course_name}+' '+ ${student.id_group.course.id_skills.name_skills}+' '+${student.id_group.course.id_language.name_language}" disabled autocomplete="off"/>
+
+
+                        <!--<input type="text" name="level"  placeholder="level">-->
+                        <!--<input type="teacher" type="text" name="dateStart" value="2023-05-01" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"  placeholder="Date of Start"/>-->
+                    </div>
+                    <div class="input1">
+                        <input type="text" name="groupTime"  placeholder="GroupTime"  th:value="${student.id_group.group_time}" disabled/>
+
+                        <input name="timetable" type="text"  placeholder="TimeTable" autocomplete="off" th:value="${student.id_group.timetable.dayOfWeek}+' '+${student.id_group.timetable.time}" disabled/>
+
                     </div>
 
                             <div class="input1">
@@ -124,40 +218,6 @@
         </form>
     </div>
 </div>
-<h1>Last Groups</h1>
-<div th:each="ac : ${list}" class="ticket">
-    <!--<form th:action="'/admin/groups/'+${ac.id_group}+'/delete'" method="post">
-        <button type="submit" class="shine-button">Delete</button>
-    </form>-->
-    <p th:text="${ac.id_group}" class="ID"/>
-    <p th:text="${ac.count_student_all}" class="ID"/>
-    <p th:text="${ac.group_time}" class="ID"/>
-    <p th:text="${ac.recorded_count}" class="ID"/>
-    <p th:text="${ac.date_start}" class="ID"/>
-    <p th:text="${ac.teacher.id_user.surname}"/>
-    <p th:text="${ac.course.course_name}"/>
-
-</div>
-
-<!--
-<div id="myModal" class="modal">
-    <div class="modal-content">
-        <p>Перед завершением курса, оцените преподавателю<span th:text="${student.id_group.teacher.id_user.surname}"></span></p>
-        <input name="rating" placeholder="Rating" list="lang" disabled/>
-        <datalist id="lang">
-            <option value="1" />
-            <option value="2" />
-            <option value="3" />
-            <option value="4" />
-            <option value="5" />
-        </datalist>
-        <p>Вы уверены, что хотите отправить данные?</p>
-        <button id="confirmBtn">Да</button>
-        <button id="cancelBtn">Отмена</button>
-    </div>
-</div>-->
-
-
 
 </body>
 

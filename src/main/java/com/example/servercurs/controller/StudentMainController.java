@@ -336,8 +336,10 @@ public class StudentMainController {
         }
         List<String> encodedImage = new ArrayList<>();
         List<Language> list1 = languageService.findAllLanguages();
-        for (Group lg:list) {
-            for(Language lng: list1) {
+        for (Group lg:groupList) {
+            String image = Base64.getEncoder().encodeToString(lg.getCourse().getId_language().getLogo());
+            encodedImage.add(image);
+            /*for(Language lng: list1) {
                 String image = null;
                 if (lg.getCourse().getId_language().getId_language()==lng.getId_language()) {
                     image = Base64.getEncoder().encodeToString(lng.getLogo());
@@ -346,7 +348,8 @@ public class StudentMainController {
                 else {//encodedImage.put(lg.getName_language(), image);
                     continue;
                 }
-            }
+            }*/
+
         }
         // byte[] imageBytes = language.getLogo();
 

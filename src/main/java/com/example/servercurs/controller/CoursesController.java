@@ -219,6 +219,6 @@ public class CoursesController {
         System.out.println(k);
         model.addAttribute("k", f);
 
-        return "FindGroupsStudent";
+        return "QuizCourseRes";
     }
 }

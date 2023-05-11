@@ -17,15 +17,17 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      min-height: 90vh;
 
-      background-color: #c7dfff;
+
+
+
+    }
+    body{
       background-image: url("https://funart.pro/uploads/posts/2022-08/thumbs/1659952773_11-funart-pro-p-fon-dlya-veb-stranitsi-krasivo-11.png");
       background-size: 101%;
       background-repeat: no-repeat;
 
-
-      padding: 30px 10px;
     }
 
     .card {
@@ -47,7 +49,7 @@
 
     .btn.btn-primary {
       width: 100%;
-      height: 70px;
+      height: 50px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -98,6 +100,34 @@
       font-size: 14px;
       font-weight: 600;
     }
+    .btn.shine-button {
+      width: 150px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px;
+      background-image: linear-gradient(to right, #77A1D3 0%, #79CBCA 51%, #77A1D3 100%);
+      border: none;
+      transition: 0.5s;
+      background-size: 200% auto;
+      color: #fff;
+
+    }
+
+
+    .btn.btn.shine-button:hover {
+      background-position: right center;
+      color: #fff;
+      text-decoration: none;
+    }
+
+
+
+    .btn.shine-button:hover .fas.fa-arrow-right {
+      transform: translate(15px);
+      transition: transform 0.2s ease-in;
+    }
     #neubar {
       background: #c9e9ff;
       box-shadow: 4px 6px 12px rgba(0,0,0,0.4)
@@ -126,6 +156,23 @@
     a.navbar-brand {
       color: #454545
     }
+    .container .p-0{
+      position: fixed;
+    }
+    .codeWord{
+      width: 310px;
+      height: 190px;
+      /*
+      border: 4px solid black;
+      */
+      position: absolute;
+      background-color: white;
+      border-radius: 0.25rem;
+    }
+    .cnt{
+      margin-left: 25%;
+    }
+
   </style>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -147,64 +194,73 @@
   </div>
 </nav>
 <div class="body">
-<form  th:action="@{/sendCode/mail/{id}(id=${student.id_student})}" method="post">
-<div class="container p-0">
-  <div class="card px-4">
-    <p class="h8 py-3">Payment Details</p>
-    <div class="row gx-3">
-      <div class="col-12">
-        <div class="d-flex flex-column">
-          <p class="text mb-1">Person Name</p>
-          <input class="form-control mb-3" type="text" placeholder="Name" th:value="${student.id_user.surname}+' '+${student.id_user.name}">
+  <div th:unless="${showCodeInput}">
+    <form  th:action="@{/sendCode/mail/{id}(id=${student.id_student})}" method="post" >
+      <div class="container p-0">
+        <div class="card px-4">
+          <p class="h8 py-3">Payment Details</p>
+          <div class="row gx-3">
+            <div class="col-12">
+              <div class="d-flex flex-column">
+                <p class="text mb-1">Person Name</p>
+                <input class="form-control mb-3" type="text" placeholder="Name" th:value="${student.id_user.surname}+' '+${student.id_user.name}">
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="d-flex flex-column">
+                <p class="text mb-1">Card Number</p>
+                <input class="form-control mb-3" type="text"  value="1234 5678 4356 7889"><!--pattern="[0-9]{16}"-->
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-flex flex-column">
+                <p class="text mb-1">Expiry</p>
+                <input class="form-control mb-3" type="text" placeholder="MM/YYYY">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-flex flex-column">
+                <p class="text mb-1">CVV/CVC</p>
+                <input class="form-control mb-3 pt-2 " pattern="[0-9]{3}" type="password" placeholder="***">
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="d-flex flex-column">
+                <p class="text mb-1">Count of money</p>
+                <input class="form-control mb-3 pt-2 " required name="money"  type="text" placeholder="Enter Count of money">
+              </div>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary" id="modalBtn" style="margin-bottom: 4%">Отправить</button>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-12">
-        <div class="d-flex flex-column">
-          <p class="text mb-1">Card Number</p>
-          <input class="form-control mb-3" type="text" pattern="[0-9]{16}" placeholder="1234 5678 4356 7889">
-        </div>
-      </div>
-      <div class="col-6">
-        <div class="d-flex flex-column">
-          <p class="text mb-1">Expiry</p>
-          <input class="form-control mb-3" type="text" placeholder="MM/YYYY">
-        </div>
-      </div>
-      <div class="col-6">
-        <div class="d-flex flex-column">
-          <p class="text mb-1">CVV/CVC</p>
-          <input class="form-control mb-3 pt-2 " pattern="[0-9]{3}" type="password" placeholder="***">
-        </div>
-      </div>
-      <div class="col-12">
-        <div class="d-flex flex-column">
-          <p class="text mb-1">Count of money</p>
-          <input class="form-control mb-3 pt-2 " required name="money"  type="text" placeholder="Enter Count of money">
-        </div>
-      </div>
-      <div class="col-12">
-          <button type="submit" class="btn btn-primary" id="modalBtn" >Отправить</button>
-      </div>
-    </div>
+    </form>
+
   </div>
-</div>
-</form>
-<div th:if="${showCodeInput}">
-<div>
-   <form method="post" th:action="@{/sendMail/checkCode/{id}(id=${student.id_student})}">
-     <div class="cnt">
-       <input type="hidden" required th:value="${student.id_student}" id="codeInput" />
-    <input type="hidden" th:value="${code}" name="code">
-    <input type="hidden" th:value="${money}" required name="money"/>
-    <input type="text" name="codeMail">
-    <button type="submit" class="btn btn-primary">Отправить</button>
-     </div>
 
-   </form>
+
+<div th:if="${showCodeInput}" class="codeWord" id="showCode" style="position: absolute;" >
+
+      <div >
+        <h3 style="margin-top: 4%; margin-left: 25%">Enter Code</h3>
+         <form method="post" th:action="@{/sendMail/checkCode/{id}(id=${student.id_student})}">
+           <div class="cnt">
+             <input type="hidden" required th:value="${student.id_student}" id="codeInput" />
+            <input type="hidden" th:value="${code}" name="code">
+            <input type="hidden" th:value="${money}" required name="money"/>
+            <input type="text" class="form-control mb-3 pt-2 " name="codeMail" style="width: 150px; margin-bottom: 5%">
+            <button type="submit" class="btn shine-button">Отправить</button></div>
+         </form>
+      </div>
+
 
 </div>
-</div>
-</div>
+  </div>
+
 </body>
+<script>
 
+</script>
 </html>
