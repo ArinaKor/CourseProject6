@@ -218,6 +218,16 @@ public class CoursesController {
         }
         System.out.println(k);
         model.addAttribute("k", f);
+        List<String> encodedImage = new ArrayList<>();
+        List<Language> list1 = languageService.findAllLanguages();
+        for (Group lg:listCourse) {
+            String image = Base64.getEncoder().encodeToString(lg.getCourse().getId_language().getLogo());
+            encodedImage.add(image);
+        }
+        model.addAttribute("encodedImage", encodedImage);
+/*
+        attributes.addFlashAttribute("encodedImage", encodedImage);
+*/
 
         return "QuizCourseRes";
     }

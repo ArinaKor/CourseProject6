@@ -104,7 +104,7 @@
     align-items: center;
     text-align: center;
     font-size: 2.5rem;
-    min-height: 100vh;
+    min-height: 80vh;
   }
   .final-score {
     color: #00000099;
@@ -158,6 +158,44 @@
     background-size: 101%;
     background-repeat: no-repeat;
   }
+  .shine-button {
+    /* text-decoration: none; */
+    /* display: inline-block; */
+    padding: 5px 20px;
+    /* margin: 10px 20px; */
+    /* position: relative; */
+    /* overflow: hidden; */
+    border: 2px solid #009dda;
+    border-radius: 8px;
+    color: #009dda;
+    transition: .2s ease-in-out;
+    font-size: xx-large;
+    width: 250px;
+    height: 100px;
+  }
+  .shine-button:before {
+    content: "";
+    /*
+    background: linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
+    */
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: -8px;
+    left: -75px;
+    transform: skewX(-45deg);
+  }
+  .shine-button:hover {
+    background: #009dda;
+    color: #c9e9ff;
+  }
+  .shine-button:hover:before {
+    left: 150px;
+    transition: .5s ease-in-out;
+  }
+
+
+
 
 
 </style>
@@ -214,8 +252,8 @@
 <div class="result">
 
   <form method="post" th:action="@{/quiz/res/{id}(id=${student.id_student})}">
-    <input type="text" id="score" name="totalScore"/>
-    <input type="submit" value="Check">
+    <input type="hidden" id="score" name="totalScore"/>
+    <input type="submit" class="shine-button" value="Check">
   </form>
   <!--<p th:text="${work}"/>
   <div th:each="ac : ${list}" class="ticket">

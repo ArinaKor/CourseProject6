@@ -189,7 +189,7 @@ public class UsersController {
         List<Student> studentList = studentService.findAllStudents();
         Teacher teacher = new Teacher();
         Student student = new Student();
-        if(user.getMail().equals(mail)){
+        if(!user.getMail().equals(mail)){
 
             user.setSurname(surname);
         user.setName(name);

@@ -7,12 +7,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 public class ServerCursApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(ServerCursApplication.class, args);
     }
-
-
-
 
 }

@@ -218,10 +218,11 @@ public class StudentMainController {
         String finalHtml = null;
         //List<Student> employeeList = studentService.findAllStudents();
         //dataContext = dataMapper.setData(student);
-        Context dataContext = dataMapper.setData(studentService.findById(id));
+        Context dataContext = dataMapper.setData(student);
 
         finalHtml = springTemplateEngine.process("Cert",dataContext);
         documentGenerator.htmlToPdf(finalHtml);
+
 
         //pdfController.generatePdf(response, springTemplateEngine, dataContext);
 
@@ -339,23 +340,7 @@ public class StudentMainController {
         for (Group lg:groupList) {
             String image = Base64.getEncoder().encodeToString(lg.getCourse().getId_language().getLogo());
             encodedImage.add(image);
-            /*for(Language lng: list1) {
-                String image = null;
-                if (lg.getCourse().getId_language().getId_language()==lng.getId_language()) {
-                    image = Base64.getEncoder().encodeToString(lng.getLogo());
-                    encodedImage.add(image);
-                }
-                else {//encodedImage.put(lg.getName_language(), image);
-                    continue;
-                }
-            }*/
-
         }
-        // byte[] imageBytes = language.getLogo();
-
-        // Кодирование изображения в base64
-        //encodedImage = Base64.getEncoder().encodeToString(imageBytes);
-
         model.addAttribute("encodedImage", encodedImage);
         attributes.addFlashAttribute("encodedImage", encodedImage);
 
@@ -379,7 +364,8 @@ public class StudentMainController {
         } else if (contact.equals("2")) {
             lst = groupRepository.findByGroup_time(groupTime);
 
-        }else if(contact.equals("4")){
+        }
+        /*else if(contact.equals("4")){
             List<Course> allCourses = courseRepository.findBySkills(selected);
             lst = groupRepository.findByCourse(allCourses);
 
@@ -387,7 +373,7 @@ public class StudentMainController {
             List<Course> allCourses = courseRepository.findByLang(finding);
             lst = groupRepository.findByCourse(allCourses);
 
-        }
+        }*/
         if(lst.isEmpty()){
             String notFound = "We can not found this!!!";
 
@@ -404,10 +390,24 @@ public class StudentMainController {
                     teacher.setId_user(user);
                     gr.setTeacher(teacher);
                 }
-
-
             }
             model.addAttribute("list", lst);
+            List<String> encodedImage = new ArrayList<>();
+            List<Language> list1 = languageService.findAllLanguages();
+            for (Group lg:lst) {
+                String image = Base64.getEncoder().encodeToString(lg.getCourse().getId_language().getLogo());
+                encodedImage.add(image);
+            }
+            model.addAttribute("encodedImage", encodedImage);
+            attributes.addFlashAttribute("encodedImage", encodedImage);
+            int k=0;
+            if(student.getId_group()==null){
+                k=0;
+            }
+            else if(!(student.getId_group()==null)){
+                k++;
+            }
+            model.addAttribute("k", k);
             return "FindGroupsStudent";
         }
 

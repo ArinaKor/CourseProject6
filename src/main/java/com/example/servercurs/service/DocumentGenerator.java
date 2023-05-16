@@ -26,27 +26,23 @@ public class DocumentGenerator {
             PdfWriter pdfwriter = new PdfWriter(byteArrayOutputStream);
 
 
-            DefaultFontProvider defaultFont = new DefaultFontProvider(true, true, true);
+            DefaultFontProvider defaultFont = new DefaultFontProvider(false, true, false);
 
             ConverterProperties converterProperties = new ConverterProperties();
-        //converterProperties.setBaseUri("serverCurs/main");
-
             converterProperties.setFontProvider(defaultFont);
-
-
-
             HtmlConverter.convertToPdf(processedHtml, pdfwriter, converterProperties);
+        /*PdfDocument pdfDoc = new PdfDocument(pdfwriter);
+        pdfDoc.setDefaultPageSize(PageSize.A4.rotate());*/
 
             FileOutputStream fout = new FileOutputStream("employee3.pdf");
+
 
             byteArrayOutputStream.writeTo(fout);
             byteArrayOutputStream.close();
 
             byteArrayOutputStream.flush();
             fout.close();
-            /*PdfDocument pdfDoc = new PdfDocument(new PdfReader(new ByteArrayInputStream(byteArrayOutputStream.toByteArray())), pdfwriter);
-            pdfDoc.setDefaultPageSize(PageSize.A4.rotate());
-            pdfDoc.close();*/
+
 
             return null;
 

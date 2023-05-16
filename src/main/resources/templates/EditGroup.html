@@ -179,9 +179,9 @@
     <div class="form-inner">
         <h3>EDIT GROUP</h3>
         <div class="input1">
-            <input type="number"  name="count_all"  placeholder="All Count of Student">
+            <input type="number"  name="count_all" th:value="${group.count_student_all}"  placeholder="All Count of Student">
             <!--<input type="text" name="level"  placeholder="level">-->
-            <input type="date" name="dateStart" value="2023-05-01" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"  placeholder="Date of Start"/>
+            <input type="date" name="dateStart" th:value="${group.date_start}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"  placeholder="Date of Start"/>
         </div>
         <div class="input1">
             <!--<input name="course" type="text"  placeholder="Course">-->
@@ -191,7 +191,7 @@
                     <option th:value="${course.course_name}+'/'+ ${course.id_skills.name_skills}+'/'+${course.id_language.name_language}"/>
                 </div>
             </datalist>
-            <input name="teacher" placeholder="Teacher" list="teach" autocomplete="off" required/>
+            <input name="teacher" placeholder="Teacher"  list="teach" autocomplete="off" required/>
             <datalist id="teach">
                 <div th:each="teacher : ${teachers}">
                     <option th:value="${teacher.id_teacher}+'-'+ ${teacher.id_user.surname}"/>
@@ -207,7 +207,7 @@
                 <option value="Вечернее"/>
                 <option value="Дневное"/>
             </datalist>
-            <input name="timetable" placeholder="TimeTable" list="lang"autocomplete="off" />
+            <input name="timetable" th:value="${group.timetable.dayOfWeek}+':'+ ${group.timetable.time}" placeholder="TimeTable" list="lang"autocomplete="off" />
             <datalist id="lang">
                 <div th:each="timeTable : ${timeTable}">
                     <option th:value="${timeTable.dayOfWeek}+':'+ ${timeTable.time}"/>

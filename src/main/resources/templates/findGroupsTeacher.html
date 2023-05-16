@@ -81,6 +81,8 @@
             height: 100%;
             background: linear-gradient(135deg, #ee8ebc, #eea08e);
             transition: 0.2s ease box-shadow, 0.2s ease transform;
+            color: #0C4160;
+
         }
         .timetable .accent-pink-gradient:hover {
             box-shadow: 0 20px 30px 0 rgba(238, 142, 188, 0.3);
@@ -92,6 +94,8 @@
             height: 100%;
             background: linear-gradient(135deg, #eec08e, #dcee8e);
             transition: 0.2s ease box-shadow, 0.2s ease transform;
+            color: #0C4160;
+
         }
         .timetable .accent-orange-gradient:hover {
             box-shadow: 0 20px 30px 0 rgba(238, 192, 142, 0.3);
@@ -103,6 +107,8 @@
             height: 100%;
             background: linear-gradient(135deg, #bcee8e, #8eeea0);
             transition: 0.2s ease box-shadow, 0.2s ease transform;
+            color: #0C4160;
+
         }
         .timetable .accent-green-gradient:hover {
             box-shadow: 0 20px 30px 0 rgba(188, 238, 142, 0.3);
@@ -114,6 +120,8 @@
             height: 100%;
             background: linear-gradient(135deg, #8eeec0, #8edcee);
             transition: 0.2s ease box-shadow, 0.2s ease transform;
+            color: #0C4160;
+
         }
         .timetable .accent-cyan-gradient:hover {
             box-shadow: 0 20px 30px 0 rgba(142, 238, 192, 0.3);
@@ -139,6 +147,8 @@
             height: 100%;
             background: linear-gradient(135deg, #c08eee, #ee8edc);
             transition: 0.2s ease box-shadow, 0.2s ease transform;
+            color: #0C4160;
+
         }
         .timetable .accent-purple-gradient:hover {
             box-shadow: 0 20px 30px 0 rgba(192, 142, 238, 0.3);
@@ -292,7 +302,7 @@
                 <div th:if="${ac.timetable.time=='08:00-10:00'}">
                     <div th:if="${ac.timetable.dayOfWeek=='Wednesday'}">
                         <!--<div>-->
-                        <div class="accent-purple-gradient" >
+                        <div class="accent-blue-gradient" >
                             <div class="div">
                                 <p th:text="${ac.id_group}" class="p"/>
                                 <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
@@ -309,7 +319,7 @@
                 <div th:if="${ac.timetable.time=='08:00-10:00'}">
                     <div th:if="${ac.timetable.dayOfWeek=='Thursday'}">
                         <!--<div>-->
-                        <div class="accent-green-gradient" >
+                        <div class="accent-blue-gradient" >
                             <div class="div">
                                 <p th:text="${ac.id_group}" class="p"/>
                                 <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
@@ -346,7 +356,7 @@
                 <div th:if="${ac.timetable.time=='10:00-12:00'}">
                     <div th:if="${ac.timetable.dayOfWeek=='Monday'}">
                         <!--<div>-->
-                        <div class="accent-pink-gradient" >
+                        <div class="accent-blue-gradient" >
                             <div class="div">
                                 <p th:text="${ac.id_group}" class="p"/>
                                 <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
@@ -364,7 +374,7 @@
                 <div th:if="${ac.timetable.time=='10:00-12:00'}">
                     <div th:if="${ac.timetable.dayOfWeek=='Tuesday'}">
                         <!--<div>-->
-                        <div class="accent-cyan-gradient" >
+                        <div class="accent-blue-gradient" >
                             <div class="div">
                                 <p th:text="${ac.id_group}" class="p"/>
                                 <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
@@ -381,7 +391,7 @@
                 <div th:if="${ac.timetable.time=='10:00-12:00'}">
                     <div th:if="${ac.timetable.dayOfWeek=='Wednesday'}">
                         <!--<div>-->
-                        <div class="accent-orange-gradient" >
+                        <div class="accent-blue-gradient" >
                             <div class="div">
                                 <p th:text="${ac.id_group}" class="p"/>
                                 <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
@@ -398,7 +408,7 @@
                 <div th:if="${ac.timetable.time=='10:00-12:00'}">
                     <div th:if="${ac.timetable.dayOfWeek=='Thursday'}">
                         <!--<div>-->
-                        <div class="accent-purple-gradient" >
+                        <div class="accent-blue-gradient" >
                             <div class="div">
                                 <p th:text="${ac.id_group}" class="p"/>
                                 <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
@@ -415,7 +425,7 @@
                 <div th:if="${ac.timetable.time=='10:00-12:00'}">
                     <div th:if="${ac.timetable.dayOfWeek=='Friday'}">
                         <!--<div>-->
-                        <div class="accent-cyan-gradient" >
+                        <div class="accent-blue-gradient" >
                             <div class="div">
                                 <p th:text="${ac.id_group}" class="p"/>
                                 <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
@@ -452,7 +462,7 @@
                 <div th:if="${ac.timetable.time=='12:00-14:00'}">
                     <div th:if="${ac.timetable.dayOfWeek=='Tuesday'}">
                         <!--<div>-->
-                        <div class="accent-green-gradient" >
+                        <div class="accent-blue-gradient" >
                             <div class="div">
                                 <p th:text="${ac.id_group}" class="p"/>
                                 <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
@@ -469,7 +479,7 @@
                 <div th:if="${ac.timetable.time=='12:00-14:00'}">
                     <div th:if="${ac.timetable.dayOfWeek=='Wednesday'}">
                         <!--<div>-->
-                        <div class="accent-pink-gradient" >
+                        <div class="accent-blue-gradient" >
                             <div class="div">
                                 <p th:text="${ac.id_group}" class="p"/>
                                 <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
@@ -503,7 +513,7 @@
                 <div th:if="${ac.timetable.time=='12:00-14:00'}">
                     <div th:if="${ac.timetable.dayOfWeek=='Friday'}">
                         <!--<div>-->
-                        <div class="accent-green-gradient" >
+                        <div class="accent-blue-gradient" >
                             <div class="div">
                                 <p th:text="${ac.id_group}" class="p"/>
                                 <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
@@ -522,7 +532,7 @@
                 <div th:if="${ac.timetable.time=='14:00-16:00'}">
                     <div th:if="${ac.timetable.dayOfWeek=='Monday'}">
                         <!--<div>-->
-                        <div class="accent-pink-gradient" >
+                        <div class="accent-blue-gradient" >
                             <div class="div">
                                 <p th:text="${ac.id_group}" class="p"/>
                                 <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
@@ -574,7 +584,7 @@
                 <div th:if="${ac.timetable.time=='14:00-16:00'}">
                     <div th:if="${ac.timetable.dayOfWeek=='Thursday'}">
                         <!--<div>-->
-                        <div class="accent-orange-gradient" >
+                        <div class="accent-blue-gradient" >
                             <div class="div">
                                 <p th:text="${ac.id_group}" class="p"/>
                                 <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>

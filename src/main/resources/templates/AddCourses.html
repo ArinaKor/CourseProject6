@@ -182,7 +182,7 @@
     <div class="input1">
       <input type="text" name="course_name"  placeholder="Course Name">
       <!--<input type="text" name="level"  placeholder="level">-->
-      <input name="level" list="level" />
+      <input name="level" list="level" placeholder="Value" autocomplete="off" />
       <datalist id="level">
         <option value="Professional" />
         <option value="Starter" />
@@ -191,16 +191,16 @@
       </datalist>
     </div>
     <div class="input1">
-      <input type="number" name="price" placeholder="Price">
-      <input type="number"  name="duration" placeholder="Dlitelnost'">    </div>
+      <input type="number" name="price" placeholder="Price"autocomplete="off">
+      <input type="number"  name="duration" placeholder="Dlitelnost'" autocomplete="off">    </div>
     <div class="input1">
-      <input name="skills" list="skills" />
+      <input name="skills" list="skills" placeholder="Skills" autocomplete="off"/>
       <datalist id="skills">
         <div th:each="ac : ${listSkills}">
         <option th:value="${ac.name_skills}" />
         </div>
       </datalist>
-      <input name="lang" list="lang" />
+      <input name="lang" list="lang" placeholder="Language" autocomplete="off"/>
       <datalist id="lang">
         <div th:each="ac : ${listLang}">
           <option th:value="${ac.name_language}" />
