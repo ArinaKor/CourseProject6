@@ -160,12 +160,6 @@
         <li class="nav-item">
           <a class="nav-link mx-2 active" aria-current="page" href="/admin/groups">Groups</a>
         </li>
-        <!--<li class="nav-item">
-            <a class="nav-link mx-2" href="#">Ticket</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link mx-2" th:href="'/plane/'+${plane.id_flight}+'/update'">Edit Ticket</a>
-        </li>-->
 
 
       </ul>
@@ -185,7 +179,6 @@
       <input type="date" name="dateStart" value="2023-05-01" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"  placeholder="Date of Start"/>
     </div>
     <div class="input1">
-      <!--<input name="course" type="text"  placeholder="Course">-->
       <input name="course" placeholder="Course" list="course" autocomplete="off"/>
       <datalist id="course">
         <div th:each="course : ${courses}">
@@ -198,9 +191,7 @@
           <option th:value="${teacher.id_teacher}+'-'+ ${teacher.id_user.surname}"/>
         </div>
       </datalist>
-      <!--<input type="text" name="level"  placeholder="level">-->
-      <!--<input type="teacher" type="text" name="dateStart" value="2023-05-01" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"  placeholder="Date of Start"/>-->
-    </div>
+        </div>
     <div class="input1">
             <input name="groupTime" placeholder="GroupTime" list="time" />
           <datalist id="time">

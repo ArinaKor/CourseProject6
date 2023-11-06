@@ -1,16 +1,13 @@
 package com.example.servercurs.controller;
 
-import com.example.servercurs.entities.Student;
-import com.example.servercurs.entities.Teacher;
 import com.example.servercurs.entities.User;
 import com.example.servercurs.repository.UserRepository;
 import com.example.servercurs.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,25 +18,23 @@ import java.util.Base64;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class AdminController {
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private UserService userService;
+    private final UserRepository userRepository;
+    private final UserService userService;
 
     @GetMapping("/admin/personal/edit")
     public String edit(Model model){
         User user = userRepository.findByRole("admin");
         model.addAttribute("user", user);
         byte[] imageBytes = user.getPhoto();
-
         // Кодирование изображения в base64
         String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
         model.addAttribute("encodedImage", encodedImage);
-       // attributes.addFlashAttribute("encodedImage", encodedImage);
         return "AdminEditPersonal";
     }
+
     @PostMapping("/admin/personal/edit")
     public String editAdmin(@RequestParam("surname") String surname, @RequestParam("name") String name,
                             @RequestParam("mail") String mail, @RequestParam("photo") MultipartFile photo, RedirectAttributes attributes, Model model) throws
@@ -49,9 +44,7 @@ public class AdminController {
         List<User> userList = userService.findAllUser();
         String encodedImage = null;
         if (photo.isEmpty()) {
-                //user.setPhoto(convertToByte.convertImageToByteArray("D:\\unik\\sem6\\курсовой\\photo\\2.png"));
             byte[] imageBytes = user.getPhoto();
-
             // Кодирование изображения в base64
             encodedImage = Base64.getEncoder().encodeToString(imageBytes);
             user.setPhoto(imageBytes);
@@ -63,13 +56,9 @@ public class AdminController {
             user.setPhoto(photo.getBytes());
         }
         if (user.getMail().equals(mail)) {
-            //user.setMail(mail);
             user.setSurname(surname);
             user.setName(name);
-            // user.setPhoto(photo.getBytes());
             userService.save(user);
-
-
         }else {
             user.setMail(mail);
             user.setSurname(surname);
@@ -82,8 +71,6 @@ public class AdminController {
             }
             if (count == 0) {
                 userService.save(user);
-                /*student.setId_user(user);
-                studentService.save(student);*/
             } else {
                 String error = "We have user with this mail.Enter another mail please!";
                 attributes.addFlashAttribute("error", error);
@@ -95,7 +82,6 @@ public class AdminController {
     }
     @GetMapping("/admin/change/password")
     public String change( Model model, RedirectAttributes attributes){
-
         User user = userRepository.findByRole("admin");
         model.addAttribute("user", user);
         return "ChangeAdminPass";
@@ -108,20 +94,16 @@ public class AdminController {
             String err = "Вы ввели тот же пароль что и прошлый!";
             attributes.addFlashAttribute("err", err);
             model.addAttribute("err", err);
-            //attributes.addFlashAttribute("student", student);
             model.addAttribute("user", user);
             attributes.addFlashAttribute("user", user);
             return "redirect:/admin/change/password";
         }
         else if (!BCrypt.checkpw(lastPass, user.getPassword())){
             String err = "Это не ваш старый пароль!";
-            // attributes.addFlashAttribute("err", err);
             attributes.addFlashAttribute("err", err);
             model.addAttribute("err", err);
-            //attributes.addFlashAttribute("student", student);
             model.addAttribute("user", user);
             attributes.addFlashAttribute("user", user);
-
             return "redirect:/admin/change/password";
         }else{
             String salt = BCrypt.gensalt();

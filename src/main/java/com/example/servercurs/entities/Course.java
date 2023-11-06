@@ -30,7 +30,7 @@ public class Course {
 
     @Column(name="duration")
     private int duration;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="id_skills", nullable = false)
     @JsonIgnore
     private Skills id_skills;

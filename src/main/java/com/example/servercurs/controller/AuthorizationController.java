@@ -1,12 +1,19 @@
 package com.example.servercurs.controller;
 
 import com.example.servercurs.Config.ConvertToByte;
-import com.example.servercurs.entities.*;
-import com.example.servercurs.repository.*;
-import com.example.servercurs.service.*;
+
+import com.example.servercurs.entities.Role;
+import com.example.servercurs.entities.Student;
+import com.example.servercurs.entities.Teacher;
+import com.example.servercurs.entities.User;
+import com.example.servercurs.repository.StudentRepository;
+import com.example.servercurs.repository.TeacherRepository;
+import com.example.servercurs.service.RoleService;
+import com.example.servercurs.service.StudentService;
+import com.example.servercurs.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,46 +25,33 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class AuthorizationController {
 
+    private final UserService userService;
+    private final RoleService roleService;
+    private final StudentService studentService;
+    private final TeacherRepository teacherRepository;
+    private final StudentRepository studentRepository;
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private RoleService roleService;
-    @Autowired
-    private StudentService studentService;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private CourseService courseService;
-    @Autowired
-    private TeacherRepository teacherRepository;
-    @Autowired
-    private StudentRepository studentRepository;
     ConvertToByte convertToByte = new ConvertToByte();
 
     static int stud;
     @GetMapping("/")
     public String index(){
-
         return "authorization";
     }
 
     @GetMapping("/authorization")
     public String authorization(HttpServletResponse response){
-        /*
-        response.setHeader("Location", "/teacher");
-        //response.sendRedirect("/teacher");*/
         return "authorization";
     }
+
     @PostMapping("/authorization")
     public String registration(RedirectAttributes attributes,@RequestParam String email, @RequestParam String password, Model model) throws IOException {
         String salt = BCrypt.gensalt();
         String hashedPassword = BCrypt.hashpw(password, salt);
-        User user = new User();/*
-        Student student = new Student();
-        */
+        User user = new User();
         Role role = roleService.findById(3);
         user.setMail(email);
         user.setPassword(hashedPassword);
@@ -65,9 +59,6 @@ public class AuthorizationController {
         user.setPhoto(convertToByte.convertImageToByteArray("D:\\unik\\sem6\\курсовой\\photo\\2.png"));
         Student student = new Student();
         List<User> userList = userService.findAllUser();
-        //List<Group> group = groupRepository.findAll();
-      //  System.out.println(group);
-
         int count = 0;
         for (User user1:userList) {
             if(user1.getMail().equals(user.getMail())){
@@ -89,8 +80,6 @@ public class AuthorizationController {
                 stud = student.getId_student();
 
             }
-            /*student.get
-            studentService.save()*/
         }
         else{
             String error="We have user with this mail.Enter another mail please!";
@@ -108,8 +97,6 @@ public class AuthorizationController {
         User user = new User();
         List<Role> roleList = roleService.findAllRoles();
         int c = 0;
-        //String arina16 = BCrypt.hashpw("arina16", salt);
-        //System.out.println(arina16);
         for (User user1:list) {
             if(user1.getMail().equals(email2)&&BCrypt.checkpw(pass, user1.getPassword())){
                 user.setId_user(user1.getId_user());
@@ -124,26 +111,16 @@ public class AuthorizationController {
         if (c == 0) {
             String err = "We haven't got this user!May be you want registration?";
             attributes.addFlashAttribute("err", err);
-
             return "redirect:/authorization";
         }
         if(user.getRole().equals(roleList.get(0))){
-           // attributes.addFlashAttribute("user", user);
-
-
-
             return "redirect:/admin";
         }else if(user.getRole().equals(roleList.get(1))){
             Teacher teacher = teacherRepository.findTeacherById_user(user);
             teacher.setCheck("0");
             model.addAttribute("teacher", teacher);
             attributes.addFlashAttribute("teacher", teacher);
-/*
-
-            response.setHeader("Location", "/teacher");
-            //response.sendRedirect("/teacher");*/
             return "redirect:/teacher/"+teacher.getId_teacher();
-            /*return "redirect:/teacher";*/
         }else if(user.getRole().equals(roleList.get(2))){
             Student student = studentRepository.findStudentById_user(user);
             model.addAttribute("student", student);
@@ -151,12 +128,6 @@ public class AuthorizationController {
             stud = student.getId_student();
             return "redirect:/student/"+student.getId_student();
         }
-        /*else if(!(user.getRole().equals(roleList.get(0))||user.getRole().equals(roleList.get(1))||user.getRole().equals(roleList.get(2)))){
-
-            return "redirect:/authorization";
-        }*//*
-        String err = "We haven't got this user!May be you want registration?";
-        model.addAttribute("err", err);*/
         return "authorization";
     }
 

@@ -1,26 +1,23 @@
 package com.example.servercurs.service;
 
 import com.example.servercurs.entities.Course;
+import com.example.servercurs.entities.Language;
+import com.example.servercurs.entities.Skills;
 import com.example.servercurs.repository.CourseRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import com.example.servercurs.repository.LanguageRepository;
+import com.example.servercurs.repository.SkillsRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
+@RequiredArgsConstructor
 public class  CourseService {
+
     private final CourseRepository courseRepository;
-    private static final String BASE_PACKAGE = "com.example.servercurs";
-    public CourseService() {
-        ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(BASE_PACKAGE);
-        courseRepository = context.getBean(CourseRepository.class);
-    }
-    // ticketObserver = new TicketObserver();
-    @Autowired
-    public CourseService(CourseRepository courseRepository){
-        this.courseRepository = courseRepository;
-    }
+    private final LanguageRepository languageRepository;
+    private final SkillsRepository skillsRepository;
 
     public List<Course> findAllCourse(){
         return courseRepository.findAll();
@@ -34,4 +31,46 @@ public class  CourseService {
     public void delete(int id){
         courseRepository.deleteById(id);
     }
+    public List<Course> findWithAll(){
+        return courseRepository.findWithAll();
+    }
+    public List<Course> findCourseById_skills(Skills id){
+        return courseRepository.findCourseById_skills(id);
+    }
+    public Course findCourse(Skills id, Language idLang, String name){
+        return courseRepository.findCourse(id, idLang, name);
+    }
+    public List<Object[]> findGroupedCourses(){
+        return courseRepository.findGroupedCourses();
+    }
+    public List<Object[]> findGroupedCoursesLang(){
+        return courseRepository.findGroupedCoursesLang();
+    }
+    public void update(int idCourse, String courseName, String level,
+                       float price,  int duration, String skills, String lang){
+        Language language = languageRepository.findLanguageByName_language(lang);
+        Skills skills1 = skillsRepository.findSkillsByName_skills(skills);
+        Course course = courseRepository.findById(idCourse).get();
+        course.setCourse_name(courseName);
+        course.setLevel(level);
+        course.setDuration(duration);
+        course.setPrice(price);
+        course.setId_language(language);
+        course.setId_skills(skills1);
+        courseRepository.save(course);
+    }
+    public void addNewCourse(String courseName, String level,
+                             float price,  int duration, String skills, String lang){
+        Language language = languageRepository.findLanguageByName_language(lang);
+        Skills skills1 = skillsRepository.findSkillsByName_skills(skills);
+        Course course = new Course();
+        course.setCourse_name(courseName);
+        course.setLevel(level);
+        course.setDuration(duration);
+        course.setPrice(price);
+        course.setId_language(language);
+        course.setId_skills(skills1);
+        courseRepository.save(course);
+    }
+
 }

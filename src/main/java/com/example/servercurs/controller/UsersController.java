@@ -4,6 +4,7 @@ import com.example.servercurs.Config.ConvertToByte;
 import com.example.servercurs.entities.*;
 import com.example.servercurs.repository.*;
 import com.example.servercurs.service.*;
+import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,28 +19,18 @@ import java.io.IOException;
 import java.util.*;
 
 @Controller
+@RequiredArgsConstructor
 public class UsersController {
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private RoleService roleService;
-    @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
-    private TeacherService teacherService;
-    @Autowired
-    private StudentService studentService;
-    @Autowired
-    private TeacherRepository teacherRepository;
-    @Autowired
-    private StudentRepository studentRepository;
-    @Autowired
-    private EmailSenderService emailSenderService;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-            private CourseRepository courseRepository;
-   // private static final String API_KEY = "9d4a8d8c-7bb1-4267-891c-7f1c8bbd0509";
+
+    private final UserService userService;
+    private final RoleService roleService;
+    private final RoleRepository roleRepository;
+    private final TeacherService teacherService;
+    private final StudentService studentService;
+    private final TeacherRepository teacherRepository;
+    private final EmailSenderService emailSenderService;
+    private final UserRepository userRepository;
+    private final CourseService courseService;
 
     ConvertToByte convertToByte = new ConvertToByte();
     @GetMapping("/admin")
@@ -51,7 +42,7 @@ public class UsersController {
         // Кодирование изображения в base64
         String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
         model.addAttribute("encodedImage", encodedImage);
-        List<Object[]> courses = courseRepository.findGroupedCourses();
+        List<Object[]> courses = courseService.findGroupedCourses();
         Map<String, Long> groupedCourses = new HashMap<>();
         for (Object[] course : courses) {
             String direction = (String) course[0];
@@ -61,14 +52,14 @@ public class UsersController {
         System.out.println(groupedCourses);
         model.addAttribute("map", groupedCourses);
 
-
-        List<Course> courseList = courseRepository.findAll();
-        List<Object[]> langs = courseRepository.findGroupedCoursesLang();
+        List<Course> courseList = courseService.findAllCourse();
+        List<Object[]> langs = courseService.findGroupedCoursesLang();
         model.addAttribute("data", langs);
 
 
         return "AdminFirst";
     }
+
     @GetMapping("/admin/users")
     public String findUsers(Model model){
         List<User> users = userService.findAllUser();
@@ -81,11 +72,13 @@ public class UsersController {
         model.addAttribute("users", list);
         return "AdminUsers";
     }
+
     @PostMapping("/admin/users/{id_user}/delete")
     public String deleteUser(@PathVariable(name = "id_user") int id_user, Model model){
         userService.delete(id_user);
         return "redirect:/admin/users";
     }
+
     @GetMapping("/admin/users/{id_user}/edit")
     public String edit(@PathVariable(value = "id_user") int id_user, Model model){
         User user = userService.findById(id_user);
@@ -101,10 +94,6 @@ public class UsersController {
             }
 
         }
-        /*String message = "takoe yzse est'";
-        model.addAttribute("message", message);
-        List<User> userList = userService.findAllUser();
-        model.addAttribute("users", userList);*/
         model.addAttribute("role", lastRoles);
         return "EditUser";
     }
@@ -125,6 +114,7 @@ public class UsersController {
         model.addAttribute("role", lastRoles);
         return "AddUser";
     }
+
     @PostMapping("/admin/users/add")
     public String addUser( @RequestParam String surname, @RequestParam String name,
                          @RequestParam String roleName,@RequestParam String pass, @RequestParam String mail, Model model) throws IOException {
@@ -176,6 +166,7 @@ public class UsersController {
 
         return "redirect:/admin/users";
     }
+
     @PostMapping("/admin/users/{id_user}/edit")
     public String update(RedirectAttributes attributes, @PathVariable(value = "id_user") int id_user, @RequestParam String surname, @RequestParam String name,
                          @RequestParam String roleName, @RequestParam String mail, @RequestParam String rolee, Model model){
@@ -189,32 +180,17 @@ public class UsersController {
         List<Student> studentList = studentService.findAllStudents();
         Teacher teacher = new Teacher();
         Student student = new Student();
-        if(!user.getMail().equals(mail)){
-
+        if(!user.getMail().equals(mail))
+        {
             user.setSurname(surname);
-        user.setName(name);
-        user.setMail(mail);/*
-        user.setPassword(pass);*/
-        user.setRole(role);
-        //userService.save(user);
-        List<User> userList = userService.findAllUser();
-        /*int count = 0;
-        for (User user1:userList) {
-            if(user1.getMail().equals(user.getMail())){
-                count++;
-            }
-
-        }*/
-
+            user.setName(name);
+            user.setMail(mail);
+            user.setRole(role);
+            List<User> userList = userService.findAllUser();
             userService.save(user);
-        }
-        else{
+        }else{
             String error="We have user with this mail.Enter another mail please!";
             attributes.addFlashAttribute("error", error);
-/*
-            model.addAttribute()
-*/
-
             return "redirect:/admin/users/{id_user}/edit";
         }
         if(!roleName.equals(rolee)){
@@ -222,15 +198,12 @@ public class UsersController {
                 for (Student st:studentList) {
                     if(st.getId_user().equals(user)){
                         teacher.setId_user(user);
-                        /* teacherService.save(teacher);*/
-
                         teacherService.save(teacher);
                         studentService.delete(st.getId_student());
                         break;
                     }
 
-                } /*
-                 */
+                }
             }
             if(rolee.equals("teacher")){
                 for (Teacher tc:teacherList) {
@@ -238,8 +211,6 @@ public class UsersController {
                         student.setId_user(user);
                         studentService.save(student);
                         teacherService.delete(tc.getId_teacher());
-                        /*student.setId_user(user);
-                        studentService.save(student);*/
                         break;
                     }
                 }
@@ -261,6 +232,7 @@ public class UsersController {
         model.addAttribute("delete", deleteList);
         return "CheckApplications";
     }
+
     @PostMapping("/admin/checkDelete/faild/{id_user}")
     public String deleteFailed(@PathVariable("id_user") int id_user, Model model,RedirectAttributes redirectAttributes){
         User user = userService.findById(id_user);
@@ -273,6 +245,7 @@ public class UsersController {
         teacherService.save(teacher);
         return "redirect:/admin";
     }
+
     @PostMapping("/admin/checkDelete/success/{id_user}")
     public String deleteSuccess(@PathVariable("id_user") int id_user, Model model,RedirectAttributes redirectAttributes){
         User user = userService.findById(id_user);
@@ -280,10 +253,8 @@ public class UsersController {
         String body = "Уважаемый(-ая), "+ user.getSurname()+" "+user.getName()+"\nВаша заявка на увольнение была рассмотрена и одобрена.\nС данного момента доступ к рабочему аккаунту закрыт.\nПо все вопросам просьба общаться к руководству.\n\nС уважением, Администрация IT Company Education Courses";
         String subject = "IT Company Education Courses";
         emailSenderService.sendSimpleEmail(mail, subject, body);
-
         userService.delete(id_user);
         List<Teacher> deleteList = teacherRepository.findTeacherByCheck("1");
-        //model.addAttribute("delete", deleteList);
         if(deleteList.size()==0){
             return "redirect:/admin";
         }
