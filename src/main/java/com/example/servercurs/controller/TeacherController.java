@@ -6,6 +6,7 @@ import com.example.servercurs.entities.*;
 import com.example.servercurs.repository.GroupRepository;
 import com.example.servercurs.repository.StudentRepository;
 import com.example.servercurs.service.*;
+import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,26 +23,18 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Controller
+@RequiredArgsConstructor
 public class TeacherController {
-    @Autowired
-    private GroupService groupService;
-    @Autowired
-    private TeacherService teacherService;
-    @Autowired
-    private GroupRepository groupRepository;
-    @Autowired
-    private StudentRepository studentRepository;
-    @Autowired
-    private StudentService studentService;
-    @Autowired
-            private UserService userService;
-    @Autowired
-            private LanguageService languageService;
 
-    FindLastGroup findLastGroup = new FindLastGroup();
+     private final GroupService groupService;
+     private final TeacherService teacherService;
+     private final StudentRepository studentRepository;
+     private final StudentService studentService;
+     private final UserService userService;
+     private final LanguageService languageService;
+
 
     RatingStudents ratingStudents = new RatingStudents();
-    List<Integer> deleteTeachers = new ArrayList<>();
 
     @GetMapping("/teacher/{id}")
     public String teacher(@PathVariable("id") int id,Model model,RedirectAttributes attributes){
@@ -52,8 +45,7 @@ public class TeacherController {
         String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
         model.addAttribute("encodedImage", encodedImage);
         attributes.addFlashAttribute("encodedImage", encodedImage);
-       // model.addAttribute("teacher", teacherService.findById(id));
-        List<Group> groupList = groupRepository.findGroupsByTeacher(id);
+        List<Group> groupList = groupService.findGroupsByTeacher(id);
         for (Group course : groupList) {
             course.setProgress(ThreadLocalRandom.current().nextInt(0, 101));
         }
@@ -65,8 +57,8 @@ public class TeacherController {
     }
     @GetMapping("/teacher/gr/{id}")
     public String findGroups(@PathVariable int id,RedirectAttributes attributes, Model model){
-        List<Group> groupList = groupRepository.findGroupsByTeacher(id);
-Teacher teacher = teacherService.findById(id);
+        List<Group> groupList = groupService.findGroupsByTeacher(id);
+        Teacher teacher = teacherService.findById(id);
         model.addAttribute("list",groupList);
         model.addAttribute("teacher",teacher );
         attributes.addFlashAttribute("teacher", teacher);
@@ -76,7 +68,7 @@ Teacher teacher = teacherService.findById(id);
     @GetMapping("/teacher/groups/{id}")
     public String checkAllGroups(@PathVariable(name = "id") int id,RedirectAttributes attributes, Model model){
         model.addAttribute("teacher", teacherService.findById(id));
-        List<Group> listGr = groupRepository.findGroupsByTeacher(id);
+        List<Group> listGr = groupService.findGroupsByTeacher(id);
         model.addAttribute("groups", listGr);
         attributes.addFlashAttribute("teacher", teacherService.findById(id));
         return "TeacherGroupRating";
@@ -90,7 +82,7 @@ Teacher teacher = teacherService.findById(id);
             model.addAttribute("msg",msg);
 
         }
-        List<Group> lst = groupRepository.findGroupsByTeacher(id);
+        List<Group> lst = groupService.findGroupsByTeacher(id);
         model.addAttribute("groups", lst);
         model.addAttribute("teacher", teacherService.findById(id));
         model.addAttribute("gr", groupService.findById(groupId));
@@ -103,7 +95,7 @@ Teacher teacher = teacherService.findById(id);
     public String sendMarks(@PathVariable(name="id") int id,RedirectAttributes attributes,@PathVariable(name="id_student") int id_student,@PathVariable(name="id_group") int id_group, @RequestParam String rating, Model model){
         ratingStudents.checkRatingStudent(rating, id_student, studentService, groupService);
         model.addAttribute("teacher", teacherService.findById(id));
-        List<Group> lst = groupRepository.findGroupsByTeacher(id);
+        List<Group> lst = groupService.findGroupsByTeacher(id);
         model.addAttribute("groups", lst);
         model.addAttribute("gr", groupService.findById(id_group));
         List<Student> stud = studentRepository.findStudentByGroup(id_group);
@@ -280,7 +272,7 @@ Teacher teacher = teacherService.findById(id);
         Group group1 = groupService.findById(id_group);
         group1.setTeacher(teacher);
         groupService.save(group1);
-        List<Group> groupList = groupRepository.findGroupsByTeacher(id_teach);
+        List<Group> groupList = groupService.findGroupsByTeacher(id_teach);
 
         if(groupList.size()==0){
             String notFound = "У всех групп есть преподаватели, мы сообщим вам если появяться обновления";

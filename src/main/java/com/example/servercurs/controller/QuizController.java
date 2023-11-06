@@ -7,7 +7,6 @@ import com.example.servercurs.entities.Skills;
 import com.example.servercurs.entities.Student;
 import com.example.servercurs.entities.Teacher;
 import com.example.servercurs.entities.User;
-import com.example.servercurs.repository.GroupRepository;
 import com.example.servercurs.service.CourseService;
 import com.example.servercurs.service.GroupService;
 import com.example.servercurs.service.LanguageService;
@@ -29,11 +28,11 @@ import java.util.List;
 @RequestMapping("/quiz")
 @RequiredArgsConstructor
 public class QuizController {
+
     private final StudentService studentService;
     private final CourseService courseService;
     private final GroupService groupService;
     private final SkillsService skillsService;
-    private final GroupRepository groupRepository;
     private final LanguageService languageService;
 
     @GetMapping("/{id}")
@@ -66,8 +65,6 @@ public class QuizController {
             list = courseService.findCourseById_skills(skillsService.findById(k));
 
         }
-
-
         else if(totalScore>=8&&totalScore<=10){
             for (Skills sk: skills) {
                 if(sk.getName_skills().equals("Analitics")){
@@ -109,7 +106,7 @@ public class QuizController {
                 gr.setTeacher(teacher);
             }
         }
-        listCourse = groupRepository.findByCourse(list);
+        listCourse = groupService.findByListCourse(list);
         model.addAttribute("list", listCourse);
         List<Skills> skillsList = skillsService.findAllSkillss();
         model.addAttribute("skills", skillsList);
