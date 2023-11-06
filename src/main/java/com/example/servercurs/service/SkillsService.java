@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -29,6 +30,38 @@ public class SkillsService {
 
     public Skills findSkillsByName_skills(String name){
         return skillsRepository.findSkillsByName_skills(name);
+    }
+
+    public int addLang(String skills){
+        Skills skill = new Skills();
+        skill.setName_skills(skills);
+        List<Skills> list = skillsRepository.findAll();
+        int count = 0;
+        for (Skills sk:list) {
+            if((sk.getName_skills().toLowerCase()).equals(skill.getName_skills().toLowerCase())){
+                count++;
+            }
+        }
+        if(count==0){
+            skillsRepository.save(skill);
+        }
+        return count;
+    }
+
+    public int update(int id_skills, String skills){
+        int count = 0;
+        Skills skill = skillsRepository.findById(id_skills).get();
+        List<Skills> list = skillsRepository.findAll();
+        for (Skills sk:list) {
+            if((sk.getName_skills().toLowerCase()).equals(skills.toLowerCase())){
+                count++;
+            }
+        }
+        if(count==0){
+            skill.setName_skills(skills);
+            skillsRepository.save(skill);
+        }
+        return count;
     }
 
 }

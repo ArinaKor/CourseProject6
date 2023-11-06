@@ -7,34 +7,22 @@ import com.example.servercurs.repository.StudentRepository;
 import com.example.servercurs.repository.TeacherRepository;
 import com.example.servercurs.service.StudentService;
 import com.example.servercurs.service.UserService;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.IOException;
-
 @Controller
+@RequiredArgsConstructor
 public class MapController {
 
     private static final String API_KEY = "9d4a8d8c-7bb1-4267-891c-7f1c8bbd0509";
-    @Autowired
-    private StudentService studentService;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private StudentRepository studentRepository;
-    @Autowired
-    private TeacherRepository teacherRepository;
+    private final StudentService studentService;
+    private final UserService userService;
+    private final StudentRepository studentRepository;
+    private final TeacherRepository teacherRepository;
 
     @GetMapping("/maps/{id}")
     public String showMap(@PathVariable("id") int id_user, Model model, RedirectAttributes attributes) {
