@@ -2,43 +2,47 @@ package com.example.servercurs.controller;
 
 import com.example.servercurs.Certificate.FindLastGroup;
 import com.example.servercurs.Config.ConvertToByte;
-import com.example.servercurs.entities.*;
+import com.example.servercurs.entities.Course;
+import com.example.servercurs.entities.Group;
+import com.example.servercurs.entities.Language;
+import com.example.servercurs.entities.Skills;
+import com.example.servercurs.entities.Student;
+import com.example.servercurs.entities.User;
 import com.example.servercurs.service.EmailSenderService;
 import com.example.servercurs.service.GroupService;
 import com.example.servercurs.service.StudentService;
 import com.example.servercurs.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Controller
+@RequiredArgsConstructor
 public class StudentPersonalController {
-    @Autowired
-    private StudentService studentService;
-    @Autowired
-    private GroupService groupService;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private EmailSenderService emailSenderService;
+
+    private final StudentService studentService;
+    private final GroupService groupService;
+    private final UserService userService;
+    private final EmailSenderService emailSenderService;
+
     FindLastGroup findLastGroup = new FindLastGroup();
     ConvertToByte convertToByte = new ConvertToByte();
+
     @GetMapping("/student/{id}")
-    private String checkPersonalPage(@PathVariable(name="id") int id, RedirectAttributes attributes, Model model){
+    public String checkPersonalPage(@PathVariable(name = "id") int id, RedirectAttributes attributes, Model model) {
         Student student = studentService.findById(id);
 
         Group group = new Group();
@@ -58,53 +62,47 @@ public class StudentPersonalController {
         course1.setId_skills(skills);
         course1.setId_language(language);
 
-        if(student.getId_group()==null){
+        if (student.getId_group() == null) {
             group.setCourse(course1);
             student.setId_group(group);
         }
         model.addAttribute(student);
         attributes.addFlashAttribute("student", student);
-/*FindLastGroup*/
         List<Group> listLast = findLastGroup.findLastGroupsStudent(studentService, groupService, id);
-        //List<Course> courses = courseService.getAllCourses();
         for (Group course : listLast) {
             course.setProgress(ThreadLocalRandom.current().nextInt(0, 101));
         }
-        //model.addAttribute("courses", courses);
         model.addAttribute("last", listLast);
-
-
-
         return "StudentPersonal";
     }
+
     @GetMapping("/students/personal/{id}")
-    public String change(@PathVariable("id") int id_stud, Model model, RedirectAttributes attributes){
+    public String change(@PathVariable("id") int id_stud, Model model, RedirectAttributes attributes) {
         model.addAttribute("student", studentService.findById(id_stud));
         attributes.addFlashAttribute("student", studentService.findById(id_stud));
 
         return "ChangePassword";
     }
+
     @PostMapping("/students/personal/{id}")
-    public String changePassword(@PathVariable("id") int id, RedirectAttributes attributes, @RequestParam("lastPass") String lastPass, @RequestParam("newPass") String newPass, Model model){
+    public String changePassword(@PathVariable("id") int id, RedirectAttributes attributes, @RequestParam("lastPass") String lastPass, @RequestParam("newPass") String newPass, Model model) {
         Student student = studentService.findById(id);
         User user = student.getId_user();
-        if(BCrypt.checkpw(newPass, user.getPassword())){
+        if (BCrypt.checkpw(newPass, user.getPassword())) {
             String err = "Вы ввели тот же пароль что и прошлый!";
             attributes.addFlashAttribute("err", err);
             model.addAttribute("err", err);
             attributes.addFlashAttribute("student", student);
             model.addAttribute("user", user);
             return "redirect:/students/personal/{id}";
-        }
-        else if (!BCrypt.checkpw(lastPass, user.getPassword())){
+        } else if (!BCrypt.checkpw(lastPass, user.getPassword())) {
             String err = "Это не ваш старый пароль!";
             attributes.addFlashAttribute("err", err);
-            //attributes.addFlashAttribute("err", err);
             model.addAttribute("err", err);
             attributes.addFlashAttribute("student", student);
             model.addAttribute("user", user);
             return "redirect:/students/personal/{id}";
-        }else{
+        } else {
             String salt = BCrypt.gensalt();
             String hashedPassword = BCrypt.hashpw(newPass, salt);
             user.setPassword(hashedPassword);
@@ -116,7 +114,7 @@ public class StudentPersonalController {
     }
 
     @GetMapping("/students/personal/edit/{id}")
-    public String edit(@PathVariable("id") int id,Model model,RedirectAttributes attributes){
+    public String edit(@PathVariable("id") int id, Model model, RedirectAttributes attributes) {
         Student student = studentService.findById(id);
 
         byte[] imageBytes = student.getId_user().getPhoto();
@@ -125,12 +123,11 @@ public class StudentPersonalController {
         String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
         model.addAttribute("encodedImage", encodedImage);
         attributes.addFlashAttribute("encodedImage", encodedImage);
-        if(student.getId_group()==null){
+        if (student.getId_group() == null) {
             Course course = new Course();
             Skills skills = new Skills();
             Language language = new Language();
             Group group = new Group();
-           // course.setCourse_name("Nothing");
             skills.setName_skills("None");
             language.setName_language("None");
             course.setCourse_name("Никакой курс не проходится");
@@ -143,6 +140,7 @@ public class StudentPersonalController {
         model.addAttribute("student", student);
         return "EditPersonalStudent";
     }
+
     @PostMapping("/students/personal/edit/{id}")
     public String editPersonInformation(@PathVariable("id") int id, @RequestParam("surname") String surname, @RequestParam("name") String name,
                                         @RequestParam("mail") String mail, @RequestParam("photo") MultipartFile photo, RedirectAttributes attributes, Model model) throws IOException {
@@ -151,7 +149,6 @@ public class StudentPersonalController {
         List<User> userList = userService.findAllUser();
         String encodedImage = null;
         if (photo.isEmpty()) {
-            //user.setPhoto(convertToByte.convertImageToByteArray("D:\\unik\\sem6\\курсовой\\photo\\2.png"));
             byte[] imageBytes = student.getId_user().getPhoto();
 
             // Кодирование изображения в base64
@@ -199,7 +196,6 @@ public class StudentPersonalController {
         for (Group course : listLast) {
             course.setProgress(ThreadLocalRandom.current().nextInt(0, 101));
         }
-        //model.addAttribute("courses", courses);
         model.addAttribute("last", listLast);
         model.addAttribute("student", student);
         attributes.addFlashAttribute("student", student);
@@ -210,15 +206,14 @@ public class StudentPersonalController {
     }
 
     @GetMapping("/sendCode/{id}")
-    public String send(@PathVariable("id") int id, Model model){
+    public String send(@PathVariable("id") int id, Model model) {
         Student student = studentService.findById(id);
         model.addAttribute("student", student);
         return "AddMoney";
     }
 
     @PostMapping("/sendCode/mail/{id}")
-    //@ResponseBody
-    public String sendCode(@PathVariable("id") int id,@RequestParam String money, RedirectAttributes attributes,Model model){
+    public String sendCode(@PathVariable("id") int id, @RequestParam String money, RedirectAttributes attributes, Model model) {
 
         Student student = studentService.findById(id);
         String codeMail = "";
@@ -232,7 +227,7 @@ public class StudentPersonalController {
         double balance = Double.parseDouble(money);
 
         String mail = student.getId_user().getMail();
-        String body = "Для подтверждения вашей личности мы высылаем данный код\nВаш код: "+codeMail+"\nУбедительная просьба" +
+        String body = "Для подтверждения вашей личности мы высылаем данный код\nВаш код: " + codeMail + "\nУбедительная просьба" +
                 " не разглашайте данный код и не отвечайне на данное сообщение если запрос сделали не вы\n" +
                 "С уважением,IT Company Education Courses";
         String subject = "IT Company Education Courses";
@@ -246,24 +241,22 @@ public class StudentPersonalController {
         //return "AddMoney";
         return "AddMoney";
     }
+
     @PostMapping("/sendMail/checkCode/{id}")
-    public String checkCode(@PathVariable("id") int id_student, @RequestParam String money, @RequestParam String code, @RequestParam String codeMail,Model model ,RedirectAttributes attributes){
+    public String checkCode(@PathVariable("id") int id_student, @RequestParam String money, @RequestParam String code, @RequestParam String codeMail, Model model, RedirectAttributes attributes) {
         Student student = studentService.findById(id_student);
-        if(codeMail.equals(code)){
-            student.setBalance(student.getBalance()+Double.parseDouble(money));
+        if (codeMail.equals(code)) {
+            student.setBalance(student.getBalance() + Double.parseDouble(money));
             studentService.save(student);
             attributes.addFlashAttribute("student", student);
-            return "redirect:/student/"+student.getId_student();
-        }else{
-            String err="Error code";
+            return "redirect:/student/" + student.getId_student();
+        } else {
+            String err = "Error code";
             model.addAttribute("err", err);
             model.addAttribute("student", student);
             return "AddMoney";
         }
-
-        //return "";
     }
-
 
 
 }

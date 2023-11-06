@@ -3,18 +3,16 @@ package com.example.servercurs.service;
 import com.example.servercurs.entities.Skills;
 import com.example.servercurs.repository.SkillsRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class SkillsService {
+
     private final SkillsRepository skillsRepository;
+
     public List<Skills> findAllSkillss(){
         return skillsRepository.findAll();
     }

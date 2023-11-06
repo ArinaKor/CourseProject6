@@ -1,21 +1,27 @@
 package com.example.servercurs.controller;
 
-import com.example.servercurs.Certificate.FindLastGroup;
 import com.example.servercurs.Rating.RatingStudents;
-import com.example.servercurs.entities.*;
-import com.example.servercurs.repository.GroupRepository;
-import com.example.servercurs.repository.StudentRepository;
-import com.example.servercurs.service.*;
+import com.example.servercurs.entities.Group;
+import com.example.servercurs.entities.Language;
+import com.example.servercurs.entities.Student;
+import com.example.servercurs.entities.Teacher;
+import com.example.servercurs.entities.User;
+import com.example.servercurs.service.GroupService;
+import com.example.servercurs.service.LanguageService;
+import com.example.servercurs.service.StudentService;
+import com.example.servercurs.service.TeacherService;
+import com.example.servercurs.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.ws.rs.core.Form;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -28,7 +34,6 @@ public class TeacherController {
 
      private final GroupService groupService;
      private final TeacherService teacherService;
-     private final StudentRepository studentRepository;
      private final StudentService studentService;
      private final UserService userService;
      private final LanguageService languageService;
@@ -55,6 +60,7 @@ public class TeacherController {
 
         return "TeacherFirst";
     }
+
     @GetMapping("/teacher/gr/{id}")
     public String findGroups(@PathVariable int id,RedirectAttributes attributes, Model model){
         List<Group> groupList = groupService.findGroupsByTeacher(id);
@@ -65,6 +71,7 @@ public class TeacherController {
 
         return "findGroupsTeacher";
     }
+
     @GetMapping("/teacher/groups/{id}")
     public String checkAllGroups(@PathVariable(name = "id") int id,RedirectAttributes attributes, Model model){
         model.addAttribute("teacher", teacherService.findById(id));
@@ -75,7 +82,7 @@ public class TeacherController {
     }
     @PostMapping("/teacher/groups/{id}")
     public String findGroup(@PathVariable(name="id") int id,RedirectAttributes attributes, @RequestParam("group") int groupId, Model model){
-        List<Student> stud = studentRepository.findStudentByGroup(groupId);
+        List<Student> stud = studentService.findStudentByGroup(groupId);
         model.addAttribute("students", stud);
         if(stud.size()==0){
             String msg = "В данной группе отсутсвуют студенты";
@@ -98,7 +105,7 @@ public class TeacherController {
         List<Group> lst = groupService.findGroupsByTeacher(id);
         model.addAttribute("groups", lst);
         model.addAttribute("gr", groupService.findById(id_group));
-        List<Student> stud = studentRepository.findStudentByGroup(id_group);
+        List<Student> stud = studentService.findStudentByGroup(id_group);
         model.addAttribute("students", stud);
         attributes.addFlashAttribute("teacher", teacherService.findById(id));
         return "TeacherGroupRating";
@@ -112,6 +119,7 @@ public class TeacherController {
 
         return "ChangePasswordTeach";
     }
+
     @PostMapping("/teacher/personal/{id}")
     public String changePassword(@PathVariable("id") int id, RedirectAttributes attributes, @RequestParam("lastPass") String lastPass, @RequestParam("newPass") String newPass, Model model){
         Teacher teacher = teacherService.findById(id);
@@ -142,6 +150,7 @@ public class TeacherController {
         attributes.addFlashAttribute("teacher", teacher);
         return "redirect:/teacher/{id}";
     }
+
     @GetMapping("/teacher/personal/edit/{id}")
     public String edit(@PathVariable("id") int id,Model model, RedirectAttributes attributes){
         Teacher teacher = teacherService.findById(id);
@@ -155,6 +164,7 @@ public class TeacherController {
         attributes.addFlashAttribute("teacher", teacher);
         return "EditPersonalTeacher";
     }
+
     @PostMapping("/teacher/personal/edit/{id}")
     public String editPersonInformation(@PathVariable("id") int id, @RequestParam("surname") String surname, @RequestParam("name") String name,
                                         @RequestParam("mail") String mail, @RequestParam("photo") MultipartFile photo,@RequestParam("spec") String spec,
@@ -165,7 +175,6 @@ public class TeacherController {
         String encodedImage = null;
 
         if (photo.isEmpty()) {
-            //user.setPhoto(convertToByte.convertImageToByteArray("D:\\unik\\sem6\\курсовой\\photo\\2.png"));
             byte[] imageBytes = teacher.getId_user().getPhoto();
 
             // Кодирование изображения в base64
@@ -186,7 +195,6 @@ public class TeacherController {
             user.setName(name);
             teacher.setSpeciality(spec);
             teacher.setWork(work);
-            // user.setPhoto(photo.getBytes());
             userService.save(user);
             teacher.setId_user(user);
             teacherService.save(teacher);
@@ -223,6 +231,7 @@ public class TeacherController {
         attributes.addFlashAttribute("teacher", teacher);
         return "redirect:/teacher/{id}";
     }
+
     @GetMapping("/teacher/groups/teach/{id}")
     public String startTech(@PathVariable("id") int id, RedirectAttributes attributes, Model model){
         Teacher teacher = teacherService.findById(id);
@@ -257,15 +266,11 @@ public class TeacherController {
                 }
             }
         }
-        // byte[] imageBytes = language.getLogo();
-
-        // Кодирование изображения в base64
-        //encodedImage = Base64.getEncoder().encodeToString(imageBytes);
-
         model.addAttribute("encodedImage", encodedImage);
         attributes.addFlashAttribute("encodedImage", encodedImage);
         return "TeachCourse";
     }
+
     @PostMapping("/teacher/groups/teach/{id_teach}/{id_group}")
     public String startedTeach(@PathVariable("id_teach") int id_teach,@PathVariable("id_group") int id_group, RedirectAttributes attributes, Model model){
         Teacher teacher = teacherService.findById(id_teach);
@@ -286,6 +291,7 @@ attributes.addFlashAttribute("teacher", teacher);
 
         return "redirect:/teacher/"+teacher.getId_teacher();
     }
+
     @GetMapping("/teacher/personal/delete/{id}")
     public String delete(@PathVariable("id") int id, Model model, RedirectAttributes attributes){
         Teacher teacher = teacherService.findById(id);

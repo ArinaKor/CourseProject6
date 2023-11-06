@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+
 @Controller
 @RequestMapping("/quiz")
 @RequiredArgsConstructor
@@ -36,15 +37,15 @@ public class QuizController {
     private final LanguageService languageService;
 
     @GetMapping("/{id}")
-    public String doQuiz(@PathVariable("id") int id_stud, Model model){
-        Student student =  studentService.findById(id_stud);
+    public String doQuiz(@PathVariable("id") int id_stud, Model model) {
+        Student student = studentService.findById(id_stud);
         model.addAttribute("student", student);
         return "QuizCourse";
     }
 
     @PostMapping("/res/{id}")
-    public String checkQuiz(@PathVariable("id") int id_stud, @RequestParam int totalScore, Model model){
-        Student student =  studentService.findById(id_stud);
+    public String checkQuiz(@PathVariable("id") int id_stud, @RequestParam int totalScore, Model model) {
+        Student student = studentService.findById(id_stud);
         model.addAttribute("student", student);
         List<Course> listAll = courseService.findAllCourse();
         List<Course> list = new ArrayList<>();
@@ -54,9 +55,9 @@ public class QuizController {
         System.out.println(totalScore);
         Skills skk = new Skills();
         int k = 0;
-        if(totalScore>=1&&totalScore<=7){
-            for (Skills sk: skills) {
-                if(sk.getName_skills().equals("Design")){
+        if (totalScore >= 1 && totalScore <= 7) {
+            for (Skills sk : skills) {
+                if (sk.getName_skills().equals("Design")) {
                     k = sk.getId_skills();
                 }
             }
@@ -64,30 +65,27 @@ public class QuizController {
             model.addAttribute("work", work);
             list = courseService.findCourseById_skills(skillsService.findById(k));
 
-        }
-        else if(totalScore>=8&&totalScore<=10){
-            for (Skills sk: skills) {
-                if(sk.getName_skills().equals("Analitics")){
+        } else if (totalScore >= 8 && totalScore <= 10) {
+            for (Skills sk : skills) {
+                if (sk.getName_skills().equals("Analitics")) {
                     k = sk.getId_skills();
                 }
             }
             String work = "You are a future Analitic";
             model.addAttribute("work", work);
             list = courseService.findCourseById_skills(skillsService.findById(k));
-        }
-        else if(totalScore>=11&&totalScore<=14){
-            for (Skills sk: skills) {
-                if(sk.getName_skills().equals("Testing")){
+        } else if (totalScore >= 11 && totalScore <= 14) {
+            for (Skills sk : skills) {
+                if (sk.getName_skills().equals("Testing")) {
                     k = sk.getId_skills();
                 }
             }
             String work = "You are a future Testing";
             model.addAttribute("work", work);
             list = courseService.findCourseById_skills(skillsService.findById(k));
-        }
-        else if(totalScore>=15&&totalScore<=21){
-            for (Skills sk: skills) {
-                if(sk.getName_skills().equals("Programming")){
+        } else if (totalScore >= 15 && totalScore <= 21) {
+            for (Skills sk : skills) {
+                if (sk.getName_skills().equals("Programming")) {
                     k = sk.getId_skills();
                 }
             }
@@ -98,8 +96,8 @@ public class QuizController {
         }
         Teacher teacher = new Teacher();
         User user = new User();
-        for (Group gr:listCourse) {
-            if(gr.getTeacher()==null){
+        for (Group gr : listCourse) {
+            if (gr.getTeacher() == null) {
                 user.setSurname("not found");
                 user.setName("yet");
                 teacher.setId_user(user);
@@ -113,18 +111,17 @@ public class QuizController {
         List<Language> langList = languageService.findAllLanguages();
         model.addAttribute("lang", langList);
 
-        int f=0;
-        if(student.getId_group()==null){
-            f=0;
-        }
-        else if(!(student.getId_group()==null)){
+        int f = 0;
+        if (student.getId_group() == null) {
+            f = 0;
+        } else if (!(student.getId_group() == null)) {
             f++;
         }
         System.out.println(k);
         model.addAttribute("k", f);
         List<String> encodedImage = new ArrayList<>();
         List<Language> list1 = languageService.findAllLanguages();
-        for (Group lg:listCourse) {
+        for (Group lg : listCourse) {
             String image = Base64.getEncoder().encodeToString(lg.getCourse().getId_language().getLogo());
             encodedImage.add(image);
         }

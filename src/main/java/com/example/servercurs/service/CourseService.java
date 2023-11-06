@@ -13,41 +13,50 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class  CourseService {
+public class CourseService {
 
     private final CourseRepository courseRepository;
     private final LanguageRepository languageRepository;
     private final SkillsRepository skillsRepository;
 
-    public List<Course> findAllCourse(){
+    public List<Course> findAllCourse() {
         return courseRepository.findAll();
     }
-    public Course findById(int id){
+
+    public Course findById(int id) {
         return courseRepository.findById(id).orElse(null);
     }
-    public Course save(Course course){
+
+    public Course save(Course course) {
         return courseRepository.save(course);
     }
-    public void delete(int id){
+
+    public void delete(int id) {
         courseRepository.deleteById(id);
     }
-    public List<Course> findWithAll(){
+
+    public List<Course> findWithAll() {
         return courseRepository.findWithAll();
     }
-    public List<Course> findCourseById_skills(Skills id){
+
+    public List<Course> findCourseById_skills(Skills id) {
         return courseRepository.findCourseById_skills(id);
     }
-    public Course findCourse(Skills id, Language idLang, String name){
+
+    public Course findCourse(Skills id, Language idLang, String name) {
         return courseRepository.findCourse(id, idLang, name);
     }
-    public List<Object[]> findGroupedCourses(){
+
+    public List<Object[]> findGroupedCourses() {
         return courseRepository.findGroupedCourses();
     }
-    public List<Object[]> findGroupedCoursesLang(){
+
+    public List<Object[]> findGroupedCoursesLang() {
         return courseRepository.findGroupedCoursesLang();
     }
+
     public void update(int idCourse, String courseName, String level,
-                       float price,  int duration, String skills, String lang){
+                       float price, int duration, String skills, String lang) {
         Language language = languageRepository.findLanguageByName_language(lang);
         Skills skills1 = skillsRepository.findSkillsByName_skills(skills);
         Course course = courseRepository.findById(idCourse).get();
@@ -59,8 +68,9 @@ public class  CourseService {
         course.setId_skills(skills1);
         courseRepository.save(course);
     }
+
     public void addNewCourse(String courseName, String level,
-                             float price,  int duration, String skills, String lang){
+                             float price, int duration, String skills, String lang) {
         Language language = languageRepository.findLanguageByName_language(lang);
         Skills skills1 = skillsRepository.findSkillsByName_skills(skills);
         Course course = new Course();

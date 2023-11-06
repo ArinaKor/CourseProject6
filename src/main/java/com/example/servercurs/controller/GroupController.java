@@ -1,18 +1,22 @@
 package com.example.servercurs.controller;
 
-import com.example.servercurs.entities.*;
-import com.example.servercurs.repository.LanguageRepository;
-import com.example.servercurs.repository.SkillsRepository;
+import com.example.servercurs.entities.Group;
+import com.example.servercurs.entities.Language;
+import com.example.servercurs.entities.Teacher;
+import com.example.servercurs.entities.TimeTable;
 import com.example.servercurs.service.CourseService;
 import com.example.servercurs.service.GroupService;
 import com.example.servercurs.service.LanguageService;
 import com.example.servercurs.service.SkillsService;
 import com.example.servercurs.service.TeacherService;
-import com.example.servercurs.service.TimetableService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Date;
@@ -27,7 +31,6 @@ import java.util.List;
 public class GroupController {
 
     private final GroupService groupService;
-    private final TimetableService timetableService;
     private final CourseService courseService;
     private final TeacherService teacherService;
     private final LanguageService languageService;

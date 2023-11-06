@@ -17,8 +17,7 @@ public class EmailSenderService {
     private JavaMailSender mailSender;
 
     public void sendSimpleEmail(String toEmail, String subject, String body
-    )
-    {
+    ) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("arinakornilovait16@gmail.com");
         message.setTo(toEmail);
@@ -29,6 +28,7 @@ public class EmailSenderService {
 
 
     }
+
     public void sendEmailWithAttachment(String to, String subject, String text, String pathToAttachment) throws MessagingException, jakarta.mail.MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
 

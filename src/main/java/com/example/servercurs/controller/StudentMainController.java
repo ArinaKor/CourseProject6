@@ -52,21 +52,13 @@ public class StudentMainController {
     private final EmailSenderService emailSenderService;
     private final SpringTemplateEngine springTemplateEngine;
 
-
     private DataMapper dataMapper;
     PdfController pdfController = new PdfController();
 
-
     SingletonEnum se = SingletonEnum.INSTANCE;
-    //List<Group> listGroups;
     RatingTeacher ratingTeacher = new RatingTeacher();
     static int id = AuthorizationController.stud;
     List<String> listLastGroups = new ArrayList<>();
-
-    @GetMapping("/student")
-    private String student(RedirectAttributes attributes, Model model) {
-        return "StudentPersonal";
-    }
 
     @GetMapping("/students/groups/{id_student}")
     private String findAllGroups(@PathVariable(name = "id_student") int id_student, RedirectAttributes attributes, Model model) {
@@ -116,18 +108,9 @@ public class StudentMainController {
                 }
             }
         }
-        // byte[] imageBytes = language.getLogo();
-
-        // Кодирование изображения в base64
-        //encodedImage = Base64.getEncoder().encodeToString(imageBytes);
-
         model.addAttribute("encodedImage", encodedImage);
         attributes.addFlashAttribute("encodedImage", encodedImage);
-       /* List<Skills> list = skillsService.findAllSkillss();
-        model.addAttribute("list", list);
-        List<Language> lang = languageService.findAllLanguages();
-        model.addAttribute("lang", lang);
-*/
+
         return "FindGroupsStudent";
     }
 
@@ -150,7 +133,6 @@ public class StudentMainController {
             groupService.save(group);
 
         }
-        // emailSender.sendSimpleMessage(student.getId_user().getMail(), "subject", "body");
         model.addAttribute("student", student);
         model.addAttribute("group", group);
         String mail = student.getId_user().getMail();
@@ -180,10 +162,11 @@ public class StudentMainController {
     }
 
     @PostMapping("/students/mygroup/{id}")
-    public String completeCourse(HttpServletResponse response, @PathVariable(name = "id") int id, @RequestParam(name = "rating", required = false) String rating, RedirectAttributes attributes, Model model) throws IOException, MessagingException, jakarta.mail.MessagingException {
+    public String completeCourse(HttpServletResponse response, @PathVariable(name = "id") int id,
+                                 @RequestParam(name = "rating", required = false) String rating,
+                                 RedirectAttributes attributes, Model model) throws IOException,
+            MessagingException, jakarta.mail.MessagingException {
 
-
-        /*=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
         Student student = studentService.findById(id);
 
         Group group = groupService.findById(student.getId_group().getId_group());
@@ -192,15 +175,10 @@ public class StudentMainController {
 
 
         String finalHtml = null;
-        //List<Student> employeeList = studentService.findAllStudents();
-        //dataContext = dataMapper.setData(student);
         Context dataContext = dataMapper.setData(student);
 
         finalHtml = springTemplateEngine.process("Cert", dataContext);
         documentGenerator.htmlToPdf(finalHtml);
-
-
-        //pdfController.generatePdf(response, springTemplateEngine, dataContext);
 
         if (student.getRating() > 4) {
             String mail = student.getId_user().getMail();
@@ -328,9 +306,9 @@ public class StudentMainController {
         List<Group> lst = new ArrayList<>();
 
         if (contact.equals("3")) {
-            lst =  groupService.findByDate(date1);
+            lst = groupService.findByDate(date1);
         } else if (contact.equals("2")) {
-            lst =  groupService.findByTime(groupTime);
+            lst = groupService.findByTime(groupTime);
 
         }
 

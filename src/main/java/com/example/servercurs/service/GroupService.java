@@ -9,7 +9,6 @@ import com.example.servercurs.entities.TimeTable;
 import com.example.servercurs.repository.GroupRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -124,10 +123,10 @@ public class GroupService {
     }
 
     public void update(int id, int count_all, Date dateStart, String groupTime, String timeTable,
-                       String course, String teach){
+                       String course, String teach) {
         Group group = groupRepository.findById(id).get();
         group.setCount_student_all(count_all);
-        TimeTable timeTable1  = new TimeTable();
+        TimeTable timeTable1 = new TimeTable();
         System.out.println(timeTable);
         List<TimeTable> timeTableList = timetableService.findAllTimeTables();
 
@@ -135,9 +134,9 @@ public class GroupService {
         String dayOfWeek = parts[0];
         String startTime = parts[1] + ":" + parts[2];
         String endTime = parts[3] + ":" + parts[4];
-        String resultTime = startTime+"-"+endTime;
-        for(TimeTable tb: timeTableList){
-            if(tb.getDayOfWeek().equals(dayOfWeek)&&tb.getTime().equals(resultTime)){
+        String resultTime = startTime + "-" + endTime;
+        for (TimeTable tb : timeTableList) {
+            if (tb.getDayOfWeek().equals(dayOfWeek) && tb.getTime().equals(resultTime)) {
                 timeTable1.setId_timetable(tb.getId_timetable());
                 timeTable1.setDayOfWeek(tb.getDayOfWeek());
                 timeTable1.setTime(tb.getTime());
@@ -146,7 +145,7 @@ public class GroupService {
         }
 
         String[] courses = course.split("/");
-        Skills skills  = skillsService.findSkillsByName_skills(courses[1]);
+        Skills skills = skillsService.findSkillsByName_skills(courses[1]);
         Language language = languageService.findLanguageByName_language(courses[2]);
         Course course1 = courseService.findCourse(skills, language, courses[0]);
         String[] tch = teach.split("-");

@@ -1,7 +1,6 @@
 package com.example.servercurs.controller;
 
 import com.example.servercurs.entities.User;
-import com.example.servercurs.repository.UserRepository;
 import com.example.servercurs.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
@@ -21,12 +20,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminController {
 
-    private final UserRepository userRepository;
     private final UserService userService;
 
     @GetMapping("/admin/personal/edit")
     public String edit(Model model){
-        User user = userRepository.findByRole("admin");
+        User user = userService.findByRoleAdmin("admin");
         model.addAttribute("user", user);
         byte[] imageBytes = user.getPhoto();
         // Кодирование изображения в base64
@@ -39,7 +37,7 @@ public class AdminController {
     public String editAdmin(@RequestParam("surname") String surname, @RequestParam("name") String name,
                             @RequestParam("mail") String mail, @RequestParam("photo") MultipartFile photo, RedirectAttributes attributes, Model model) throws
             IOException {
-        User user = userRepository.findByRole("admin");
+        User user = userService.findByRoleAdmin("admin");
         model.addAttribute("user", user);
         List<User> userList = userService.findAllUser();
         String encodedImage = null;
@@ -82,14 +80,14 @@ public class AdminController {
     }
     @GetMapping("/admin/change/password")
     public String change( Model model, RedirectAttributes attributes){
-        User user = userRepository.findByRole("admin");
+        User user = userService.findByRoleAdmin("admin");
         model.addAttribute("user", user);
         return "ChangeAdminPass";
     }
 
     @PostMapping("/admin/change/password")
     public String changePassword(RedirectAttributes attributes, @RequestParam("lastPass") String lastPass, @RequestParam("newPass") String newPass, Model model){
-        User user = userRepository.findByRole("admin");
+        User user = userService.findByRoleAdmin("admin");
         if(BCrypt.checkpw(newPass, user.getPassword())){
             String err = "Вы ввели тот же пароль что и прошлый!";
             attributes.addFlashAttribute("err", err);

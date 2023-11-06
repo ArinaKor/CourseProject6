@@ -1,15 +1,15 @@
 package com.example.servercurs.controller;
 
 import com.example.servercurs.Config.ConvertToByte;
-
+import com.example.servercurs.entities.Course;
 import com.example.servercurs.entities.Role;
 import com.example.servercurs.entities.Student;
 import com.example.servercurs.entities.Teacher;
 import com.example.servercurs.entities.User;
-import com.example.servercurs.repository.StudentRepository;
-import com.example.servercurs.repository.TeacherRepository;
+import com.example.servercurs.service.CourseService;
 import com.example.servercurs.service.RoleService;
 import com.example.servercurs.service.StudentService;
+import com.example.servercurs.service.TeacherService;
 import com.example.servercurs.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -31,8 +34,8 @@ public class AuthorizationController {
     private final UserService userService;
     private final RoleService roleService;
     private final StudentService studentService;
-    private final TeacherRepository teacherRepository;
-    private final StudentRepository studentRepository;
+    private final CourseService courseService;
+    private final TeacherService teacherService;
 
     ConvertToByte convertToByte = new ConvertToByte();
 
@@ -116,19 +119,51 @@ public class AuthorizationController {
         if(user.getRole().equals(roleList.get(0))){
             return "redirect:/admin";
         }else if(user.getRole().equals(roleList.get(1))){
-            Teacher teacher = teacherRepository.findTeacherById_user(user);
+            Teacher teacher = teacherService.findTeacherById_user(user);
             teacher.setCheck("0");
             model.addAttribute("teacher", teacher);
             attributes.addFlashAttribute("teacher", teacher);
             return "redirect:/teacher/"+teacher.getId_teacher();
         }else if(user.getRole().equals(roleList.get(2))){
-            Student student = studentRepository.findStudentById_user(user);
+            Student student = studentService.findStudentById_user(user);
             model.addAttribute("student", student);
             attributes.addFlashAttribute("student", student);
             stud = student.getId_student();
             return "redirect:/student/"+student.getId_student();
         }
         return "authorization";
+    }
+
+    @GetMapping("/student")
+    private String student(RedirectAttributes attributes, Model model) {
+        return "StudentPersonal";
+    }
+
+    @GetMapping("/admin")
+    public String admin( Model model){
+        User user = userService.findByRoleAdmin("admin");
+        model.addAttribute("user", user);
+        byte[] imageBytes = user.getPhoto();
+
+        // Кодирование изображения в base64
+        String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
+        model.addAttribute("encodedImage", encodedImage);
+        List<Object[]> courses = courseService.findGroupedCourses();
+        Map<String, Long> groupedCourses = new HashMap<>();
+        for (Object[] course : courses) {
+            String direction = (String) course[0];
+            Long count = (Long) course[1];
+            groupedCourses.put(direction, count);
+        }
+        System.out.println(groupedCourses);
+        model.addAttribute("map", groupedCourses);
+
+        List<Course> courseList = courseService.findAllCourse();
+        List<Object[]> langs = courseService.findGroupedCoursesLang();
+        model.addAttribute("data", langs);
+
+
+        return "AdminFirst";
     }
 
 
