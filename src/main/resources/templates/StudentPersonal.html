@@ -247,6 +247,209 @@
             left: 150px;
             transition: .5s ease-in-out;
         }
+
+        /*notification*/
+        .notification-box {
+            position: fixed;
+            z-index: 99;
+            height: 20px;
+            text-align: center;
+        }
+        .notification-box2 {
+            position: fixed;
+            z-index: 99;
+            height: 20px;
+            text-align: center;
+        }
+
+        .notification-bell {
+            animation: bell 1s 1s both infinite;
+        }
+        .notification-bell * {
+            display: block;
+            margin: 0 auto;
+            background-color: #009dda;
+            box-shadow: 0px 0px 15px #009dda;
+        }
+        .notification-bell2 * {
+            display: block;
+            margin: 0 auto;
+            background-color: #009dda;
+            box-shadow: 0px 0px 15px #009dda;
+        }
+
+        .bell-top {
+            width: 6px;
+            height: 6px;
+            border-radius: 3px 3px 0 0;
+        }
+        .bell-top2 {
+            width: 6px;
+            height: 6px;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .bell-middle {
+            width: 25px;
+            height: 25px;
+            margin-top: -1px;
+            border-radius: 12.5px 12.5px 0 0;
+        }
+        .bell-middle2 {
+            width: 25px;
+            height: 25px;
+            margin-top: -1px;
+            border-radius: 12.5px 12.5px 0 0;
+        }
+
+        .bell-bottom {
+            position: relative;
+            z-index: 0;
+            width: 32px;
+            height: 2px;
+        }
+        .bell-bottom2 {
+            position: relative;
+            z-index: 0;
+            width: 32px;
+            height: 2px;
+        }
+
+        .bell-bottom::before,
+        .bell-bottom::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+        }
+
+        .bell-bottom::before {
+            left: 1px;
+            border-bottom: 4px solid #009dda;
+            border-right: 0 solid transparent;
+            border-left: 4px solid transparent;
+        }
+
+        .bell-bottom::after {
+            right: 1px;
+            border-bottom: 4px solid #009dda;
+            border-right: 4px solid transparent;
+            border-left: 0 solid transparent;
+        }
+
+        .bell-rad {
+            width: 8px;
+            height: 4px;
+            margin-top: 2px;
+            border-radius: 0 0 4px 4px;
+            animation: rad 1s 2s both infinite;
+        }
+        .bell-rad2 {
+            width: 8px;
+            height: 4px;
+            margin-top: 2px;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .notification-count {
+            position: absolute;
+            z-index: 1;
+            top: -4px;
+            right: -5px;
+            width: 15px;
+            height: 15px;
+            line-height: 15px;
+            font-size: 12px;
+            border-radius: 50%;
+            background-color: #d62c0c;
+            color: #fff;
+            animation: zoom 3s 3s both infinite;
+        }
+
+
+        @keyframes bell {
+            0% {
+                transform: rotate(0);
+            }
+            10% {
+                transform: rotate(30deg);
+            }
+            20% {
+                transform: rotate(0);
+            }
+            80% {
+                transform: rotate(0);
+            }
+            90% {
+                transform: rotate(-30deg);
+            }
+            100% {
+                transform: rotate(0);
+            }
+        }
+
+        @keyframes rad {
+            0% {
+                transform: translateX(0);
+            }
+            10% {
+                transform: translateX(6px);
+            }
+            20% {
+                transform: translateX(0);
+            }
+            80% {
+                transform: translateX(0);
+            }
+            90% {
+                transform: translateX(-6px);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes zoom {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            10% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+            }
+            51% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+        .notifications{
+            display: none;
+        }
+
+        .notification {
+            position: relative;
+            background-color: #fff;
+            color: black;
+            border-radius: 15px;
+            width: 350px;
+            right: -5px;
+            height: 100px;
+        }
+        .notification2 {
+            position: relative;
+            background-color: #fff;
+            color: black;
+            border-radius: 15px;
+            width: 350px;
+            right: -5px;
+            height: 100px;
+        }
+
     </style>
     <!-- <link rel="stylesheet" href="../style/style.css">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -254,6 +457,8 @@
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 <body>
 <nav class="navbar navbar-expand-sm navbar-light" id="neubar">
@@ -273,27 +478,46 @@
                 <li class="nav-item">
                     <a class="nav-link mx-2 active" aria-current="page" href="#">Home</a>
                 </li>
-                <!--<li class="nav-item">
-                    <a class="nav-link mx-2" th:href="@{/student/{id}(id=${student.id_student})}">Personal</a>
-                </li>-->
-
                 <li class="nav-item">
                     <a class="nav-link mx-2" th:href="@{/maps/{id}(id=${student.id_user.id_user})}">Maps</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2" th:href="@{/students/groups/{id}(id=${student.id_student})}">All Groups</a>
+                    <a class="nav-link mx-2" th:href="@{/students/groups/{id}(id=${student.id_student})}">Groups</a>
                 </li>
-                <!--<li class="nav-item">
-                    <a class="nav-link mx-2" th:href="@{/students/lastMyGroups/{id}(id=${student.id_student})}">My last Groups</a>
-                </li>-->
+                <li class="nav-item">
+                    <a class="nav-link mx-2" th:href="@{/student/trainees/{id}(id=${student.id_student})}">Trainees</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link mx-2" th:href="@{/students/mygroup/{id}(id=${student.id_student})}">My Group</a>
                 </li>
-                <!--<li class="nav-item">
-                    <a class="nav-link mx-2" href="/quiz">Skills</a>
-                </li>-->
                 <li class="nav-item">
                     <a class="nav-link mx-2" th:href="@{/quiz/{id}(id=${student.id_student})}">QUIZ</a>
+                </li>
+
+                <li>
+                    <div th:if="${#lists.isEmpty(notifications)}">
+                        <div class="notification-box2">
+                            <div class="notification-bell2">
+                                <span class="bell-top2"></span>
+                                <span class="bell-middle2"></span>
+                                <span class="bell-bottom2"></span>
+                                <span class="bell-rad2"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:unless="${#lists.isEmpty(notifications)}">
+                        <div class="notification-box">
+                            <span class="notification-count" th:text="${notifications.size()}"></span>
+                            <div class="notification-bell">
+                                <span class="bell-top"></span>
+                                <span class="bell-middle"></span>
+                                <span class="bell-bottom"></span>
+
+                                <span class="bell-rad"></span>
+                            </div>
+                        </div>
+                    </div>
+
                 </li>
 
 
@@ -301,7 +525,13 @@
         </div>
     </div>
 </nav>
+<div class="notifications">
+    <div class="notification" th:each="notification : ${notifications}">
 
+        <strong th:text="${notification.subject}"></strong>
+        <p th:text="${notification.textNotification}"></p>
+    </div>
+</div>
 <div class="container">
     <div class="main-body">
         <div class="row gutters-sm">
@@ -455,16 +685,11 @@
 </div>
 </div>
 </body>
-<!--<script>
-    $(document).ready(function() {
-        $.get("/rating", function(data) {
-            var rating = data;
-            var stars = "";
-            for (var i = 0; i < rating; i++) {
-                stars += "<i class='fa fa-star'></i>";
-            }
-            $(".rating").html(stars);
+<script>
+    $(document).ready(function(){
+        $(".notification-box").click(function(){
+            $(".notifications").toggle();
         });
     });
-</script>-->
+</script>
 </html>

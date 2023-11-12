@@ -34,8 +34,10 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Controller
@@ -52,7 +54,7 @@ public class StudentMainController {
     private final EmailSenderService emailSenderService;
     private final SpringTemplateEngine springTemplateEngine;
 
-    private DataMapper dataMapper;
+    private final DataMapper dataMapper;
     PdfController pdfController = new PdfController();
 
     SingletonEnum se = SingletonEnum.INSTANCE;
@@ -77,8 +79,6 @@ public class StudentMainController {
                 teacher.setId_user(user);
                 gr.setTeacher(teacher);
             }
-
-
         }
         model.addAttribute("list", listCourse);
         List<Skills> skillsList = skillsService.findAllSkillss();
@@ -137,7 +137,7 @@ public class StudentMainController {
         model.addAttribute("group", group);
         String mail = student.getId_user().getMail();
         String body = "Поздавряем, " + student.getId_user().getSurname() + " " + student.getId_user().getName() + "!\nВы были зачислены на курс " + group.getCourse().getCourse_name() + "\nС направлением " + group.getCourse().getId_skills().getName_skills() + " "
-                + group.getCourse().getId_language().getName_language() + "\n Спасибо, что выбрали нашу компанию для вашего будущего";
+                + group.getCourse().getId_language().getName_language() + "\nСпасибо, что выбрали нашу компанию для вашего будущего";
         String subject = "IT Company Education Courses";
         emailService.sendSimpleEmail(mail, subject, body);
         attributes.addFlashAttribute("student", student);
@@ -162,7 +162,7 @@ public class StudentMainController {
     }
 
     @PostMapping("/students/mygroup/{id}")
-    public String completeCourse(HttpServletResponse response, @PathVariable(name = "id") int id,
+    public String completeCourse( @PathVariable(name = "id") int id,
                                  @RequestParam(name = "rating", required = false) String rating,
                                  RedirectAttributes attributes, Model model) throws IOException,
             MessagingException, jakarta.mail.MessagingException {

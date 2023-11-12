@@ -13,7 +13,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,6 +43,9 @@ public class User {
     private Role role_id_role;
     @OneToOne(mappedBy = "id_user")
     private Student student;*/
+
+    @OneToMany(mappedBy = "id_user", cascade = CascadeType.ALL)
+    private List<Notification> notifications;
 
     @Override
     public String toString() {

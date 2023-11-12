@@ -1,11 +1,22 @@
 package com.example.servercurs.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.List;
 
 @Entity
 @Table(name="student")
@@ -13,7 +24,6 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,25 +42,18 @@ public class Student {
     private String courses;
 
     @Column(name="count_rating")
-    //@ColumnDefault("0,"), columnDefinition = "varchar(45) default '0,'
     private String count_rating;
 
     //without foreight keys
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="id_user")
     private User id_user;
-/*
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name="id_group", nullable = false)
-    @JsonIgnore
-    private Group id_group;*/
+
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name="id_group")
     @JsonIgnore
     private Group id_group;
-
-
 
     @Override
     public String toString() {

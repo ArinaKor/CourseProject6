@@ -5,11 +5,13 @@ import com.example.servercurs.Config.ConvertToByte;
 import com.example.servercurs.entities.Course;
 import com.example.servercurs.entities.Group;
 import com.example.servercurs.entities.Language;
+import com.example.servercurs.entities.Notification;
 import com.example.servercurs.entities.Skills;
 import com.example.servercurs.entities.Student;
 import com.example.servercurs.entities.User;
 import com.example.servercurs.service.EmailSenderService;
 import com.example.servercurs.service.GroupService;
+import com.example.servercurs.service.NotificationService;
 import com.example.servercurs.service.StudentService;
 import com.example.servercurs.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -37,9 +39,9 @@ public class StudentPersonalController {
     private final GroupService groupService;
     private final UserService userService;
     private final EmailSenderService emailSenderService;
+    private final NotificationService notificationService;
 
     FindLastGroup findLastGroup = new FindLastGroup();
-    ConvertToByte convertToByte = new ConvertToByte();
 
     @GetMapping("/student/{id}")
     public String checkPersonalPage(@PathVariable(name = "id") int id, RedirectAttributes attributes, Model model) {
@@ -73,6 +75,9 @@ public class StudentPersonalController {
             course.setProgress(ThreadLocalRandom.current().nextInt(0, 101));
         }
         model.addAttribute("last", listLast);
+        User user = userService.findById(student.getId_user().getId_user());
+        List<Notification> notifications = notificationService.findById_userAndAndCheckNotificationTrue();
+        model.addAttribute("notifications", notifications);
         return "StudentPersonal";
     }
 
