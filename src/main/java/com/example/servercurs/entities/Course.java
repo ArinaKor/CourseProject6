@@ -24,8 +24,10 @@ public class Course {
 
     @Column(name="level")
     private String level;
+
     @Column(name="price")
     private double price;
+
 
 
     @Column(name="duration")
@@ -35,7 +37,7 @@ public class Course {
     @JsonIgnore
     private Skills id_skills;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="id_language", nullable = false)
     @JsonIgnore
     private Language id_language;

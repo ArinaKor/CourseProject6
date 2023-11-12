@@ -1,10 +1,7 @@
 package com.example.servercurs.entities;
 
-import com.example.servercurs.enums.DayOfWeek;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.List;
 
 @Entity
 @Table(name="timetable")

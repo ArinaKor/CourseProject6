@@ -3,12 +3,15 @@ package com.example.servercurs.service;
 import com.example.servercurs.entities.Course;
 import com.example.servercurs.entities.Language;
 import com.example.servercurs.entities.Skills;
+import com.example.servercurs.entities.Trainee;
 import com.example.servercurs.repository.CourseRepository;
 import com.example.servercurs.repository.LanguageRepository;
 import com.example.servercurs.repository.SkillsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -18,6 +21,7 @@ public class CourseService {
     private final CourseRepository courseRepository;
     private final LanguageRepository languageRepository;
     private final SkillsRepository skillsRepository;
+    private final TraineeService traineeService;
 
     public List<Course> findAllCourse() {
         return courseRepository.findAll();
@@ -81,6 +85,25 @@ public class CourseService {
         course.setId_language(language);
         course.setId_skills(skills1);
         courseRepository.save(course);
+    }
+
+    public List<String> encodedImageForTrainee(){
+        List<Trainee> listCourse = traineeService.findWithAll();
+        List<String> encodedImage = new ArrayList<>();
+        List<Language> list = languageRepository.findAll();
+        for (Trainee lg:listCourse) {
+            for(Language lang: list) {
+                String image = null;
+                if (lg.getId_language().getId_language()==lang.getId_language()) {
+                    image = Base64.getEncoder().encodeToString(lang.getLogo());
+                    encodedImage.add(image);
+                }
+                else {
+                    continue;
+                }
+            }
+        }
+        return encodedImage;
     }
 
 }

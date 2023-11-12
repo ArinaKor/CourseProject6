@@ -1,4 +1,4 @@
-package com.example.servercurs.enums;
+package com.example.servercurs.entities.enums;
 
 public enum DayOfWeek {
         MONDAY,

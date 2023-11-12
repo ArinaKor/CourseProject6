@@ -65,13 +65,13 @@ public class CoursesController {
     }
 
     @PostMapping("/add")
-    public String addNewCourse(@RequestParam String course_name, @RequestParam String level, @RequestParam float price, @RequestParam int duration, @RequestParam String skills, @RequestParam String lang, Model model ){
+    public String addNewCourse(@RequestParam String course_name, @RequestParam String level, @RequestParam float price, @RequestParam int duration, @RequestParam String skills, @RequestParam String lang){
         courseService.addNewCourse(course_name, level, price, duration, skills, lang);
         return "redirect:/admin/courses";
     }
 
     @PostMapping("/{id_course}/delete")
-    public String delete(@PathVariable(value = "id_course") int id_course, Model model){
+    public String delete(@PathVariable(value = "id_course") int id_course){
         courseService.delete(id_course);
         return "redirect:/admin/courses";
     }

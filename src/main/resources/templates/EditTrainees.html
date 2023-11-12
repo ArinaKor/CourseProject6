@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        body {
+            background-color: #c7dfff;
+            background-image: url("https://funart.pro/uploads/posts/2022-08/thumbs/1659952773_11-funart-pro-p-fon-dlya-veb-stranitsi-krasivo-11.png");
+            background-size: 101%;
+            background-repeat: no-repeat;
+
+            font-family: "Sitka Display";
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .decor {
+            position: relative;
+            max-width: 500px;
+            margin: 50px auto 0;
+            background: white;
+            border-radius: 30px;
+        }
+
+        .form-left-decoration, .form-right-decoration {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 20px;
+            background: #50b1f3;
+            border-radius: 20px;
+        }
+
+        .form-left-decoration {
+            bottom: 60px;
+            left: -30px;
+        }
+
+        .form-right-decoration {
+            top: 60px;
+            right: -30px;
+        }
+
+        .form-left-decoration:before, .form-left-decoration:after, .form-right-decoration:before, .form-right-decoration:after {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 20px;
+            border-radius: 30px;
+            background: white;
+        }
+
+        .form-left-decoration:before {
+            top: -20px;
+        }
+
+        .form-left-decoration:after {
+            top: 20px;
+            left: 10px;
+        }
+
+        .form-right-decoration:before {
+            top: -20px;
+            right: 0;
+        }
+
+        .form-right-decoration:after {
+            top: 20px;
+            right: 10px;
+        }
+
+        .circle {
+            position: absolute;
+            bottom: 80px;
+            left: -55px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+        }
+
+        .form-inner {
+            padding: 50px;
+        }
+
+        .form-inner input, .form-inner textarea {
+            display: block;
+            width: 100%;
+            padding: 0 20px;
+            margin-bottom: 10px;
+            background: #E9EFF6;
+            line-height: 40px;
+            border-width: 0;
+            border-radius: 20px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .form-inner input[type="submit"] {
+            margin-top: 30px;
+            background: #54ace8;
+            border-bottom: 4px solid #50b1f3;
+            color: white;
+            font-size: 14px;
+            width: 50%;
+            margin-left: 25%;
+        }
+
+        .form-inner h3 {
+            margin-top: 0;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 24px;
+            color: #707981;
+        }
+
+        .input1 {
+            display: flex;
+            flex-direction: row;
+        }
+
+        input {
+            margin-left: 1%;
+        }
+
+        /*-=-=-=-=-=-=-=-=-=-=-=*/
+        #neubar {
+            background: #c9e9ff;
+            box-shadow: 4px 6px 12px rgba(0, 0, 0, 0.4)
+        }
+
+        .nav-item .active {
+            border-radius: 6px;
+            background: linear-gradient(145deg, #50b1f3, #50B1F3FF);
+            box-shadow: 4px 4px 8px #c9e9ff,
+            -4px -4px 8px #c9e9ff;
+        }
+
+        #neubar .dropdown-menu a:hover {
+            color: #454545
+        }
+
+        #neubar .nav-item {
+            margin: auto 4px;
+        }
+
+        #neubar a {
+
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+
+        #neubar .dropdown-menu {
+            background: #545454
+        }
+
+        a.navbar-brand {
+            color: #454545
+        }
+
+    </style>
+    <!-- <link rel="stylesheet" href="../style/style.css">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Bootstrap Bundle JS (jsDelivr CDN) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-sm navbar-light" id="neubar">
+    <div class="container">
+        <!--
+            <a class="navbar-brand" href="static/index.html"><img src="" height="60" /></a>
+        -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto ">
+                <li class="nav-item">
+                    <a class="nav-link mx-2 active" aria-current="page" href="/admin/courses">Courses</a>
+                </li>
+                <!--<li class="nav-item">
+                    <a class="nav-link mx-2" href="#">Ticket</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-2" th:href="'/plane/'+${plane.id_flight}+'/update'">Edit Ticket</a>
+                </li>-->
+
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<form class="decor" method="post">
+    <div class="form-left-decoration"></div>
+    <div class="form-right-decoration"></div>
+    <div class="circle"></div>
+    <div class="form-inner">
+        <h3>NEW Trainee</h3>
+        <div class="input1">
+            <input name="location" type="text" list="location" th:value="${el.location}" placeholder="Location"
+                   autocomplete="off"/>
+            <datalist id="location">
+                <option value="BELARUS"/>
+                <option value="RUSSIA"/>
+            </datalist>
+
+            <input name="type" th:value="${el.type}" list="type" placeholder="Type" autocomplete="off"/>
+            <datalist id="type">
+                <div th:each="ac : ${listType}">
+                    <option th:value="${ac}"/>
+                </div>
+            </datalist>
+        </div>
+
+
+        <div class="input1">
+            <input name="skills" th:value="${el.id_skills.name_skills}" list="skills" placeholder="Skills"
+                   autocomplete="off"/>
+            <datalist id="skills">
+                <div th:each="ac : ${listSkills}">
+                    <option th:value="${ac.name_skills}"/>
+                </div>
+            </datalist>
+            <input name="lang" th:value="${el.id_language.name_language}" list="lang" placeholder="Language"
+                   autocomplete="off"/>
+            <datalist id="lang">
+                <div th:each="ac : ${listLang}">
+                    <option th:value="${ac.name_language}"/>
+                </div>
+
+            </datalist>
+            <div class="input1">
+                <input name="duration" type="text" th:value="${el.duration}" placeholder="Duration"
+                       autocomplete="off"/>
+            </div>
+            <!--<input type="text" name="skills" placeholder="Skills">
+            <input type="text"  name="lang" placeholder="lang">-->
+        </div>
+
+        <input type="submit" value="Save Trainee">
+    </div>
+</form>
+</body>
+</html>
