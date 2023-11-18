@@ -63,11 +63,10 @@ public class TraineeService {
         traineeRepository.save(trainee);
     }
 
-    public void replyTrainee(int traineeId, int studentId) {
+    public void replyTrainee( int studentId) {
 
         Student student = studentService.findById(studentId);
         User user = userService.findById(student.getId_user().getId_user());
-        Trainee trainee = traineeRepository.findById(traineeId).get();
         String text = "Спасибо за отклик на данную стажировку. ";
         String subject = "IT Company Education Courses";
         //create notification
@@ -77,6 +76,13 @@ public class TraineeService {
         sendMailForReplyOnTrainee(student, text, subject);
     }
 
+    public void replyUnAuthPerson(String mail) {
+        String subject = "IT Company Education Courses";
+        String text = "Спасибо за отклик на данную стажировку.\nДля дальнейшего рассмотрения Вашей кандидатуры," +
+                " заполните форму по ссылке https://forms.gle/aLHaxTwiySM5WFes6" +
+                "\nСпасибо, что выбрали нашу компанию для вашего будущего";
+        emailService.sendSimpleEmail(mail, subject, text);
+    }
     private void createNotificationForReplyOnTrainee(User user, String text, String subject) {
         Notification notification = new Notification();
         notification.setId_user(user);
@@ -92,4 +98,6 @@ public class TraineeService {
                 "\nСпасибо, что выбрали нашу компанию для вашего будущего";
         emailService.sendSimpleEmail(mail, subject, text);
     }
+
+
 }

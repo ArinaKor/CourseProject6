@@ -79,4 +79,6 @@ public class TraineeController {
         traineeService.update(traineeId, location, type, skills, lang, duration);
         return "redirect:/admin/trainees";
     }
+
+
 }

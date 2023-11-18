@@ -40,9 +40,14 @@ public class AuthorizationController {
     ConvertToByte convertToByte = new ConvertToByte();
 
     static int stud;
+
+    @GetMapping("/auth")
+    public String auth(){
+        return "authorization";
+    }
     @GetMapping("/")
     public String index(){
-        return "authorization";
+        return "LandingPage";
     }
 
     @GetMapping("/authorization")

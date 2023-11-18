@@ -43,9 +43,9 @@ public class TraineeStudentController {
         return "StudentTrainees";
     }
 
-    @PostMapping("/{traineeId}/{id_student}/reply")
-    public String replyStudentTrainee(@PathVariable(value = "traineeId") int traineeId, @PathVariable(name = "id_student") int studentId, RedirectAttributes attributes){
-        traineeService.replyTrainee(traineeId, studentId);
+    @PostMapping("/{id_student}/reply")
+    public String replyStudentTrainee( @PathVariable(name = "id_student") int studentId, RedirectAttributes attributes){
+        traineeService.replyTrainee( studentId);
         Student student = studentService.findById(studentId);
         attributes.addFlashAttribute("student", student);
 
