@@ -34,6 +34,7 @@ public class Trainee {
 
     private int duration;
 
+    //@Enumerated(EnumType.STRING)
     private String location;
 
     @Enumerated(EnumType.STRING)

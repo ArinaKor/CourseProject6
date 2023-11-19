@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +37,7 @@ public class AuthorizationController {
     private final StudentService studentService;
     private final CourseService courseService;
     private final TeacherService teacherService;
+    //private final GoogleSheetsService googleSheetsService;
 
     ConvertToByte convertToByte = new ConvertToByte();
 
@@ -46,7 +48,8 @@ public class AuthorizationController {
         return "authorization";
     }
     @GetMapping("/")
-    public String index(){
+    public String index() throws GeneralSecurityException, IOException {
+
         return "LandingPage";
     }
 

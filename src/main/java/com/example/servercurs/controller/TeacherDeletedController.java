@@ -4,6 +4,7 @@ import com.example.servercurs.entities.Teacher;
 import com.example.servercurs.entities.User;
 import com.example.servercurs.repository.TeacherRepository;
 import com.example.servercurs.service.EmailSenderService;
+import com.example.servercurs.service.GoogleSheetsService;
 import com.example.servercurs.service.TeacherService;
 import com.example.servercurs.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.List;
 @Controller
 @RequiredArgsConstructor
@@ -25,16 +28,19 @@ public class TeacherDeletedController {
     private final TeacherService teacherService;
     private final TeacherRepository teacherRepository;
     private final EmailSenderService emailSenderService;
+    private final GoogleSheetsService googleSheetsService;
 
     @GetMapping
-    public String deleteTeach(Model model, RedirectAttributes attributes){
+    public String deleteTeach(Model model, RedirectAttributes attributes) throws GeneralSecurityException, IOException {
         List<Teacher> deleteList = teacherRepository.findTeacherByCheck("1");
+        googleSheetsService.saveTraineeReply();
         if(deleteList.size()==0){
             String msg = "Никто увольняться не хочет!)";
             attributes.addFlashAttribute("msg",msg);
             return "redirect:/admin";
         }
         model.addAttribute("delete", deleteList);
+
         return "CheckApplications";
     }
 

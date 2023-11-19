@@ -9,6 +9,8 @@ import com.example.servercurs.repository.TraineeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -63,7 +65,7 @@ public class TraineeService {
         traineeRepository.save(trainee);
     }
 
-    public void replyTrainee( int studentId) {
+    public void replyTrainee( int studentId) throws GeneralSecurityException, IOException {
 
         Student student = studentService.findById(studentId);
         User user = userService.findById(student.getId_user().getId_user());
@@ -74,15 +76,21 @@ public class TraineeService {
 
         //send mail
         sendMailForReplyOnTrainee(student, text, subject);
+        //googleSheetsService.checkSheets();
     }
 
     public void replyUnAuthPerson(String mail) {
         String subject = "IT Company Education Courses";
         String text = "Спасибо за отклик на данную стажировку.\nДля дальнейшего рассмотрения Вашей кандидатуры," +
-                " заполните форму по ссылке https://forms.gle/aLHaxTwiySM5WFes6" +
+                " заполните форму по ссылке https://forms.gle/4fJzkPGut923NRQ46" +
                 "\nСпасибо, что выбрали нашу компанию для вашего будущего";
         emailService.sendSimpleEmail(mail, subject, text);
     }
+
+    public List<Trainee> findByLangAndSkill(int lang, int skill){
+        return traineeRepository.findTraineesByLanguageAndSkill(lang, skill);
+    }
+
     private void createNotificationForReplyOnTrainee(User user, String text, String subject) {
         Notification notification = new Notification();
         notification.setId_user(user);
@@ -94,10 +102,12 @@ public class TraineeService {
 
     private void sendMailForReplyOnTrainee(Student student, String body, String subject) {
         String mail = student.getId_user().getMail();
-        String text = body + "\n Для дальнейшего рассмотрения Вашей кандидатуры, заполните форму по ссылке https://forms.gle/aLHaxTwiySM5WFes6" +
+        String text = body + "\n Для дальнейшего рассмотрения Вашей кандидатуры," +
+                " заполните форму по ссылке https://forms.gle/4fJzkPGut923NRQ46" +
                 "\nСпасибо, что выбрали нашу компанию для вашего будущего";
         emailService.sendSimpleEmail(mail, subject, text);
     }
+
 
 
 }
