@@ -45,11 +45,11 @@ public class TraineeReply {
     private int testResult;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="id_skills")
+    @JoinColumn(name = "id_skills")
     private Skills idSkills;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="id_language")
+    @JoinColumn(name = "id_language")
     private Language idLanguage;
 
 }

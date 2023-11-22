@@ -10,12 +10,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 
 @Entity
@@ -54,6 +57,11 @@ public class Student {
     @JoinColumn(name="id_group")
     @JsonIgnore
     private Group id_group;
+
+    @OneToMany(mappedBy = "idHistory",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private List<LessonsHistory> lessonsHistories;
 
     @Override
     public String toString() {

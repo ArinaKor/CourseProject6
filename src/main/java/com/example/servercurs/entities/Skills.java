@@ -31,5 +31,5 @@ public class Skills {
     @OneToMany(mappedBy = "id_skills",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    List<Course> courses;
+    private List<Course> courses;
 }

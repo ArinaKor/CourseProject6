@@ -26,6 +26,7 @@ public class User {
 
     @Column(name="password")
     private String password;
+
     @Column(name="mail")
     private String mail;
 
@@ -37,12 +38,6 @@ public class User {
     @Lob
     @Column(name="photo")
     private byte[] photo;
-    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name="role_id_role", nullable = false)
-    @JsonIgnore
-    private Role role_id_role;
-    @OneToOne(mappedBy = "id_user")
-    private Student student;*/
 
     @OneToMany(mappedBy = "id_user", cascade = CascadeType.ALL)
     private List<Notification> notifications;

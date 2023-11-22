@@ -1,9 +1,19 @@
 package com.example.servercurs.entities;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,12 +39,8 @@ public class Role {
                 '}';
     }
 
-    /* @OneToMany(mappedBy = "role_id_role",
-                fetch = FetchType.LAZY,
-                cascade = CascadeType.ALL)
-        private List<User> users = new ArrayList<>();*/
    @OneToMany(mappedBy = "role",
            fetch = FetchType.LAZY,
            cascade = CascadeType.ALL)
-   List<User> users;
+   private List<User> users;
 }

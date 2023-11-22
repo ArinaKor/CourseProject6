@@ -24,6 +24,7 @@ public class Language {
     @Lob
     @Column(name="logo")
     private byte[] logo;
+
     @Override
     public String toString() {
         return "Language{" +
@@ -31,8 +32,9 @@ public class Language {
                 ", name_language='" + name_language + '\'' +
                 '}';
     }
+
     @OneToMany(mappedBy = "id_language",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    List<Course> courses;
+    private List<Course> courses;
 }

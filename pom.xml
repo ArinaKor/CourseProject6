@@ -207,6 +207,16 @@
             <artifactId>google-api-services-sheets</artifactId>
             <version>v4-rev20220927-2.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.telegram</groupId>
+            <artifactId>telegrambots</artifactId>
+            <version>6.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.xabgesagtx</groupId>
+            <artifactId>telegram-spring-boot-starter</artifactId>
+            <version>0.22</version>
+        </dependency>
 
     </dependencies>
 

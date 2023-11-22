@@ -44,7 +44,7 @@ public class Group {
     @OneToMany(mappedBy = "id_group",
             fetch = FetchType.LAZY,
             cascade = CascadeType.DETACH)
-    List<Student> students;
+    private List<Student> students;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="teacher")
@@ -56,18 +56,5 @@ public class Group {
     private TimeTable timetable;
     @Transient
     private int progress;
-   /* @Override
-    public String toString() {
-        return "Group{" +
-                "id_group=" + id_group +
-                ", count_student_all=" + count_student_all +
-                ", group_time='" + group_time + '\'' +
-                ", recorded_count=" + recorded_count +
-                ", date_start=" + date_start +
-                ", course=" + course +
-                ", students=" + students +
-                ", teacher=" + teacher +
-                ", timetable=" + timetable +
-                '}';
-    }*/
+
 }

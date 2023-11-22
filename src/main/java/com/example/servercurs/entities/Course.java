@@ -28,10 +28,9 @@ public class Course {
     @Column(name="price")
     private double price;
 
-
-
     @Column(name="duration")
     private int duration;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="id_skills", nullable = false)
     @JsonIgnore
@@ -45,7 +44,18 @@ public class Course {
     @OneToMany(mappedBy = "course",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    List<Group> groups;
+    private List<Group> groups;
+
+    @OneToMany(mappedBy = "idHistory",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private List<LessonsHistory> lessonsHistories;
+
+    @OneToMany(mappedBy = "idLesson",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private List<CourseLesson> lessons;
+
     @Override
     public String toString() {
         return "Course{" +

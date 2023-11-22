@@ -15,21 +15,10 @@ public class TimeTable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_timetable;
 
-    /*@Enumerated(EnumType.STRING)*/
     @Column(name = "days_of_week")
     private String dayOfWeek;
     @Column(name = "time")
     private String time;
-
-    /*@Column(name="time")
-    private String time;*/
-    //without foreight key
-    //change type date and time on sql-types
-    //onetomany
-    /*@OneToMany(mappedBy = "timetable",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.DETACH)
-    List<Group> groups;*/
 
     @Override
     public String toString() {
