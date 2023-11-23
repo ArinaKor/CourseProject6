@@ -6,6 +6,7 @@ import com.example.servercurs.entities.Skills;
 import com.example.servercurs.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,4 +30,6 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
     @Query("SELECT c.id_language.name_language, COUNT(c) FROM Course c GROUP BY c.id_language")
     List<Object[]> findGroupedCoursesLang();
 
+    @Query("SELECT c FROM Course c JOIN c.groups g JOIN g.teacher t WHERE t.id_teacher = :teacherId")
+    List<Course> findCoursesByTeacherId(@Param("teacherId") int teacherId);
 }

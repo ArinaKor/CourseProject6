@@ -161,4 +161,7 @@ public class GroupService {
     }
 
 
+    public List<Group> findAllGroupsByTeacher(int id_teacher) {
+        return groupRepository.findGroupsByTeacher(id_teacher);
+    }
 }

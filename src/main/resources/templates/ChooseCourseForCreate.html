@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <!-- Bootstrap Bundle JS (jsDelivr CDN) -->
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+  <style>
+    body {
+      background-color: #c7dfff;
+      background-image: url("https://funart.pro/uploads/posts/2022-08/thumbs/1659952773_11-funart-pro-p-fon-dlya-veb-stranitsi-krasivo-11.png");
+      background-size: 101% ;
+      background-repeat: no-repeat;
+    }
+    #neubar {
+      background: #c9e9ff;
+      box-shadow: 4px 6px 12px rgba(0,0,0,0.4)
+    }
+
+    .nav-item .active {
+      border-radius: 6px;
+      background: linear-gradient(145deg, #50b1f3, #50B1F3FF);
+      box-shadow:  4px 4px 8px #c9e9ff,
+      -4px -4px 8px #c9e9ff;
+    }
+    #neubar .dropdown-menu a:hover {
+      color: #454545
+    }
+    #neubar .nav-item {
+      margin : auto 4px;
+    }
+    #neubar a {
+
+      padding-left:12px;
+      padding-right:12px;
+    }
+    #neubar .dropdown-menu {
+      background : #545454
+    }
+    a.navbar-brand {
+      color: #454545
+    }
+    .ch{
+      border: 2px solid #009dda;
+      border-radius: 8px;
+      background: #009dda;
+      color: #c9e9ff;
+    }
+    .shine-button {
+      /* text-decoration: none; */
+      /* display: inline-block; */
+      padding: 5px 20px;
+      /* margin: 10px 20px; */
+      /* position: relative; */
+      /* overflow: hidden; */
+      border: 2px solid #009dda;
+      border-radius: 8px;
+      /*
+      color: #009dda;
+      */
+
+      background: #009dda;
+      color: #c9e9ff;
+      transition: .2s ease-in-out;
+      font-size: medium;
+    }
+    .shine-button:before {
+      content: "";
+      /*
+      background: linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
+      */
+      height: 50px;
+      width: 50px;
+      position: absolute;
+      top: -8px;
+      left: -75px;
+      transform: skewX(-45deg);
+    }
+    .shine-button:hover {
+      border: 2px solid #009dda;
+      border-radius: 8px;
+      color: #009dda;
+      background-color: #a9dffd;
+    }
+    .shine-button:hover:before {
+      left: 150px;
+      transition: .5s ease-in-out;
+    }
+
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm navbar-light" id="neubar">
+  <div class="container">
+    <a class="navbar-brand" href="static/index.html"><img src="" height="60" /></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ms-auto ">
+        <li class="nav-item">
+          <a class="nav-link mx-2 active" aria-current="page" href="/admin">Home</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<div class="container mt-3 pt-2">
+  <div class="row" >
+    <div class="col-lg-4 col-md-4 col-10 mt-2 pt-1" th:each="ac,iterStat : ${courses}" th:classappend="${iterStat.index % 3 == 0} ? 'row'">
+      <div class="card border-0 bg-light rounded shadow">
+        <div class="card-body p-4">
+          <span class="badge rounded-pill ch float-md-end mb-3 mb-sm-0" th:text="${ac.duration}+' month'"></span>
+
+          <div style="display: flex">
+            <div>
+              <h5 th:text="${ac.id_language.name_language}+' '+${ac.id_skills.name_skills}"/>
+              <h6 th:text="${ac.course_name}"/>
+            </div>
+            <img th:src="@{'data:image/jpeg;base64,' + ${encodedImage.get((iterStat.count)-1)}}" alt="Admin" width="75"
+                 style="position: absolute;margin-top: 10%; margin-left: 66%;">
+          </div>
+
+          <div class="mt-3">
+            <span class="text-muted d-block"><i class="fa fa-map-marker" aria-hidden="true"></i> Belarus</span>
+          </div>
+          <div class="mt-3">
+            <span th:text="'Level '+${ac.level}" class="ID"/><br>
+            <span th:text="${ac.price}+'BYN'" class="ID"/>
+          </div>
+          <form th:action="'/teacher/courses/'+${teacher.id_teacher}+'/new-lesson/'+${ac.id_course}" method="get">
+            <button type="submit" class="shine-button">Create lesson</button>
+          </form>
+          <!--<div class="mt-3">
+            <a href="#" class="btn btn-primary">View Details</a>
+          </div>-->
+         <!-- <div class="check" style="display: flex;flex-direction: row;align-items: flex-end;justify-content: space-between;">
+            <form th:action="'/admin/courses/'+${ac.id_course}+'/delete'" method="post">
+              <button type="submit" class="shine-button">Delete</button>
+            </form>
+            <a th:href="'/admin/courses/'+${ac.id_course}+'/edit'">Edit information</a>
+            &lt;!&ndash;<a th:href="@{/admin/courses/{id_course}(id_course=${ac.id_course})/edit}">Edit information</a>&ndash;&gt;
+-->
+
+          </div>
+
+        </div>
+      </div>
+
+    </div><!--end row-->
+  </div>
+</div>
+</body>
+</html>

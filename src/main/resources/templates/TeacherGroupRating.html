@@ -112,9 +112,9 @@
           <a class="nav-link mx-2 active" aria-current="page" th:href="@{/teacher/{id}(id=${teacher.id_teacher})}">Home</a>
         </li>
 
-        <!--<li class="nav-item">
-            <a class="nav-link mx-2" href="/admin/courses/edit">Timetable</a>
-        </li>-->
+          <li class="nav-item">
+              <a th:href="@{/teacher/courses/{id_teacher}/add(id_teacher=${teacher.id_teacher})}">Create lesson</a>
+          </li>
 
       </ul>
     </div>
@@ -130,7 +130,7 @@
        <label for="contactChoice1">Find By Town</label>-->
       <div th:each="group : ${groups}">
         <input type="radio" class="btn-check " th:id="${group.id_group}" th:name="group" th:value="${group.id_group}" />
-        <label th:for="${group.id_group}" class="btn shine-button"th:text="${group.id_group}"></label>
+        <label th:for="${group.id_group}" class="btn shine-button" th:text="${group.id_group}"></label>
       </div>
       <input type="submit" value="Find Group" class="btn shine-button" style="border-radius: 8px">
     </div>

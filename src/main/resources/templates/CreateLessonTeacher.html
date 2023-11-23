@@ -171,7 +171,7 @@
             <a class="navbar-brand" href="static/index.html"><img src="" height="60" /></a>
         -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" >
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -184,7 +184,7 @@
         </div>
     </div>
 </nav>
-<form class="decor" action="/teacher/courses/new-lesson" method="post">
+<form class="decor" th:action="@{/teacher/courses/new-lesson/{id}(id=${idCourse})}" method="post">
     <div class="form-left-decoration"></div>
     <div class="form-right-decoration"></div>
     <div class="circle"></div>
@@ -195,7 +195,11 @@
             <!--<form id="myForm">-->
             <div class="form-group">
                 <label for="lessonTitle">Название урока</label>
-                <input type="text" class="form-control" id="lessonTitle">
+                <input type="text" name="lessonName" class="form-control" id="lessonTitle">
+            </div>
+            <div class="form-group">
+                <label for="lessonText">Текст урока</label>
+                <textarea class="form-control" name="text" id="lessonText" rows="3"></textarea>
             </div>
             <div class="form-group row" id="field1">
                 <div class="col-sm-10">
@@ -206,11 +210,10 @@
                     <button type="button" class="btn btn-danger removeButton" data-field="field1">-</button>
                 </div>
             </div>
+            <input type="hidden" id="linkList" name="linkList" th:value="${linkList}" />
+            <input type="hidden" id="id_teacher" name="id_teacher" th:value="${id_teacher}" />
             <button type="button" id="addButton" class="btn btn-primary">+</button>
-            <div class="form-group">
-                <label for="lessonText">Текст урока</label>
-                <textarea class="form-control" id="lessonText" rows="3"></textarea>
-            </div>
+
             <button type="submit" class="btn btn-success">Create</button>
 
         </div>
@@ -225,21 +228,36 @@
         $('#addButton').click(function () {
             fieldNum++;
             var newField = $(`<div class="form-group row" id="field${fieldNum}">
-                    <div class="col-sm-10">
-                        <label for="inputField${fieldNum}">Ссылка ${fieldNum}</label>
-                        <input type="text" class="form-control" id="inputField${fieldNum}">
-                    </div>
-                    <div class="col-sm-2">
-                        <button type="button" class="btn btn-danger removeButton" data-field="field${fieldNum}">-</button>
-                    </div>
-                </div>`);
+            <div class="col-sm-10">
+                <label for="inputField${fieldNum}">Ссылка ${fieldNum}</label>
+                <input type="text" class="form-control" id="inputField${fieldNum}">
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-danger removeButton" data-field="field${fieldNum}">-</button>
+            </div>
+        </div>`);
             newField.insertBefore('#addButton');
+            updateLinkList();
         });
         $(document).on('click', '.removeButton', function () {
             var fieldId = $(this).data('field');
             $('#' + fieldId).remove();
+            updateLinkList();
         });
+        $(document).on('change', 'input[id^="inputField"]', function () {
+            updateLinkList();
+        });
+
+        function updateLinkList() {
+            var linkList = [];
+            $('input[id^="inputField"]').each(function () {
+                linkList.push($(this).val());
+            });
+            $('#linkList').val(JSON.stringify(linkList));
+        }
     });
+
+
 </script>
 </body>
 </html>
