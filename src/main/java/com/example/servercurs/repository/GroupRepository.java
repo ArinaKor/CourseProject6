@@ -33,4 +33,6 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
     @Query("SELECT c FROM Group c WHERE c.course IN :course")
     List<Group> findByListCourse(List<Course> course);
 
+
+
 }

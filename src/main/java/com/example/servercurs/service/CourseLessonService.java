@@ -35,14 +35,20 @@ public class CourseLessonService {
 
     public void submitNewCourse(int idCourse,
                                 String lessonName,
-                                 String text,
-                                 String linkList){
+                                String text,
+                                String linkList) {
+        List<CourseLesson> courseLessons = courseLessonRepository.findByCourse(idCourse);
+        int count = courseLessons.size() + 1;
         CourseLesson courseLesson = new CourseLesson();
         courseLesson.setLessonName(lessonName);
         courseLesson.setLessonText(text);
         courseLesson.setId_course(courseService.findById(idCourse));
         courseLesson.setLinks(linkList);
+        courseLesson.setNumberLesson(count);
         courseLessonRepository.save(courseLesson);
-        
+    }
+
+    public List<CourseLesson> findByCourse(int id){
+        return courseLessonRepository.findByCourse(id);
     }
 }

@@ -51,6 +51,10 @@ public class CourseService {
         return courseRepository.findCourse(id, idLang, name);
     }
 
+    public Course findCourseByGroupId(int id){
+        return courseRepository.findCourseByGroupId(id).get();
+    }
+
     public List<Course> findCoursesByTeacherId(int id){
         return courseRepository.findCoursesByTeacherId(id);
     }

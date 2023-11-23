@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Уроки</title>
+    <!-- Подключите Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <!-- Список уроков -->
+            <div class="list-group" id="list-tab" role="tablist">
+                <div th:each="lesson, iterStat : ${lessons}">
+                    <a th:id="'list-lesson' + ${lesson.numberLesson} + '-list'"
+                       th:class="${iterStat.first} ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
+                       data-toggle="list"
+                       th:href="'#list-lesson' + ${lesson.numberLesson}"
+                       role="tab"
+                       th:text="${'Урок ' + lesson.numberLesson+ '  '+ lesson.lessonName}"></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-8">
+            <!-- Содержание уроков -->
+            <div class="tab-content" id="nav-tabContent">
+                <div th:each="lesson, iterStat : ${lessons}" th:id="'list-lesson' + ${lesson.numberLesson}"
+                     role="tabpanel"
+                     th:class="${iterStat.first} ? 'tab-pane fade show active' : 'tab-pane fade'">
+                    <h2 th:text="${'Урок ' + lesson.numberLesson}">Урок</h2>
+                    <h4 th:text="${lesson.lessonName}"></h4>
+                    <p th:text="${lesson.lessonText}">Содержание урока...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Подключите jQuery и Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.list-group-item').on('click', function () {
+            $('.active').removeClass('active');
+            $(this).addClass('active');
+
+            // Получить идентификатор урока
+            var lessonId = $(this).attr('href');
+
+            // Показать содержимое выбранного урока
+            $(lessonId).tab('show');
+        });
+    });
+</script>
+</body>
+</html>
+

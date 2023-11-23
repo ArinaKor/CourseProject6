@@ -178,8 +178,19 @@
                     <h3>INFORMATION ABOUT GROUP</h3>
                     <div class="input1">
                         <!--<input type="text" name="level"  placeholder="level">-->
-                        <input type="date" name="dateStart" disabled  th:value="${student.id_group.date_start}"  placeholder="Date of Start"/>
+<!--
                         <input type="text" name="teacher" placeholder="Teacher" th:value="${student.id_group.teacher.id_user.surname}+' '+${student.id_group.teacher.id_user.name}" disabled autocomplete="off" required/>
+-->
+                        <div style="width:170%">
+                            <div th:if="${student.id_group.teacher == null}">
+                                <input type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                            </div>
+                            <div th:unless="${student.id_group.teacher == null}">
+                                <input type="text" name="teacher" placeholder="Teacher" th:value="${student.id_group.teacher.id_user.surname}+' '+${student.id_group.teacher.id_user.name}" disabled autocomplete="off" required/>
+
+                            </div>
+                        </div>
+                        <input type="date" name="dateStart" disabled  th:value="${student.id_group.date_start}"  placeholder="Date of Start"/>
 
                     </div>
                     <div class="input1">

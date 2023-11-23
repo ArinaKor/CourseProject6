@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Integer> {
@@ -32,4 +33,7 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 
     @Query("SELECT c FROM Course c JOIN c.groups g JOIN g.teacher t WHERE t.id_teacher = :teacherId")
     List<Course> findCoursesByTeacherId(@Param("teacherId") int teacherId);
+
+    @Query("SELECT g.course FROM Group g WHERE g.id_group = :groupId")
+    Optional<Course> findCourseByGroupId(@Param("groupId") int groupId);
 }

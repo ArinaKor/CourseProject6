@@ -72,14 +72,14 @@ public class StudentMainController {
         List<Group> list = new ArrayList<>();
         Teacher teacher = new Teacher();
         User user = new User();
-        for (Group gr : listCourse) {
-            if (gr.getTeacher() == null) {
+        /*for (Group gr : listCourse) {
+            if (gr.getTeacher() == null) {*//*
                 user.setSurname("not found");
-                user.setName("yet");
+                user.setName("yet");*//*
                 teacher.setId_user(user);
                 gr.setTeacher(teacher);
             }
-        }
+        }*/
         model.addAttribute("list", listCourse);
         List<Skills> skillsList = skillsService.findAllSkillss();
         model.addAttribute("skills", skillsList);

@@ -41,9 +41,12 @@ public class CourseLesson {
     @Column(name = "links")
     private String links;
 
-    @Lob
-    @Column(name = "lesson_text")
+
+    @Column(name = "lesson_text", columnDefinition = "LONGTEXT")
     private String lessonText;
+
+    @Column(name = "number_lesson")
+    private int numberLesson;
 
     @OneToMany(mappedBy = "idHistory",
             fetch = FetchType.LAZY,
