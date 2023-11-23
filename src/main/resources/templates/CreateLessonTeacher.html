@@ -1,13 +1,245 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Редактор</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #c7dfff;
+            background-image: url("https://funart.pro/uploads/posts/2022-08/thumbs/1659952773_11-funart-pro-p-fon-dlya-veb-stranitsi-krasivo-11.png");
+            background-size: 101%;
+            background-repeat: no-repeat;
+
+            font-family: "Sitka Display";
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .decor {
+            position: relative;
+            max-width: 900px;
+            margin: 50px auto 0;
+            background: white;
+            border-radius: 30px;
+        }
+
+        .form-left-decoration, .form-right-decoration {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 20px;
+            background: #50b1f3;
+            border-radius: 20px;
+        }
+
+        .form-left-decoration {
+            bottom: 60px;
+            left: -30px;
+        }
+
+        .form-right-decoration {
+            top: 60px;
+            right: -30px;
+        }
+
+        .form-left-decoration:before, .form-left-decoration:after, .form-right-decoration:before, .form-right-decoration:after {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 20px;
+            border-radius: 30px;
+            background: white;
+        }
+
+        .form-left-decoration:before {
+            top: -20px;
+        }
+
+        .form-left-decoration:after {
+            top: 20px;
+            left: 10px;
+        }
+
+        .form-right-decoration:before {
+            top: -20px;
+            right: 0;
+        }
+
+        .form-right-decoration:after {
+            top: 20px;
+            right: 10px;
+        }
+
+        .circle {
+            position: absolute;
+            bottom: 80px;
+            left: -55px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+        }
+
+        .form-inner {
+            padding: 50px;
+        }
+
+        .form-inner input, .form-inner textarea {
+            display: block;
+            width: 100%;
+            padding: 0 20px;
+            margin-bottom: 10px;
+            background: #E9EFF6;
+            line-height: 40px;
+            border-width: 0;
+            border-radius: 20px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .form-inner input[type="submit"] {
+            margin-top: 30px;
+            background: #54ace8;
+            border-bottom: 4px solid #50b1f3;
+            color: white;
+            font-size: 14px;
+            width: 50%;
+            margin-left: 25%;
+        }
+
+        .form-inner h3 {
+            margin-top: 0;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 24px;
+            color: #707981;
+        }
+
+        .input1 {
+            display: flex;
+            flex-direction: row;
+        }
+
+        input {
+            margin-left: 1%;
+        }
+
+        /*-=-=-=-=-=-=-=-=-=-=-=*/
+        #neubar {
+            background: #c9e9ff;
+            box-shadow: 4px 6px 12px rgba(0, 0, 0, 0.4)
+        }
+
+        .nav-item .active {
+            border-radius: 6px;
+            background: linear-gradient(145deg, #50b1f3, #50B1F3FF);
+            box-shadow: 4px 4px 8px #c9e9ff,
+            -4px -4px 8px #c9e9ff;
+        }
+
+        #neubar .dropdown-menu a:hover {
+            color: #454545
+        }
+
+        #neubar .nav-item {
+            margin: auto 4px;
+        }
+
+        #neubar a {
+
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+
+        #neubar .dropdown-menu {
+            background: #545454
+        }
+
+        a.navbar-brand {
+            color: #454545
+        }
+
+    </style>
 </head>
 <body>
-<div>
+<nav class="navbar navbar-expand-sm navbar-light" id="neubar">
+    <div class="container">
+        <!--
+            <a class="navbar-brand" href="static/index.html"><img src="" height="60" /></a>
+        -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-</div>
+        <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto ">
+                <li class="nav-item">
+                    <a class="nav-link mx-2 active" aria-current="page" href="/admin/courses">Courses</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<form class="decor" action="/teacher/courses/new-lesson" method="post">
+    <div class="form-left-decoration"></div>
+    <div class="form-right-decoration"></div>
+    <div class="circle"></div>
+    <div class="form-inner">
+        <div class="container">
+            <h1 class="mt-4 mb-4">Редактор</h1>
+            <h2 class="mb-4">Создание нового урока</h2>
+            <!--<form id="myForm">-->
+            <div class="form-group">
+                <label for="lessonTitle">Название урока</label>
+                <input type="text" class="form-control" id="lessonTitle">
+            </div>
+            <div class="form-group row" id="field1">
+                <div class="col-sm-10">
+                    <label for="inputField1">Ссылки на полезные источники по уроку</label>
+                    <input type="text" class="form-control" id="inputField1">
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-danger removeButton" data-field="field1">-</button>
+                </div>
+            </div>
+            <button type="button" id="addButton" class="btn btn-primary">+</button>
+            <div class="form-group">
+                <label for="lessonText">Текст урока</label>
+                <textarea class="form-control" id="lessonText" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Create</button>
 
+        </div>
+    </div>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var fieldNum = 1;
+        $('#addButton').click(function () {
+            fieldNum++;
+            var newField = $(`<div class="form-group row" id="field${fieldNum}">
+                    <div class="col-sm-10">
+                        <label for="inputField${fieldNum}">Ссылка ${fieldNum}</label>
+                        <input type="text" class="form-control" id="inputField${fieldNum}">
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-danger removeButton" data-field="field${fieldNum}">-</button>
+                    </div>
+                </div>`);
+            newField.insertBefore('#addButton');
+        });
+        $(document).on('click', '.removeButton', function () {
+            var fieldId = $(this).data('field');
+            $('#' + fieldId).remove();
+        });
+    });
+</script>
 </body>
 </html>

@@ -37,7 +37,6 @@ public class AuthorizationController {
     private final StudentService studentService;
     private final CourseService courseService;
     private final TeacherService teacherService;
-    //private final GoogleSheetsService googleSheetsService;
 
     ConvertToByte convertToByte = new ConvertToByte();
 

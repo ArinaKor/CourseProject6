@@ -34,26 +34,24 @@ public class Group {
     @DateTimeFormat(pattern = "YYYY-MM-DD")
     private Date date_start;
 
-
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="course", nullable = false)
     @JsonIgnore
     private Course course;
 
     @OneToMany(mappedBy = "id_group",
-            fetch = FetchType.LAZY,
+            fetch = FetchType.EAGER,
             cascade = CascadeType.DETACH)
     private List<Student> students;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name="teacher")
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="teacher", nullable = true)
     private Teacher teacher;
 
     @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name="timetable")
     private TimeTable timetable;
+
     @Transient
     private int progress;
 

@@ -122,7 +122,16 @@
                 <div class="card-body p-4">
                     <span class="badge rounded-pill ch float-md-end mb-3 mb-sm-0" th:text="${ac.course.duration}+' month'"></span>
                     <h5 th:text="${ac.course.id_skills.name_skills}+' Developer'"/>
-                    <h6 th:text="'Teacher is '+${ac.teacher.id_user.surname}+' '+${ac.teacher.id_user.name} "/>
+                    <div>
+                        <div th:if="${ac.teacher == null}">
+                            <h6 >Teacher will be later</h6>
+                        </div>
+                        <div th:unless="${ac.teacher == null}">
+                            <h6 th:text="'Teacher is '+${ac.teacher.id_user.surname}+' '+${ac.teacher.id_user.name} "/>
+
+                        </div>
+                    </div>
+
                     <h6 th:text="${ac.course.course_name}+ ' Language '+${ac.course.id_language.name_language}"/>
                     <img th:src="@{'data:image/jpeg;base64,' + ${encodedImage.get((iterStat.count)-1)}}" alt="Admin" width="75"
                     style="    position: absolute;margin-left: 65%;">

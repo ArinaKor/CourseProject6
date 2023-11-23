@@ -1,5 +1,6 @@
 package com.example.servercurs.entities;
 
+import com.example.servercurs.service.TeacherService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -41,6 +42,12 @@ public class User {
 
     @OneToMany(mappedBy = "id_user", cascade = CascadeType.ALL)
     private List<Notification> notifications;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy="id_user", fetch = FetchType.EAGER)
+    private Teacher teacher;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy="id_user", fetch = FetchType.EAGER)
+    private Student student;
 
     @Override
     public String toString() {

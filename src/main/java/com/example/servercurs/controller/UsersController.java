@@ -93,7 +93,7 @@ public class UsersController {
         if (count == 0) {
             userService.save(user);
         }
-        if(count!=0) {
+        if (count != 0) {
             String error = "We have user with this mail.Enter another mail please!";
             model.addAttribute("error", error);
             return "AddUser";
@@ -117,54 +117,26 @@ public class UsersController {
 
     @PostMapping("/{id_user}/edit")
     public String update(RedirectAttributes attributes, @PathVariable(value = "id_user") int id_user, @RequestParam String surname, @RequestParam String name,
-                         @RequestParam String roleName, @RequestParam String mail, @RequestParam String rolee, Model model) {
+                         @RequestParam String mail, @RequestParam String rolee, Model model){
 
-        Role role = roleService.findRoleByRoleName(roleName);
-
+        Role role = roleService.findRoleByRoleName(rolee);
         String message = "takoe yzse est'";
         model.addAttribute("message", message);
         User user = userService.findById(id_user);
-        List<Teacher> teacherList = teacherService.findAllTeachers();
-        List<Student> studentList = studentService.findAllStudents();
-        Teacher teacher = new Teacher();
-        Student student = new Student();
-        if (!user.getMail().equals(mail)) {
+
+        if(!user.getMail().equals(mail)){
             user.setSurname(surname);
             user.setName(name);
             user.setMail(mail);
             user.setRole(role);
-            List<User> userList = userService.findAllUser();
             userService.save(user);
-        } else {
-            String error = "We have user with this mail.Enter another mail please!";
+        }
+        else{
+            String error="We have user with this mail.Enter another mail please!";
             attributes.addFlashAttribute("error", error);
             return "redirect:/admin/users/{id_user}/edit";
         }
-        if (!roleName.equals(rolee)) {
-            if (rolee.equals("student")) {
-                for (Student st : studentList) {
-                    if (st.getId_user().equals(user)) {
-                        teacher.setId_user(user);
-                        teacherService.save(teacher);
-                        studentService.delete(st.getId_student());
-                        break;
-                    }
-
-                }
-            }
-            if (rolee.equals("teacher")) {
-                for (Teacher tc : teacherList) {
-                    if (tc.getId_user().equals(user)) {
-                        student.setId_user(user);
-                        studentService.save(student);
-                        teacherService.delete(tc.getId_teacher());
-                        break;
-                    }
-                }
-            }
-        }
-        userService.save(user);
-
         return "redirect:/admin/users";
     }
+
 }

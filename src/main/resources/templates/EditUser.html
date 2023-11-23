@@ -191,15 +191,8 @@
       <input type="text" th:value="${el.password}" name="pass" placeholder="Password" disabled>
     </div>
     <div class="input1">
-      <!--=Какие-то траблы с ролью, не выводится текущая роль :(=-->
       <input type="text" name="rolee" th:value="${el.role.roleName}" placeholder="Now Role"  />
-      <input name="roleName" placeholder="Role" list="lang" />
-      <datalist id="lang">
-        <div th:each="role : ${role}">
-          <option th:value="${role.roleName}" />
-        </div>
 
-      </datalist>
     </div>
 
     <input type="submit" value="Edit User">

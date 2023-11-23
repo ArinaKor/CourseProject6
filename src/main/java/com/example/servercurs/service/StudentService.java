@@ -5,15 +5,17 @@ import com.example.servercurs.entities.User;
 import com.example.servercurs.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class StudentService {
 
     private final StudentRepository studentRepository;
-
+    @Transactional
     public List<Student> findAllStudents() {
         return studentRepository.findAll();
     }
@@ -38,6 +40,9 @@ public class StudentService {
     }
     public List<Student> findStudentByGroup(int id){
         return studentRepository.findStudentByGroup(id);
+    }
+    public Optional<Student> findByUser(int user){
+        return studentRepository.findById_user(user);
     }
 
 

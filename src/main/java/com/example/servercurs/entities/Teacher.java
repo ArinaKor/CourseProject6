@@ -7,7 +7,7 @@ import org.hibernate.annotations.ColumnDefault;
 import java.util.List;
 
 @Entity
-@Table(name="teacher")
+@Table(name = "teacher")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -17,31 +17,33 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_teacher;
 
-    @Column(name="work_experience")
+    @Column(name = "work_experience")
     private int work;
 
-    @Column(name="speciality")
+    @Column(name = "speciality")
     private String speciality;
-    @Column(name="rating")
+
+    @Column(name = "rating")
     private Double rating;
 
-    @Column(name="count_rating")
+    @Column(name = "count_rating")
     @ColumnDefault("0")
     private String count_rating;
 
-    @Column(name="ckeck")
+    @Column(name = "ckeck")
     private String check;
 
 
     //without foreight keys
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="id_user")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_user")
     private User id_user;
+
     @OneToMany(mappedBy = "teacher",
-            fetch = FetchType.LAZY,
+            fetch = FetchType.EAGER,
             cascade = CascadeType.DETACH)
-    List<Group> groups;
-   // one to many
+    private List<Group> groups;
+    // one to many
 
 
     @Override
