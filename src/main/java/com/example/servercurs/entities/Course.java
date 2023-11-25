@@ -52,7 +52,7 @@ public class Course {
     private List<LessonsHistory> lessonsHistories;
 
     @OneToMany(mappedBy = "idLesson",
-            fetch = FetchType.LAZY,
+            fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
     private List<CourseLesson> lessons;
 

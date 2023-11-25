@@ -12,12 +12,27 @@
             <!-- Список уроков -->
             <div class="list-group" id="list-tab" role="tablist">
                 <div th:each="lesson, iterStat : ${lessons}">
+                    <input type="hidden" class="lessonId" th:value="${lesson.idLesson}">
                     <a th:id="'list-lesson' + ${lesson.numberLesson} + '-list'"
                        th:class="${iterStat.first} ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
                        data-toggle="list"
                        th:href="'#list-lesson' + ${lesson.numberLesson}"
                        role="tab"
-                       th:text="${'Урок ' + lesson.numberLesson+ '  '+ lesson.lessonName}"></a>
+                       th:text="${'Урок ' + lesson.numberLesson+ '  '+ lesson.lessonName}">
+                        <span th:text="${'Урок ' + lesson.numberLesson+ '  '+ lesson.lessonName}">
+                            <svg clip-rule="evenodd"
+                                 fill-rule="evenodd"
+                                 stroke-linejoin="round"
+                                 stroke-miterlimit="2"
+                                 viewBox="0 0 24 24"
+                                 xmlns="http://www.w3.org/2000/svg"><path
+                                    d="m2.25 12.321 7.27 6.491c.143.127.321.19.499.19.206 0 .41-.084.559-.249l11.23-12.501c.129-.143.192-.321.192-.5 0-.419-.338-.75-.749-.75-.206 0-.411.084-.559.249l-10.731 11.945-6.711-5.994c-.144-.127-.322-.19-.5-.19-.417 0-.75.336-.75.749 0 .206.084.412.25.56"
+                                    fill-rule="nonzero"/>
+                            </svg>
+                        </span>
+
+                    </a>
+
                 </div>
             </div>
         </div>
@@ -28,30 +43,73 @@
                      role="tabpanel"
                      th:class="${iterStat.first} ? 'tab-pane fade show active' : 'tab-pane fade'">
                     <h2 th:text="${'Урок ' + lesson.numberLesson}">Урок</h2>
-                    <h4 th:text="${lesson.lessonName}"></h4>
-                    <p th:text="${lesson.lessonText}">Содержание урока...</p>
+                    <h3 th:text="${lesson.lessonName}"></h3>
+                    <p th:text="${lesson.lessonText}" style="text-align:justify;">Содержание урока...</p>
+                    <h4>Полезные ссылки к уроку</h4>
+                    <div th:each="link :${lesson.links}">
+                        <p th:text="${link}"></p>
+                    </div>
+                    <div th:each="hist : ${history}">
+                        <div th:if="${hist.idLesson.idLesson.equals(lesson.idLesson)}">
+                            <div th:if="${hist.statusLesson.equals('DONE')}">
+                                <!-- Кнопка Done отключена, галочка уже стоит
+                                <button disabled>Done</button>-->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-check-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 10.417 5.384 8.323a.75.75 0 1 0-1.06 1.06l2.093 2.094a.75.75 0 0 0 1.06 0l3.992-4.99a.75.75 0 0 0-1.06-1.06z"/>
+                                </svg>
+                            </div>
+                            <div th:unless="${hist.statusLesson.equals('DONE')}">
+                                <!-- Кнопка Done доступна, галочки нет -->
+                                <!--<button>Done</button>-->
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <input type="hidden" id="studentId" th:value="${student.id_student}">
+            <input type="hidden" id="lessonNumber">
+            <input type="button" id="doneButton" value="Done"/>
+
         </div>
     </div>
 </div>
-
 <!-- Подключите jQuery и Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>
+
     $(document).ready(function () {
         $('.list-group-item').on('click', function () {
             $('.active').removeClass('active');
             $(this).addClass('active');
-
-            // Получить идентификатор урока
             var lessonId = $(this).attr('href');
-
-            // Показать содержимое выбранного урока
+            //var lessonNumber = lessonId.split('lesson')[1];
+            var lessonNumber = lessonId.split('lesson')[1];
+            //var lessonId = $(this).data('lesson-id');
+            $('#lessonNumber').val(lessonNumber);// получить номер урока
             $(lessonId).tab('show');
         });
+
+        $('#doneButton').on('click', save);
     });
+
+    function save() {
+        var lessonId = $('#lessonNumber').val();
+        console.log(lessonId); // получить информацию об уроке
+        var studentId = $('#studentId').val();
+        $.ajax({
+            url: '/student/group/' + studentId + '/' + lessonId + '/check',
+            type: 'POST',
+            success: function (data) {
+                $('.active').append('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 10.417 5.384 8.323a.75.75 0 1 0-1.06 1.06l2.093 2.094a.75.75 0 0 0 1.06 0l3.992-4.99a.75.75 0 0 0-1.06-1.06z"/></svg>');
+            },
+        });
+
+    }
 </script>
 </body>
 </html>

@@ -12,4 +12,8 @@ import java.util.List;
 public interface CourseLessonRepository extends JpaRepository<CourseLesson, Integer> {
     @Query("from CourseLesson c where c.id_course.id_course=:id")
     List<CourseLesson> findByCourse(@Param("id") int id);
+
+    @Query("from CourseLesson c where c.numberLesson=:id and c.id_course.id_course=:course")
+    CourseLesson findByNumber(@Param("id") int id, @Param("course") int course);
+
 }

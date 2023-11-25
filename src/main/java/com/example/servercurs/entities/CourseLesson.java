@@ -1,6 +1,9 @@
 package com.example.servercurs.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,6 +22,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -28,7 +33,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class CourseLesson {
+public class CourseLesson implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_lesson")
@@ -40,7 +45,6 @@ public class CourseLesson {
     @Lob
     @Column(name = "links")
     private String links;
-
 
     @Column(name = "lesson_text", columnDefinition = "LONGTEXT")
     private String lessonText;
@@ -58,4 +62,19 @@ public class CourseLesson {
     @JsonIgnore
     private Course id_course;
 
+    public void setLinks(List<String> links) {
+        try {
+            this.links = new ObjectMapper().writeValueAsString(links);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<String> getLinks(){
+        try {
+            return new ObjectMapper().readValue(this.links, new TypeReference<List<String>>(){});
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

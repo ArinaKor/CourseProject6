@@ -4,9 +4,9 @@ import com.example.servercurs.entities.CourseLesson;
 import com.example.servercurs.repository.CourseLessonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -43,12 +43,31 @@ public class CourseLessonService {
         courseLesson.setLessonName(lessonName);
         courseLesson.setLessonText(text);
         courseLesson.setId_course(courseService.findById(idCourse));
-        courseLesson.setLinks(linkList);
+        courseLesson.setLinks(getLinksList(linkList));
         courseLesson.setNumberLesson(count);
         courseLessonRepository.save(courseLesson);
     }
 
     public List<CourseLesson> findByCourse(int id){
         return courseLessonRepository.findByCourse(id);
+    }
+
+    public List<String> getLinksList(String links){
+        String lnk = links.replace("[", "");
+        String resLnk = lnk.replace("]", "");
+        System.out.println(resLnk);
+        String[] result = resLnk.split(",");
+        List<String> linksListRes = new ArrayList<>();
+        for (String st:result) {
+            System.out.println(st);
+            String st1 = st.replace("\"", "");
+            linksListRes.add(st1);
+        }
+
+        return linksListRes;
+    }
+
+    public CourseLesson findByNumber(int num, int course){
+        return courseLessonRepository.findByNumber(num, course);
     }
 }
