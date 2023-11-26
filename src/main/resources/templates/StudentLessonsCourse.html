@@ -2,23 +2,541 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Уроки</title>
+
+    <style>
+        body {
+            background-color: #c7dfff;
+            background-image: url("https://funart.pro/uploads/posts/2022-08/thumbs/1659952773_11-funart-pro-p-fon-dlya-veb-stranitsi-krasivo-11.png");
+            /*background-size: 101% 101%;
+            background-repeat: repeat-y;*/
+            background-size: 101%;
+            background-repeat: no-repeat;
+            font-family: "Sitka Display";
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .decor {
+            position: relative;
+            max-width: 900px;
+            max-height: 900px;
+            margin: 50px auto 0;
+            background: white;
+            border-radius: 30px;
+        }
+
+        .form-left-decoration, .form-right-decoration {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 20px;
+            background: #50b1f3;
+            border-radius: 20px;
+        }
+
+        .form-left-decoration {
+            bottom: 60px;
+            left: -30px;
+        }
+
+        .form-right-decoration {
+            top: 60px;
+            right: -30px;
+        }
+
+        .form-left-decoration:before, .form-left-decoration:after, .form-right-decoration:before, .form-right-decoration:after {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 20px;
+            border-radius: 30px;
+            background: white;
+        }
+
+        .form-left-decoration:before {
+            top: -20px;
+        }
+
+        .form-left-decoration:after {
+            top: 20px;
+            left: 10px;
+        }
+
+        .form-right-decoration:before {
+            top: -20px;
+            right: 0;
+        }
+
+        .form-right-decoration:after {
+            top: 20px;
+            right: 10px;
+        }
+
+        .circle {
+            position: absolute;
+            bottom: 80px;
+            left: -55px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+        }
+
+        .form-inner {
+            padding: 50px;
+        }
+
+        .form-inner input, .form-inner textarea {
+            display: block;
+            width: 100%;
+            padding: 0 20px;
+            margin-bottom: 10px;
+            background: #E9EFF6;
+            line-height: 40px;
+            border-width: 0;
+            border-radius: 20px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .form-inner input[type="submit"] {
+            margin-top: 30px;
+            background: #54ace8;
+            border-bottom: 4px solid #50b1f3;
+            color: white;
+            font-size: 14px;
+            width: 50%;
+            margin-left: 25%;
+        }
+
+        .form-inner h3 {
+            margin-top: 0;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 24px;
+            color: #707981;
+        }
+
+        .input1 {
+            display: flex;
+            flex-direction: row;
+        }
+
+        input {
+            margin-left: 1%;
+        }
+
+        /*-=-=-=-=-=-=-=-=-=-=-=*/
+        #neubar {
+            background: #c9e9ff;
+            box-shadow: 4px 6px 12px rgba(0, 0, 0, 0.4)
+        }
+
+        .nav-item .active {
+            border-radius: 6px;
+            background: linear-gradient(145deg, #50b1f3, #50B1F3FF);
+            box-shadow: 4px 4px 8px #c9e9ff,
+            -4px -4px 8px #c9e9ff;
+        }
+
+        #neubar .dropdown-menu a:hover {
+            color: #454545
+        }
+
+        #neubar .nav-item {
+            margin: auto 4px;
+        }
+
+        #neubar a {
+
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+
+        #neubar .dropdown-menu {
+            background: #545454
+        }
+
+        a.navbar-brand {
+            color: #454545
+        }
+
+        .main-form {
+            display: flex;
+        }
+
+        /**/
+        body {
+            margin-top: 20px;
+            color: #1a202c;
+            text-align: left;
+            background-color: #e2e8f0;
+        }
+
+        .main-body {
+            padding: 15px;
+        }
+
+        .card {
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 0 solid rgba(0, 0, 0, .125);
+            border-radius: .25rem;
+        }
+
+        .card-body {
+            flex: 1 1 auto;
+            min-height: 1px;
+            padding: 1rem;
+        }
+
+        .gutters-sm {
+            margin-right: -8px;
+            margin-left: -8px;
+        }
+
+        .checked {
+            color: #f1df21;
+        }
+
+        .gutters-sm > .col, .gutters-sm > [class*=col-] {
+            padding-right: 8px;
+            padding-left: 8px;
+        }
+
+        .mb-3, .my-3 {
+            margin-bottom: 0.9rem !important;
+        }
+
+        /*
+                hr{
+                    margin: 10px;
+                }*/
+
+        .bg-gray-300 {
+            background-color: #e2e8f0;
+        }
+
+        .h-100 {
+            height: 100% !important;
+        }
+
+        .shadow-none {
+            box-shadow: none !important;
+        }
+
+        p {
+            margin-bottom: 0;
+
+        }
+
+        /*#width{
+            width: var(--random-width)
+        }*/
+        .shine-button {
+            /* text-decoration: none; */
+            /* display: inline-block; */
+            padding: 5px 20px;
+            /* margin: 10px 20px; */
+            /* position: relative; */
+            /* overflow: hidden; */
+            border: 2px solid #009dda;
+            border-radius: 8px;
+
+            /*
+            color: #009dda;
+            */
+
+            background: #009dda;
+            color: #c9e9ff;
+            transition: .2s ease-in-out;
+            font-size: medium;
+        }
+
+        .shine-button:before {
+            content: "";
+            /*
+            background: linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
+            */
+            height: 50px;
+            width: 50px;
+            position: absolute;
+            top: -8px;
+            left: -75px;
+            transform: skewX(-45deg);
+        }
+
+        .shine-button:hover {
+            border: 2px solid #009dda;
+            border-radius: 8px;
+            color: #009dda;
+            background-color: #a9dffd;
+        }
+
+        .shine-button:hover:before {
+            left: 150px;
+            transition: .5s ease-in-out;
+        }
+
+        /*notification*/
+        .notification-box {
+            position: fixed;
+            z-index: 99;
+            height: 20px;
+            text-align: center;
+        }
+
+        .notification-box2 {
+            position: fixed;
+            z-index: 99;
+            height: 20px;
+            text-align: center;
+        }
+
+        .notification-bell {
+            animation: bell 1s 1s both infinite;
+        }
+
+        .notification-bell * {
+            display: block;
+            margin: 0 auto;
+            background-color: #009dda;
+            box-shadow: 0px 0px 15px #009dda;
+        }
+
+        .notification-bell2 * {
+            display: block;
+            margin: 0 auto;
+            background-color: #009dda;
+            box-shadow: 0px 0px 15px #009dda;
+        }
+
+        .bell-top {
+            width: 6px;
+            height: 6px;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .bell-top2 {
+            width: 6px;
+            height: 6px;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .bell-middle {
+            width: 25px;
+            height: 25px;
+            margin-top: -1px;
+            border-radius: 12.5px 12.5px 0 0;
+        }
+
+        .bell-middle2 {
+            width: 25px;
+            height: 25px;
+            margin-top: -1px;
+            border-radius: 12.5px 12.5px 0 0;
+        }
+
+        .bell-bottom {
+            position: relative;
+            z-index: 0;
+            width: 32px;
+            height: 2px;
+        }
+
+        .bell-bottom2 {
+            position: relative;
+            z-index: 0;
+            width: 32px;
+            height: 2px;
+        }
+
+        .bell-bottom::before,
+        .bell-bottom::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+        }
+
+        .bell-bottom::before {
+            left: 1px;
+            border-bottom: 4px solid #009dda;
+            border-right: 0 solid transparent;
+            border-left: 4px solid transparent;
+        }
+
+        .bell-bottom::after {
+            right: 1px;
+            border-bottom: 4px solid #009dda;
+            border-right: 4px solid transparent;
+            border-left: 0 solid transparent;
+        }
+
+        .bell-rad {
+            width: 8px;
+            height: 4px;
+            margin-top: 2px;
+            border-radius: 0 0 4px 4px;
+            animation: rad 1s 2s both infinite;
+        }
+
+        .bell-rad2 {
+            width: 8px;
+            height: 4px;
+            margin-top: 2px;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .notification-count {
+            position: absolute;
+            z-index: 1;
+            top: -4px;
+            right: -5px;
+            width: 15px;
+            height: 15px;
+            line-height: 15px;
+            font-size: 12px;
+            border-radius: 50%;
+            background-color: #d62c0c;
+            color: #fff;
+            animation: zoom 3s 3s both infinite;
+        }
+
+
+        @keyframes bell {
+            0% {
+                transform: rotate(0);
+            }
+            10% {
+                transform: rotate(30deg);
+            }
+            20% {
+                transform: rotate(0);
+            }
+            80% {
+                transform: rotate(0);
+            }
+            90% {
+                transform: rotate(-30deg);
+            }
+            100% {
+                transform: rotate(0);
+            }
+        }
+
+        @keyframes rad {
+            0% {
+                transform: translateX(0);
+            }
+            10% {
+                transform: translateX(6px);
+            }
+            20% {
+                transform: translateX(0);
+            }
+            80% {
+                transform: translateX(0);
+            }
+            90% {
+                transform: translateX(-6px);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes zoom {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            10% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+            }
+            51% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .notifications {
+            display: none;
+        }
+
+        .notification {
+            position: relative;
+            background-color: #fff;
+            color: black;
+            border-radius: 15px;
+            width: 350px;
+            right: -5px;
+            height: 100px;
+        }
+
+        .notification2 {
+            position: relative;
+            background-color: #fff;
+            color: black;
+            border-radius: 15px;
+            width: 350px;
+            right: -5px;
+            height: 100px;
+        }
+
+    </style>
     <!-- Подключите Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col-4">
-            <!-- Список уроков -->
-            <div class="list-group" id="list-tab" role="tablist">
-                <div th:each="lesson, iterStat : ${lessons}">
-                    <input type="hidden" class="lessonId" th:value="${lesson.idLesson}">
-                    <a th:id="'list-lesson' + ${lesson.numberLesson} + '-list'"
-                       th:class="${iterStat.first} ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
-                       data-toggle="list"
-                       th:href="'#list-lesson' + ${lesson.numberLesson}"
-                       role="tab"
-                       th:text="${'Урок ' + lesson.numberLesson+ '  '+ lesson.lessonName}">
+<nav class="navbar navbar-expand-sm navbar-light" id="neubar">
+    <div class="container">
+        <!--
+            <a class="navbar-brand" href="static/index.html"><img src="" height="60" /></a>
+        -->
+        <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto ">
+                <li class="nav-item">
+                    <a class="nav-link mx-2" th:href="@{/student/{id}(id=${student.id_student})}">Personal</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<div>
+    <div th:if="${student.id_group!=null}">
+        <div class=" decor container">
+            <div class="form-left-decoration"></div>
+            <div class="form-right-decoration"></div>
+            <div class="circle"></div>
+            <div class="row">
+                <div class="col-4">
+                    <!-- Список уроков -->
+                    <div class="list-group" id="list-tab" role="tablist">
+                        <div th:each="lesson, iterStat : ${lessons}">
+                            <input type="hidden" class="lessonId" th:value="${lesson.idLesson}">
+                            <a th:id="'list-lesson' + ${lesson.numberLesson} + '-list'"
+                               th:class="${iterStat.first} ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'"
+                               data-toggle="list"
+                               th:href="'#list-lesson' + ${lesson.numberLesson}"
+                               role="tab"
+                               th:text="${'Урок ' + lesson.numberLesson+ '  '+ lesson.lessonName}">
                         <span th:text="${'Урок ' + lesson.numberLesson+ '  '+ lesson.lessonName}">
                             <svg clip-rule="evenodd"
                                  fill-rule="evenodd"
@@ -31,51 +549,63 @@
                             </svg>
                         </span>
 
-                    </a>
+                            </a>
 
-                </div>
-            </div>
-        </div>
-        <div class="col-8">
-            <!-- Содержание уроков -->
-            <div class="tab-content" id="nav-tabContent">
-                <div th:each="lesson, iterStat : ${lessons}" th:id="'list-lesson' + ${lesson.numberLesson}"
-                     role="tabpanel"
-                     th:class="${iterStat.first} ? 'tab-pane fade show active' : 'tab-pane fade'">
-                    <h2 th:text="${'Урок ' + lesson.numberLesson}">Урок</h2>
-                    <h3 th:text="${lesson.lessonName}"></h3>
-                    <p th:text="${lesson.lessonText}" style="text-align:justify;">Содержание урока...</p>
-                    <h4>Полезные ссылки к уроку</h4>
-                    <div th:each="link :${lesson.links}">
-                        <p th:text="${link}"></p>
+                        </div>
                     </div>
-                    <div th:each="hist : ${history}">
-                        <div th:if="${hist.idLesson.idLesson.equals(lesson.idLesson)}">
-                            <div th:if="${hist.statusLesson.equals('DONE')}">
-                                <!-- Кнопка Done отключена, галочка уже стоит
-                                <button disabled>Done</button>-->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-check-circle" viewBox="0 0 16 16">
-                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                    <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 10.417 5.384 8.323a.75.75 0 1 0-1.06 1.06l2.093 2.094a.75.75 0 0 0 1.06 0l3.992-4.99a.75.75 0 0 0-1.06-1.06z"/>
-                                </svg>
-                            </div>
-                            <div th:unless="${hist.statusLesson.equals('DONE')}">
-                                <!-- Кнопка Done доступна, галочки нет -->
-                                <!--<button>Done</button>-->
+                    <br>
+                    <div>
+                        <button class="btn ">
+                            <a class="nav-link mx-2" th:href="@{/students/mygroup/{id}(id=${student.id_student})}">End
+                                Study</a>
+                        </button>
+                    </div>
+                </div>
 
+                <div class="col-8">
+                    <!-- Содержание уроков -->
+                    <div class="tab-content" id="nav-tabContent">
+                        <div th:each="lesson, iterStat : ${lessons}" th:id="'list-lesson' + ${lesson.numberLesson}"
+                             role="tabpanel"
+                             th:class="${iterStat.first} ? 'tab-pane fade show active' : 'tab-pane fade'">
+                            <h2 th:text="${'Урок ' + lesson.numberLesson}">Урок</h2>
+                            <h3 th:text="${lesson.lessonName}"></h3>
+                            <p th:text="${lesson.lessonText}" style="text-align:justify;">Содержание урока...</p>
+                            <h4>Полезные ссылки к уроку</h4>
+                            <div th:each="link :${lesson.links}">
+                                <p th:text="${link}"></p>
+                            </div>
+                            <div th:each="hist : ${history}">
+                                <div th:if="${hist.idLesson.idLesson.equals(lesson.idLesson)}">
+                                    <div th:if="${hist.statusLesson.equals('DONE')}">
+                                        <!-- Кнопка Done отключена, галочка уже стоит
+                                        <button disabled>Done</button>-->
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-check-circle" viewBox="0 0 16 16">
+                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 10.417 5.384 8.323a.75.75 0 1 0-1.06 1.06l2.093 2.094a.75.75 0 0 0 1.06 0l3.992-4.99a.75.75 0 0 0-1.06-1.06z"/>
+                                        </svg>
+                                    </div>
+                                    <div th:unless="${hist.statusLesson.equals('DONE')}">
+                                        <!-- Кнопка Done доступна, галочки нет -->
+                                        <!--<button>Done</button>-->
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" id="studentId" th:value="${student.id_student}">
+                    <input type="hidden" id="lessonNumber">
+                    <input type="button" id="doneButton" value="Done"/>
+
                 </div>
             </div>
-            <input type="hidden" id="studentId" th:value="${student.id_student}">
-            <input type="hidden" id="lessonNumber">
-            <input type="button" id="doneButton" value="Done"/>
-
         </div>
     </div>
 </div>
+
 <!-- Подключите jQuery и Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

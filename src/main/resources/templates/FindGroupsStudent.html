@@ -231,6 +231,15 @@
           <div class="card-body p-4">
             <span class="badge rounded-pill ch float-md-end mb-3 mb-sm-0" th:text="${ac.course.duration}+' month'"></span>
             <h5 th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}"/>
+            <!--<div style="width:170%">
+              <div th:if="${student.id_group.teacher == null}">
+                <h6 name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+              </div>
+              <div th:unless="${student.id_group.teacher == null}">
+                <h6 th:text="'Teacher is '+${ac.teacher.id_user.surname}+' '+${ac.teacher.id_user.name} "/>
+
+              </div>
+            </div>-->
             <h6 th:text="'Teacher is '+${ac.teacher.id_user.surname}+' '+${ac.teacher.id_user.name} "/>
             <!--<h6 th:text="${ac.course.course_name}+ ' Language '+${ac.course.id_language.name_language}"/>-->
             <img th:src="@{'data:image/jpeg;base64,' + ${encodedImage.get((iterStat.count)-1)}}" alt="Admin" width="75"

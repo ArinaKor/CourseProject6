@@ -488,7 +488,7 @@
                     <a class="nav-link mx-2" th:href="@{/student/trainees/{id}(id=${student.id_student})}">Trainees</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2" th:href="@{/students/mygroup/{id}(id=${student.id_student})}">My Group</a>
+                    <a class="nav-link mx-2" th:href="@{/student/group/{id_student}(id_student=${student.id_student})}">My Group</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link mx-2" th:href="@{/quiz/{id}(id=${student.id_student})}">QUIZ</a>
@@ -659,19 +659,30 @@
                 <div class="row gutters-sm"><!---->
                     <div class="col-sm-15 mb-2.5">
                         <div class="card h-90">
-                            <div class="card-body">
+                            <!--<div class="card-body">
                                 <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>All Courses</h6>
                                 <div th:each="lst: ${last}">
                                 <small th:text="${lst.course.id_language.name_language}+' '+${lst.course.id_skills.name_skills}"></small>
-                                    <!--<div class="progress mb-3" style="height: 5px">
+                                    &lt;!&ndash;<div class="progress mb-3" style="height: 5px">
                                         <div class="progress-bar bg-primary" role="progressbar" id="width" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>-->
+                                    </div>&ndash;&gt;
                                     <div class="progress mb-3" style="height: 5px">
                                         <div class="progress-bar bg-info " role="progressbar" th:style="'width: ' + ${lst.progress} + '%;'" th:attr="aria-valuenow=${lst.progress}, aria-valuemin='0', aria-valuemax='100'"></div>
-                                    </div><!--bg-primary-->
+                                    </div>&lt;!&ndash;bg-primary&ndash;&gt;
                                 </div>
 
+                            </div>-->
+                            <div class="card-body">
+                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>All Courses</h6>
+                                <div th:each="lst: ${last}">
+                                    <small th:text="${lst.course.id_language.name_language}+' '+${lst.course.id_skills.name_skills}"></small>
+                                    <div class="progress mb-3" style="height: 5px">
+                                        <div class="progress-bar bg-info " role="progressbar" th:style="'width: ' + ${lst.progress} + '%;'" th:attr="aria-valuenow=${lst.progress}, aria-valuemin='0', aria-valuemax='100', data-toggle='tooltip', title=${lst.progress}+'%'"></div>
+                                    </div>
+                                </div>
                             </div>
+
+
                         </div>
                     </div>
 
@@ -691,5 +702,8 @@
             $(".notifications").toggle();
         });
     });
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 </script>
 </html>

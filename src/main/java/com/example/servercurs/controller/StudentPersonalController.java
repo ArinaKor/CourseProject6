@@ -3,14 +3,18 @@ package com.example.servercurs.controller;
 import com.example.servercurs.Certificate.FindLastGroup;
 import com.example.servercurs.Config.ConvertToByte;
 import com.example.servercurs.entities.Course;
+import com.example.servercurs.entities.CourseLesson;
 import com.example.servercurs.entities.Group;
 import com.example.servercurs.entities.Language;
+import com.example.servercurs.entities.LessonsHistory;
 import com.example.servercurs.entities.Notification;
 import com.example.servercurs.entities.Skills;
 import com.example.servercurs.entities.Student;
 import com.example.servercurs.entities.User;
+import com.example.servercurs.service.CourseLessonService;
 import com.example.servercurs.service.EmailSenderService;
 import com.example.servercurs.service.GroupService;
+import com.example.servercurs.service.LessonsHistoryService;
 import com.example.servercurs.service.NotificationService;
 import com.example.servercurs.service.StudentService;
 import com.example.servercurs.service.UserService;
@@ -40,6 +44,9 @@ public class StudentPersonalController {
     private final UserService userService;
     private final EmailSenderService emailSenderService;
     private final NotificationService notificationService;
+    private final LessonsHistoryService lessonsHistoryService;
+    private final CourseLessonService courseLessonService;
+
 
     FindLastGroup findLastGroup = new FindLastGroup();
 
@@ -71,8 +78,12 @@ public class StudentPersonalController {
         model.addAttribute(student);
         attributes.addFlashAttribute("student", student);
         List<Group> listLast = findLastGroup.findLastGroupsStudent(studentService, groupService, id);
+        List<LessonsHistory> history = lessonsHistoryService.findByStudentAndCourse(student.getId_student());
+        List<CourseLesson> lessons = courseLessonService.findByCourse(student.getId_group().getCourse().getId_course());
         for (Group course : listLast) {
-            course.setProgress(ThreadLocalRandom.current().nextInt(0, 101));
+            //так как нет курсов у студента, падает ошибка, надо брать из списка прошедших курсов курсов)
+            course.setProgress((double) history.size() / lessons.size() * 100);
+
         }
         model.addAttribute("last", listLast);
         User user = userService.findById(student.getId_user().getId_user());

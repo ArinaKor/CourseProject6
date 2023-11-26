@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -34,8 +35,15 @@ public class StudentLessonsController {
     private final LessonsHistoryService lessonsHistoryService;
 
     @GetMapping("{id_student}")
-    public String getPageStudentLessons(@PathVariable("id_student") int id_student, Model model){
+    public String getPageStudentLessons(@PathVariable("id_student") int id_student, Model model, RedirectAttributes attributes){
         Student student = studentService.findById(id_student);
+        if (student.getId_group() == null) {
+            String msg = "Никакой курс не проходится";
+            attributes.addFlashAttribute("msg", msg);
+            model.addAttribute("student", student);
+            attributes.addFlashAttribute("student", student);
+            return "redirect:/student/" + student.getId_student();
+        }
         Course course = courseService.findCourseByGroupId(student.getId_group().getId_group());
         List<CourseLesson> lessons = courseLessonService.findByCourse(course.getId_course());
         model.addAttribute("lessons", lessons);/*

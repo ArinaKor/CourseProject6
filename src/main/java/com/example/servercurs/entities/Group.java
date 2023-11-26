@@ -53,6 +53,6 @@ public class Group {
     private TimeTable timetable;
 
     @Transient
-    private int progress;
+    private double progress;
 
 }

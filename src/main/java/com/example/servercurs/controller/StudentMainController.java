@@ -14,6 +14,7 @@ import com.example.servercurs.service.DocumentGenerator;
 import com.example.servercurs.service.EmailSenderService;
 import com.example.servercurs.service.GroupService;
 import com.example.servercurs.service.LanguageService;
+import com.example.servercurs.service.LessonsHistoryService;
 import com.example.servercurs.service.SkillsService;
 import com.example.servercurs.service.StudentService;
 import com.example.servercurs.service.TeacherService;
@@ -65,21 +66,20 @@ public class StudentMainController {
     @GetMapping("/students/groups/{id_student}")
     private String findAllGroups(@PathVariable(name = "id_student") int id_student, RedirectAttributes attributes, Model model) {
 
-
         Student student = studentService.findById(id_student);
         model.addAttribute("student", student);
         List<Group> listCourse = groupService.findAllGroups();
         List<Group> list = new ArrayList<>();
         Teacher teacher = new Teacher();
         User user = new User();
-        /*for (Group gr : listCourse) {
-            if (gr.getTeacher() == null) {*//*
+        for (Group gr : listCourse) {
+            if (gr.getTeacher() == null) {
                 user.setSurname("not found");
-                user.setName("yet");*//*
+                user.setName("yet");
                 teacher.setId_user(user);
                 gr.setTeacher(teacher);
             }
-        }*/
+        }
         model.addAttribute("list", listCourse);
         List<Skills> skillsList = skillsService.findAllSkillss();
         model.addAttribute("skills", skillsList);
@@ -113,6 +113,7 @@ public class StudentMainController {
 
         return "FindGroupsStudent";
     }
+
 
     @PostMapping("/student/groups/{id_student}/{id_group}/enroll")
     public String enrollCourse(@PathVariable(name = "id_student") int id_student, @PathVariable(name = "id_group") int id_group, Model model, RedirectAttributes attributes) {
