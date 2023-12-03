@@ -265,7 +265,18 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
+<!--
                             <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+-->
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -283,7 +294,16 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}" class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div><!--
+                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}" class="p"/>-->
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -300,7 +320,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -317,7 +345,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -334,7 +370,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -354,7 +398,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -372,7 +424,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -389,7 +449,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -406,7 +474,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -423,7 +499,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -442,7 +526,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -460,7 +552,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -477,7 +577,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -494,7 +602,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -511,7 +627,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -530,7 +654,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -548,7 +680,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -565,7 +705,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -582,7 +730,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -599,7 +755,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -618,7 +782,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -636,7 +808,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -653,7 +833,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -670,7 +858,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -687,7 +883,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -706,7 +910,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -724,7 +936,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -741,7 +961,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -758,7 +986,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
@@ -775,7 +1011,15 @@
                     <div class="accent-blue-gradient" >
                         <div class="div">
                             <p th:text="${ac.id_group}" class="p"/>
-                            <p th:text="'Teacher:'+${ac.teacher.id_user.surname}"class="p"/>
+                            <div >
+                                <div th:if="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" disabled autocomplete="off" required value="Teacher will be later"/>
+                                </div>
+                                <div th:unless="${ac.teacher.id_user == null}">
+                                    <p type="text" name="teacher" placeholder="Teacher" th:text="'Teacher:'+${ac.teacher.id_user.surname}" disabled autocomplete="off" required/>
+
+                                </div>
+                            </div>
                             <p th:text="${ac.course.id_language.name_language} +' '+ ${ac.course.id_skills.name_skills}" class="p"/>
                         </div>
                     </div>
