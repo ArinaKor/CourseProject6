@@ -120,21 +120,20 @@ public class UsersController {
                          @RequestParam String mail, @RequestParam String rolee, Model model){
 
         Role role = roleService.findRoleByRoleName(rolee);
-        String message = "takoe yzse est'";
-        model.addAttribute("message", message);
         User user = userService.findById(id_user);
+        User userWithNewEmail = userService.findByEmail(mail);
 
-        if(!user.getMail().equals(mail)){
+        if(userWithNewEmail != null && userWithNewEmail.getId_user() != id_user){
+            String error="We have user with this mail. Enter another mail please!";
+            attributes.addFlashAttribute("error", error);
+            return "redirect:/admin/users/{id_user}/edit";
+        }
+        else{
             user.setSurname(surname);
             user.setName(name);
             user.setMail(mail);
             user.setRole(role);
             userService.save(user);
-        }
-        else{
-            String error="We have user with this mail.Enter another mail please!";
-            attributes.addFlashAttribute("error", error);
-            return "redirect:/admin/users/{id_user}/edit";
         }
         return "redirect:/admin/users";
     }
