@@ -51,5 +51,6 @@ public class TraineeReply {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_language")
     private Language idLanguage;
+    private boolean isMailSent;
 
 }

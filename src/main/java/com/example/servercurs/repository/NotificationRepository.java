@@ -12,6 +12,9 @@ import java.util.List;
 @Repository
 public interface NotificationRepository extends JpaRepository<Notification, Integer> {
 
-    @Query(" from Notification n where n.checkNotification=false")
-    List<Notification> findById_userAndAndCheckNotificationTrue();
+    @Query(" from Notification n where n.id_user.id_user=:user")
+    List<Notification> findById_userAndAndCheckNotificationTrue(@Param("user") int user);
+
+    @Query("SELECT count(n) FROM Notification n WHERE n.checkNotification = false and n.id_user.id_user=:user")
+    Integer countUnreadNotifications(@Param("user") int user);
 }

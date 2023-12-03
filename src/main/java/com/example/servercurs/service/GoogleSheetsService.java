@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -74,6 +75,7 @@ public class GoogleSheetsService {
                 traineeReply.setIdSkills(skillsService.findSkillsByName_skills(String.valueOf(row.get(12))));
                 traineeReply.setIdLanguage(languageService.findLanguageByName_language(String.valueOf(row.get(13))));
                 traineeReply.setTestResult(0);
+                traineeReply.setMailSent(false);
                 traineeReply.setStatusReply(checkStatus(traineeReply.getIdLanguage().getId_language(), traineeReply.getIdSkills().getId_skills()));
                 if (!traineeReplyService.findExactMatch(traineeReply.getSurname(),
                         traineeReply.getName(),
@@ -88,14 +90,32 @@ public class GoogleSheetsService {
                         traineeReply.getIdLanguage()
                 ).isPresent()) {
                     traineeReplyService.save(traineeReply);
-                }
-                if (traineeReply.getStatusReply().equals(StatusReply.REJECTED)) {
-                    checkUnSuccess(traineeReply);
-                }
-                else if( traineeReply.getStatusReply().equals(StatusReply.REVIEW)) {
-                    checkSuccess(traineeReply);
+                }/*сделать проверку на то отправлялось ли письмо уже, если да то не отправлять*/
+
+                /*if(traineeReply.isMailSent()==false){
+                    if (traineeReply.getStatusReply().equals(StatusReply.REJECTED)) {
+                        checkUnSuccess(traineeReply);
+                    }
+                    else if( traineeReply.getStatusReply().equals(StatusReply.REVIEW)) {
+                        checkSuccess(traineeReply);
+                    }
+                }*/
+            }
+            List<TraineeReply> result = traineeReplyService.findAll();
+            for (TraineeReply tr:result ) {
+                if(!tr.isMailSent()){
+
+                    if (tr.getStatusReply().equals(StatusReply.REJECTED)) {
+                        System.out.println(tr.getMail());
+                        checkUnSuccess(tr);
+                    }
+                    else if( tr.getStatusReply().equals(StatusReply.REVIEW)) {
+                        System.out.println(tr.getMail());
+                        checkSuccess(tr);
+                    }
                 }
             }
+
         }
     }
 

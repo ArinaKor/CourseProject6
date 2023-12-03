@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        body{
+        body {
             background-color: #c7dfff;
             background-image: url("https://funart.pro/uploads/posts/2022-08/thumbs/1659952773_11-funart-pro-p-fon-dlya-veb-stranitsi-krasivo-11.png");
             /*background-size: 101% 101%;
@@ -13,9 +13,11 @@
             background-repeat: no-repeat;
             font-family: "Sitka Display";
         }
+
         * {
             box-sizing: border-box;
         }
+
         .decor {
             position: relative;
             max-width: 900px;
@@ -23,6 +25,7 @@
             background: white;
             border-radius: 30px;
         }
+
         .form-left-decoration, .form-right-decoration {
             content: "";
             position: absolute;
@@ -31,14 +34,17 @@
             background: #50b1f3;
             border-radius: 20px;
         }
+
         .form-left-decoration {
             bottom: 60px;
             left: -30px;
         }
+
         .form-right-decoration {
             top: 60px;
             right: -30px;
         }
+
         .form-left-decoration:before, .form-left-decoration:after, .form-right-decoration:before, .form-right-decoration:after {
             content: "";
             position: absolute;
@@ -47,21 +53,26 @@
             border-radius: 30px;
             background: white;
         }
+
         .form-left-decoration:before {
             top: -20px;
         }
+
         .form-left-decoration:after {
             top: 20px;
             left: 10px;
         }
+
         .form-right-decoration:before {
             top: -20px;
             right: 0;
         }
+
         .form-right-decoration:after {
             top: 20px;
             right: 10px;
         }
+
         .circle {
             position: absolute;
             bottom: 80px;
@@ -71,9 +82,11 @@
             border-radius: 50%;
             background: white;
         }
+
         .form-inner {
             padding: 50px;
         }
+
         .form-inner input, .form-inner textarea {
             display: block;
             width: 100%;
@@ -85,6 +98,7 @@
             border-radius: 20px;
             font-family: 'Roboto', sans-serif;
         }
+
         .form-inner input[type="submit"] {
             margin-top: 30px;
             background: #54ace8;
@@ -94,6 +108,7 @@
             width: 50%;
             margin-left: 25%;
         }
+
         .form-inner h3 {
             margin-top: 0;
             font-family: 'Roboto', sans-serif;
@@ -101,57 +116,69 @@
             font-size: 24px;
             color: #707981;
         }
-        .input1{
+
+        .input1 {
             display: flex;
             flex-direction: row;
         }
-        input{
+
+        input {
             margin-left: 1%;
         }
+
         /*-=-=-=-=-=-=-=-=-=-=-=*/
         #neubar {
             background: #c9e9ff;
-            box-shadow: 4px 6px 12px rgba(0,0,0,0.4)
+            box-shadow: 4px 6px 12px rgba(0, 0, 0, 0.4)
         }
 
         .nav-item .active {
             border-radius: 6px;
             background: linear-gradient(145deg, #50b1f3, #50B1F3FF);
-            box-shadow:  4px 4px 8px #c9e9ff,
+            box-shadow: 4px 4px 8px #c9e9ff,
             -4px -4px 8px #c9e9ff;
         }
+
         #neubar .dropdown-menu a:hover {
             color: #454545
         }
+
         #neubar .nav-item {
-            margin : auto 4px;
+            margin: auto 4px;
         }
+
         #neubar a {
 
-            padding-left:12px;
-            padding-right:12px;
+            padding-left: 12px;
+            padding-right: 12px;
         }
+
         #neubar .dropdown-menu {
-            background : #545454
+            background: #545454
         }
+
         a.navbar-brand {
             color: #454545
         }
-        .main-form{
+
+        .main-form {
             display: flex;
         }
+
         /**/
-        body{
-            margin-top:20px;
+        body {
+            margin-top: 20px;
             color: #1a202c;
             text-align: left;
             background-color: #e2e8f0;
         }
+
         .main-body {
             padding: 15px;
         }
+
         .card {
-            box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
         }
 
         .card {
@@ -162,7 +189,7 @@
             word-wrap: break-word;
             background-color: #fff;
             background-clip: border-box;
-            border: 0 solid rgba(0,0,0,.125);
+            border: 0 solid rgba(0, 0, 0, .125);
             border-radius: .25rem;
         }
 
@@ -176,33 +203,42 @@
             margin-right: -8px;
             margin-left: -8px;
         }
+
         .checked {
             color: #f1df21;
         }
-        .gutters-sm>.col, .gutters-sm>[class*=col-] {
+
+        .gutters-sm > .col, .gutters-sm > [class*=col-] {
             padding-right: 8px;
             padding-left: 8px;
         }
+
         .mb-3, .my-3 {
-            margin-bottom: 0.9rem!important;
-        }/*
-        hr{
-            margin: 10px;
-        }*/
+            margin-bottom: 0.9rem !important;
+        }
+
+        /*
+                hr{
+                    margin: 10px;
+                }*/
 
         .bg-gray-300 {
             background-color: #e2e8f0;
         }
+
         .h-100 {
-            height: 100%!important;
+            height: 100% !important;
         }
+
         .shadow-none {
-            box-shadow: none!important;
+            box-shadow: none !important;
         }
-        p{
+
+        p {
             margin-bottom: 0;
 
         }
+
         /*#width{
             width: var(--random-width)
         }*/
@@ -225,6 +261,7 @@
             transition: .2s ease-in-out;
             font-size: medium;
         }
+
         .shine-button:before {
             content: "";
             /*
@@ -237,12 +274,14 @@
             left: -75px;
             transform: skewX(-45deg);
         }
+
         .shine-button:hover {
             border: 2px solid #009dda;
             border-radius: 8px;
             color: #009dda;
             background-color: #a9dffd;
         }
+
         .shine-button:hover:before {
             left: 150px;
             transition: .5s ease-in-out;
@@ -255,6 +294,7 @@
             height: 20px;
             text-align: center;
         }
+
         .notification-box2 {
             position: fixed;
             z-index: 99;
@@ -265,12 +305,14 @@
         .notification-bell {
             animation: bell 1s 1s both infinite;
         }
+
         .notification-bell * {
             display: block;
             margin: 0 auto;
             background-color: #009dda;
             box-shadow: 0px 0px 15px #009dda;
         }
+
         .notification-bell2 * {
             display: block;
             margin: 0 auto;
@@ -283,6 +325,7 @@
             height: 6px;
             border-radius: 3px 3px 0 0;
         }
+
         .bell-top2 {
             width: 6px;
             height: 6px;
@@ -295,6 +338,7 @@
             margin-top: -1px;
             border-radius: 12.5px 12.5px 0 0;
         }
+
         .bell-middle2 {
             width: 25px;
             height: 25px;
@@ -308,6 +352,7 @@
             width: 32px;
             height: 2px;
         }
+
         .bell-bottom2 {
             position: relative;
             z-index: 0;
@@ -343,6 +388,7 @@
             border-radius: 0 0 4px 4px;
             animation: rad 1s 2s both infinite;
         }
+
         .bell-rad2 {
             width: 8px;
             height: 4px;
@@ -360,7 +406,7 @@
             line-height: 15px;
             font-size: 12px;
             border-radius: 50%;
-            background-color: #d62c0c;
+            background-color: #be0707;
             color: #fff;
             animation: zoom 3s 3s both infinite;
         }
@@ -427,38 +473,86 @@
                 opacity: 0;
             }
         }
-        .notifications{
+
+        .notifications {
             display: none;
+            position: fixed;
+            right: 20px;
+            top: 60px;
+            width: 300px;
+            max-height: 100vh;
+            overflow-y: auto;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+            max-height: calc(3 * 110px);
         }
 
         .notification {
-            position: relative;
-            background-color: #fff;
-            color: black;
-            border-radius: 15px;
-            width: 350px;
-            right: -5px;
-            height: 100px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            height: 110px;
         }
-        .notification2 {
-            position: relative;
-            background-color: #fff;
-            color: black;
-            border-radius: 15px;
-            width: 350px;
-            right: -5px;
-            height: 100px;
+
+        /*.notification-dot {
+            height: 10px;
+            width: 10px;
+            background-color: red;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 10px;
+        }*/
+
+        .notification-dot {
+            height: 10px;
+            width: 10px;
+            background-color: #be0707;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* Устанавливаем ширину полосы прокрутки */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Устанавливаем стиль трека (полосы прокрутки) */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px; /* Добавляем border-radius */
+        }
+
+        /* Устанавливаем стиль ручки (ползунка прокрутки) */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px; /* Добавляем border-radius */
+        }
+
+        /* Изменяем стиль ручки при наведении */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
 
     </style>
     <!-- <link rel="stylesheet" href="../style/style.css">-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Bootstrap Bundle JS (jsDelivr CDN) -->
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm navbar-light" id="neubar">
@@ -466,10 +560,13 @@
         <!--
             <a class="navbar-brand" href="static/index.html"><img src="" height="60" /></a>
         -->
-        <a href="/auth" >
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z"/>
-                <path fill-rule="evenodd" d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+        <a href="/auth">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                 class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z"/>
+                <path fill-rule="evenodd"
+                      d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
             </svg>
         </a>
 
@@ -488,14 +585,15 @@
                     <a class="nav-link mx-2" th:href="@{/student/trainees/{id}(id=${student.id_student})}">Trainees</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2" th:href="@{/student/group/{id_student}(id_student=${student.id_student})}">My Group</a>
+                    <a class="nav-link mx-2" th:href="@{/student/group/{id_student}(id_student=${student.id_student})}">My
+                        Group</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link mx-2" th:href="@{/quiz/{id}(id=${student.id_student})}">QUIZ</a>
                 </li>
 
                 <li>
-                    <div th:if="${#lists.isEmpty(notifications)}">
+                    <!--<div th:if="${#lists.isEmpty(notifications)}">
                         <div class="notification-box2">
                             <div class="notification-bell2">
                                 <span class="bell-top2"></span>
@@ -504,19 +602,40 @@
                                 <span class="bell-rad2"></span>
                             </div>
                         </div>
-                    </div>
-                    <div th:unless="${#lists.isEmpty(notifications)}">
-                        <div class="notification-box">
-                            <span class="notification-count" th:text="${notifications.size()}"></span>
-                            <div class="notification-bell">
-                                <span class="bell-top"></span>
-                                <span class="bell-middle"></span>
-                                <span class="bell-bottom"></span>
+                    </div>-->
 
-                                <span class="bell-rad"></span>
+                    <div class="notification-box">
+                        <div>
+                            <div th:if="${count==0}">
+                                <div class="notification-box2">
+                                    <div class="notification-bell2">
+                                        <span class="bell-top2"></span>
+                                        <span class="bell-middle2"></span>
+                                        <span class="bell-bottom2"></span>
+                                        <span class="bell-rad2"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:unless="${count==0}">
+                                <span class="notification-count" th:text="${count}"></span>
+                                <div class="notification-bell">
+                                    <span class="bell-top"></span>
+                                    <span class="bell-middle"></span>
+                                    <span class="bell-bottom"></span>
+                                    <span class="bell-rad"></span>
+                                </div>
                             </div>
                         </div>
+                        <!--<span class="notification-count" th:text="${notifications.size()}"></span>
+                        <div class="notification-bell">
+                            <span class="bell-top"></span>
+                            <span class="bell-middle"></span>
+                            <span class="bell-bottom"></span>
+
+                            <span class="bell-rad"></span>
+                        </div>-->
                     </div>
+
 
                 </li>
 
@@ -525,9 +644,10 @@
         </div>
     </div>
 </nav>
+<input type="hidden" id="student" th:value="${student.id_student}">
 <div class="notifications">
     <div class="notification" th:each="notification : ${notifications}">
-
+        <div class="notification-dot" th:if="${!notification.checkNotification}"></div>
         <strong th:text="${notification.subject}"></strong>
         <p th:text="${notification.textNotification}"></p>
     </div>
@@ -538,34 +658,39 @@
             <div class="col-md-4 mb-3">
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-flex flex-column align-items-center text-center"><!--"https://bootdey.com/img/Content/avatar/avatar7.png"-->
-                            <img th:src="@{'data:image/jpeg;base64,' + ${encodedImage}}" alt="Admin" class="rounded-circle  p-1 bg-primary" width="150">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <!--"https://bootdey.com/img/Content/avatar/avatar7.png"-->
+                            <img th:src="@{'data:image/jpeg;base64,' + ${encodedImage}}" alt="Admin"
+                                 class="rounded-circle  p-1 bg-primary" width="150">
 
                             <div class="mt-3">
                                 <div>
-                                <div th:if="${student.id_user.surname}!='Surname'">
-                                    <div th:if="${student.id_user.name}!='Name'">
-                                        <h6 th:text="'I\'m a '+${student.id_user.role.roleName}"/>
-                                        <h4 th:text="${student.id_user.surname}+' '+${student.id_user.name}"></h4>
+                                    <div th:if="${student.id_user.surname}!='Surname'">
+                                        <div th:if="${student.id_user.name}!='Name'">
+                                            <h6 th:text="'I\'m a '+${student.id_user.role.roleName}"/>
+                                            <h4 th:text="${student.id_user.surname}+' '+${student.id_user.name}"></h4>
+                                        </div>
+
                                     </div>
 
                                 </div>
-
-                                </div>
-<!--
-                                <p class="text-secondary mb-1" th:text="${student.id_group.course.id_skills.name_skills}+' Developer'"></p>
--->
+                                <!--
+                                                                <p class="text-secondary mb-1" th:text="${student.id_group.course.id_skills.name_skills}+' Developer'"></p>
+                                -->
                                 <div>
                                     <div th:if="${student.id_group.course.id_language.name_language}=='None'">
-                                        <p class="text-secondary mb-1" >Future Developer</p>
+                                        <p class="text-secondary mb-1">Future Developer</p>
                                     </div>
                                     <div th:unless="${student.id_group.course.id_language.name_language}=='None'">
-                                        <p class="text-secondary mb-1" th:text="${student.id_group.course.id_language.name_language}+' Developer'"></p>
+                                        <p class="text-secondary mb-1"
+                                           th:text="${student.id_group.course.id_language.name_language}+' Developer'"></p>
                                     </div>
                                 </div>
                                 <p class="text-muted font-size-sm">Minsk, Belarus</p>
-                                <div class="rating" style="display: flex;align-items: baseline;justify-content: center;">
-                                    <span class="fa fa-star" th:each="i : ${#numbers.sequence(1, 5)}" th:classappend="${i le student.rating} ? 'checked'"></span>
+                                <div class="rating"
+                                     style="display: flex;align-items: baseline;justify-content: center;">
+                                    <span class="fa fa-star" th:each="i : ${#numbers.sequence(1, 5)}"
+                                          th:classappend="${i le student.rating} ? 'checked'"></span>
                                     <div th:text="${student.rating}"></div>
                                 </div>
                             </div>
@@ -575,25 +700,40 @@
                 <div class="card mt-3">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex justify-content-inherit align-items-center flex-wrap">
-                            <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
-                                <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
-                            </svg></h6>
-                            <a class="nav-link mx-2" th:href="@{/students/personal/{id}(id=${student.id_student})}" >Change Password</a>
+                            <h6 class="mb-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                     class="bi bi-lock-fill" viewBox="0 0 16 16">
+                                    <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                                </svg>
+                            </h6>
+                            <a class="nav-link mx-2" th:href="@{/students/personal/{id}(id=${student.id_student})}">Change
+                                Password</a>
                         </li>
                         <li class="list-group-item d-flex justify-content-inherit align-items-center flex-wrap">
-                            <h6 class="mb-0"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-postcard" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4Zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5ZM10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3ZM13 8h-2V6h2v2Z"/>
-                            </svg></h6>
-                            <a class="nav-link mx-2" th:href="@{/students/lastMyGroups/{id}(id=${student.id_student})}">My last Groups</a><div th:text="${err}"/>
+                            <h6 class="mb-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                     class="bi bi-postcard" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4Zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5ZM10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3ZM13 8h-2V6h2v2Z"/>
+                                </svg>
+                            </h6>
+                            <a class="nav-link mx-2" th:href="@{/students/lastMyGroups/{id}(id=${student.id_student})}">My
+                                last Groups</a>
+                            <div th:text="${err}"/>
                         </li>
                         <li class="list-group-item d-flex justify-content-inherit align-items-center flex-wrap">
-                            <h6 class="mb-0"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z"/>
-                                <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1h-.003zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195l.054.012z"/>
-                                <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083c.058-.344.145-.678.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1H1z"/>
-                                <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 5.982 5.982 0 0 1 3.13-1.567z"/>
-                            </svg></h6>
-                            <a class="nav-link mx-2" th:href="@{/sendCode/{id}(id=${student.id_student})}">Balance</a><!--<div th:text="${err}"/>-->
+                            <h6 class="mb-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                     class="bi bi-cash-coin" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z"/>
+                                    <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1h-.003zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195l.054.012z"/>
+                                    <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083c.058-.344.145-.678.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1H1z"/>
+                                    <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 5.982 5.982 0 0 1 3.13-1.567z"/>
+                                </svg>
+                            </h6>
+                            <a class="nav-link mx-2" th:href="@{/sendCode/{id}(id=${student.id_student})}">Balance</a>
+                            <!--<div th:text="${err}"/>-->
                         </li>
 
                     </ul>
@@ -616,7 +756,7 @@
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Name</h6>
                             </div>
-                            <div class="col-sm-9 text-secondary" >
+                            <div class="col-sm-9 text-secondary">
                                 <div class="p" th:text="${student.id_user.name}"/>
                             </div>
                         </div>
@@ -650,7 +790,8 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-12">
-                                <a class="shine-button text-decoration-none" th:href="@{/students/personal/edit/{id}(id=${student.id_student})}">Edit</a>
+                                <a class="shine-button text-decoration-none"
+                                   th:href="@{/students/personal/edit/{id}(id=${student.id_student})}">Edit</a>
                             </div>
                         </div>
                     </div>
@@ -659,20 +800,23 @@
                 <div class="row gutters-sm"><!---->
                     <div class="col-sm-15 mb-2.5">
                         <div class="card h-90">
-                            <!--<div class="card-body">
-                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>All Courses</h6>
+                            <div class="card-body">
+                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>All
+                                    Courses</h6>
                                 <div th:each="lst: ${last}">
-                                <small th:text="${lst.course.id_language.name_language}+' '+${lst.course.id_skills.name_skills}"></small>
-                                    &lt;!&ndash;<div class="progress mb-3" style="height: 5px">
+                                    <small th:text="${lst.course.id_language.name_language}+' '+${lst.course.id_skills.name_skills}"></small>
+                                    <!--<div class="progress mb-3" style="height: 5px">
                                         <div class="progress-bar bg-primary" role="progressbar" id="width" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>&ndash;&gt;
+                                    </div>-->
                                     <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-info " role="progressbar" th:style="'width: ' + ${lst.progress} + '%;'" th:attr="aria-valuenow=${lst.progress}, aria-valuemin='0', aria-valuemax='100'"></div>
-                                    </div>&lt;!&ndash;bg-primary&ndash;&gt;
+                                        <div class="progress-bar bg-info " role="progressbar"
+                                             th:style="'width: ' + ${lst.progress} + '%;'"
+                                             th:attr="aria-valuenow=${lst.progress}, aria-valuemin='0', aria-valuemax='100'"></div>
+                                    </div><!--bg-primary-->
                                 </div>
 
-                            </div>-->
-                            <div class="card-body">
+                            </div>
+                            <!--<div class="card-body">
                                 <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>All Courses</h6>
                                 <div th:each="lst: ${last}">
                                     <small th:text="${lst.course.id_language.name_language}+' '+${lst.course.id_skills.name_skills}"></small>
@@ -680,30 +824,66 @@
                                         <div class="progress-bar bg-info " role="progressbar" th:style="'width: ' + ${lst.progress} + '%;'" th:attr="aria-valuenow=${lst.progress}, aria-valuemin='0', aria-valuemax='100', data-toggle='tooltip', title=${lst.progress}+'%'"></div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
 
 
                         </div>
                     </div>
 
 
-
-
+                </div>
             </div>
-        </div>
 
+        </div>
     </div>
-</div>
 </div>
 </body>
 <script>
-    $(document).ready(function(){
-        $(".notification-box").click(function(){
+    $(document).ready(function () {
+        /*  $(".notification-box").click(function(){
             $(".notifications").toggle();
+        });*/
+        $(".notification-box").click(function () {
+            $(".notifications").toggle();
+            var studentId = $('#student').val();
+
+            // Отправляем асинхронный запрос на сервер
+            $.ajax({
+                url: '/update-notifications',  // Замените на URL вашего обработчика
+                type: 'GET',
+                data: { 'studentId': studentId },  // Передаем id студента в запросе
+                success: function(unreadCount) {
+                    // Обновляем представление уведомлений здесь
+                    $('.notification-count').text(unreadCount);
+                    console.log(unreadCount);
+                    /*if (unreadCount == 0) {
+                        $('.notification-count').hide();
+                        $('.notification-box2').show();
+                    } else {
+                        $('.notification-count').text(unreadCount).show();
+
+                    }*/
+                    if (unreadCount == 0) {
+                        $('.notification-count').hide();
+                        /*<span className="bell-top2"></span>
+                        <span className="bell-middle2"></span>
+                        <span className="bell-bottom2"></span>
+                        <span className="bell-rad2"></span>*/
+                        $('.notification-bell').removeClass('notification-bell').addClass('notification-bell2');
+
+                        $('.notification-bell2').find('.bell-rad').removeClass('bell-rad').addClass('bell-rad2');
+                    } else {
+                        $('.notification-count').text(unreadCount).show();
+                    }
+
+                }
+            });
         });
+
+
     });
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
-    })
+    });
 </script>
 </html>

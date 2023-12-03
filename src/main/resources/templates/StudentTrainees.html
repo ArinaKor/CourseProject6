@@ -248,7 +248,7 @@
 
                     <form class="decor" th:action="'/student/trainees/'+${student.id_student}+'/reply'" method="post">
                         <div class="form-inner">
-                            <input type="text" class="form-control" name="mail" placeholder="Email id">
+                            <input type="text" class="form-control" th:text="${student.id_user.mail}" name="mail" placeholder="Email id">
                             <input type="submit" value="ПОДАТЬ ЗАЯВКУ НА СТАЖИРОВКУ">
                         </div>
                     </form>

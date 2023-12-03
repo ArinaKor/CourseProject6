@@ -31,7 +31,10 @@ public class NotificationService {
         notificationRepository.deleteById(id);
     }
 
-    public List<Notification> findById_userAndAndCheckNotificationTrue(){
-        return notificationRepository.findById_userAndAndCheckNotificationTrue();
+    public List<Notification> findById_userAndAndCheckNotificationTrue(int user){
+        return notificationRepository.findById_userAndAndCheckNotificationTrue(user);
+    }
+    public Integer countUnreadNotifications(int user){
+        return notificationRepository.countUnreadNotifications(user);
     }
 }

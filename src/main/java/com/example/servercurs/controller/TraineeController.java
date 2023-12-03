@@ -7,6 +7,7 @@ import com.example.servercurs.entities.enums.TraineeType;
 import com.example.servercurs.service.CourseService;
 import com.example.servercurs.service.LanguageService;
 import com.example.servercurs.service.SkillsService;
+import com.example.servercurs.service.TraineeReplyService;
 import com.example.servercurs.service.TraineeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,7 @@ public class TraineeController {
     private final CourseService courseService;
     private final SkillsService skillsService;
     private final LanguageService languageService;
+    private final TraineeReplyService traineeReplyService;
 
     @GetMapping
     public String workWithCourses(Model model){
@@ -78,6 +80,13 @@ public class TraineeController {
     public String update(@PathVariable(value = "traineeId") int traineeId,@RequestParam int duration, @RequestParam String location, @RequestParam TraineeType type, @RequestParam String skills, @RequestParam String lang){
         traineeService.update(traineeId, location, type, skills, lang, duration);
         return "redirect:/admin/trainees";
+    }
+
+    @GetMapping("/reply")
+    public String workWithReply(Model model){
+        model.addAttribute("traineesReply", traineeReplyService.findAll());
+
+        return "TraineeReply";
     }
 
 

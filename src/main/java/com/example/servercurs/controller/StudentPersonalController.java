@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
@@ -87,7 +88,9 @@ public class StudentPersonalController {
         }
         model.addAttribute("last", listLast);
         User user = userService.findById(student.getId_user().getId_user());
-        List<Notification> notifications = notificationService.findById_userAndAndCheckNotificationTrue();
+        List<Notification> notifications = notificationService.findById_userAndAndCheckNotificationTrue(student.getId_user().getId_user());
+        Integer countFalse = notificationService.countUnreadNotifications(user.getId_user());
+        model.addAttribute("count", countFalse);
         model.addAttribute("notifications", notifications);
         return "StudentPersonal";
     }
