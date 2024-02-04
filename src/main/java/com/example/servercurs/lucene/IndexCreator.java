@@ -2,6 +2,7 @@ package com.example.servercurs.lucene;
 
 import com.example.servercurs.entities.Course;
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.ru.RussianAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -23,8 +24,9 @@ public class IndexCreator {
     public void indexCourses(List<Course> courses) {
         try {
             Directory directory = FSDirectory.open(Paths.get(INDEX_DIRECTORY));
-            Analyzer analyzer = new StandardAnalyzer();
+            Analyzer analyzer = new CustomAnalyzer();
             IndexWriterConfig config = new IndexWriterConfig(analyzer);
+            //config.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
             IndexWriter indexWriter = new IndexWriter(directory, config);
 
             for (Course course : courses) {

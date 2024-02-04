@@ -1,11 +1,10 @@
 package com.example.servercurs.lucene;
+
 import com.example.servercurs.entities.Course;
-import com.example.servercurs.repository.LanguageRepository;
-import com.example.servercurs.repository.SkillsRepository;
 import com.example.servercurs.service.CourseService;
-import com.example.servercurs.service.LanguageService;
 import lombok.RequiredArgsConstructor;
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.ru.RussianAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
@@ -19,11 +18,8 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Component
@@ -39,7 +35,7 @@ public class CourseSearcher {
             Directory directory = FSDirectory.open(Paths.get(INDEX_DIRECTORY));
             IndexReader indexReader = DirectoryReader.open(directory);
             IndexSearcher indexSearcher = new IndexSearcher(indexReader);
-            Analyzer analyzer = new StandardAnalyzer();
+            Analyzer analyzer = new RussianAnalyzer();
             QueryParser queryParser = new QueryParser("course_name", analyzer);
             Query query = queryParser.parse(queryText);
 
