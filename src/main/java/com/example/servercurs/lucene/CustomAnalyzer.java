@@ -5,6 +5,9 @@ import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.LowerCaseFilter;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.Tokenizer;
+import org.apache.lucene.analysis.miscellaneous.RemoveDuplicatesTokenFilter;
+import org.apache.lucene.analysis.ngram.EdgeNGramTokenFilter;
+import org.apache.lucene.analysis.ngram.NGramTokenFilter;
 import org.apache.lucene.analysis.ru.RussianLightStemFilter;
 import org.apache.lucene.analysis.snowball.SnowballFilter;
 import org.apache.lucene.analysis.standard.StandardTokenizer;
@@ -23,9 +26,11 @@ public class CustomAnalyzer extends Analyzer {
 
         Tokenizer source = new StandardTokenizer();
         TokenStream filter = new SynonymGraphFilter(source, synonymMap, true);
+        filter = new NGramTokenFilter(filter, 1, Integer.MAX_VALUE);
         filter = new LowerCaseFilter(filter);
         filter = new RussianLightStemFilter(filter);
         filter = new SnowballFilter(filter, new RussianStemmer());
+        filter = new RemoveDuplicatesTokenFilter(filter);
         // Добавьте другие фильтры здесь
         return new TokenStreamComponents(source, filter);
     }
@@ -77,5 +82,11 @@ public class CustomAnalyzer extends Analyzer {
         builder.add(new CharsRef("машинное обучение"), new CharsRef("искусственный интеллект"), true);
         return builder;
     }
+
+    /*
+    * Ситуация: Человек забыл поменять раскладку и написал английскими буквами русское слово.
+    * Решение: Сделать проверку, что на английском не находим попробуем перевести раскладку и поискать н арусском,
+    * если ничего, то пустой список.
+    * */
 
 }
