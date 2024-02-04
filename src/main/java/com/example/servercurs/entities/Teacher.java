@@ -40,7 +40,6 @@ public class Teacher {
     private User id_user;
 
     @OneToMany(mappedBy = "teacher",
-            fetch = FetchType.EAGER,
             cascade = CascadeType.DETACH)
     private List<Group> groups;
     // one to many

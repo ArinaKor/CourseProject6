@@ -5,6 +5,7 @@ import com.example.servercurs.entities.Skills;
 import com.example.servercurs.entities.Trainee;
 import com.example.servercurs.entities.enums.TraineeType;
 import com.example.servercurs.service.CourseService;
+import com.example.servercurs.service.GoogleSheetsService;
 import com.example.servercurs.service.LanguageService;
 import com.example.servercurs.service.SkillsService;
 import com.example.servercurs.service.TraineeReplyService;
@@ -18,17 +19,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/trainees")
 public class TraineeController {
+
     private final TraineeService traineeService;
     private final CourseService courseService;
     private final SkillsService skillsService;
     private final LanguageService languageService;
     private final TraineeReplyService traineeReplyService;
+    private final GoogleSheetsService googleSheetsService;
 
     @GetMapping
     public String workWithCourses(Model model){
@@ -83,7 +88,8 @@ public class TraineeController {
     }
 
     @GetMapping("/reply")
-    public String workWithReply(Model model){
+    public String workWithReply(Model model) throws GeneralSecurityException, IOException {
+        googleSheetsService.saveTraineeReply();
         model.addAttribute("traineesReply", traineeReplyService.findAll());
 
         return "TraineeReply";

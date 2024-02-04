@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Setter
 @Getter
-
+@Builder
 public class TimeTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

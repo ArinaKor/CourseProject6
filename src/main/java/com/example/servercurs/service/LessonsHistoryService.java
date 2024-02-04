@@ -45,9 +45,9 @@ public class LessonsHistoryService {
     }
 
     public Optional<LessonsHistory> findExistingRecord(StatusLesson statusLesson,
-                                            Course id_course,
+
                                              CourseLesson idLesson,
                                               Student id_student){
-        return lessonsHistoryRepository.findExistingRecord(statusLesson, id_course, idLesson, id_student);
+        return lessonsHistoryRepository.findExistingRecord(statusLesson,  idLesson, id_student);
     }
 }

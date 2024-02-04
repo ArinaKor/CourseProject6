@@ -6,7 +6,7 @@
     <style>
         body {
             background-color: #c7dfff;
-            background-image: url("https://funart.pro/uploads/posts/2022-08/thumbs/1659952773_11-funart-pro-p-fon-dlya-veb-stranitsi-krasivo-11.png");
+            background-image: url("https://i.ibb.co/S6Ct4tH/1659952773-11-funart-pro-p-fon-dlya-veb-stranitsi-krasivo-11.png");
             /*background-size: 101% 101%;
             background-repeat: repeat-y;*/
             background-size: 101%;
@@ -19,6 +19,7 @@
         }
 
         .decor {
+            padding: 15px;
             position: relative;
             max-width: 900px;
             max-height: 900px;
@@ -498,7 +499,15 @@
             right: -5px;
             height: 100px;
         }
-
+        input[type="button"] {
+            margin-top: 30px;
+            background: #54ace8;
+            border-bottom: 4px solid #50b1f3;
+            color: white;
+            font-size: 14px;
+            width: 50%;
+            margin-left: 25%;
+        }
     </style>
     <!-- Подключите Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -575,30 +584,12 @@
                             <div th:each="link :${lesson.links}">
                                 <p th:text="${link}"></p>
                             </div>
-                            <div th:each="hist : ${history}">
-                                <div th:if="${hist.idLesson.idLesson.equals(lesson.idLesson)}">
-                                    <div th:if="${hist.statusLesson.equals('DONE')}">
-                                        <!-- Кнопка Done отключена, галочка уже стоит
-                                        <button disabled>Done</button>-->
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                             fill="currentColor"
-                                             class="bi bi-check-circle" viewBox="0 0 16 16">
-                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 10.417 5.384 8.323a.75.75 0 1 0-1.06 1.06l2.093 2.094a.75.75 0 0 0 1.06 0l3.992-4.99a.75.75 0 0 0-1.06-1.06z"/>
-                                        </svg>
-                                    </div>
-                                    <div th:unless="${hist.statusLesson.equals('DONE')}">
-                                        <!-- Кнопка Done доступна, галочки нет -->
-                                        <!--<button>Done</button>-->
 
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <input type="hidden" id="studentId" th:value="${student.id_student}">
                     <input type="hidden" id="lessonNumber">
-                    <input type="button" id="doneButton" value="Done"/>
+                    <input type="button" class="shine-button" id="doneButton" value="Done"/>
 
                 </div>
             </div>

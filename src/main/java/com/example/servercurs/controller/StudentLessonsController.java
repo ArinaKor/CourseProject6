@@ -64,18 +64,9 @@ public class StudentLessonsController {
         LessonsHistory lessonsHistory = new LessonsHistory();
         lessonsHistory.setIdLesson(courseLesson);
         lessonsHistory.setId_student(student);
-        lessonsHistory.setId_course(student.getId_group().getCourse());
         lessonsHistory.setStatusLesson(StatusLesson.DONE);
         lessonsHistoryService.save(lessonsHistory);
-        /*LessonsHistory lessonsHistory = new LessonsHistory();
-        lessonsHistory.setIdLesson(courseLesson);
-        lessonsHistory.setId_student(student);
-        lessonsHistory.setId_course(student.getId_group().getCourse());
-        lessonsHistory.setStatusLesson(StatusLesson.DONE);
-        if (lessonsHistoryService.findExistingRecord(StatusLesson.DONE,student.getId_group().getCourse(), courseLesson, student).isEmpty());
-        {
-            lessonsHistoryService.save(lessonsHistory);
-        }*/
+
         //можно сделать проверку на наличие этой записи в бд
         return ResponseEntity.ok("Урок успешно проверен");
     }

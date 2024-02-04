@@ -28,12 +28,11 @@ public class TeacherDeletedController {
     private final TeacherService teacherService;
     private final TeacherRepository teacherRepository;
     private final EmailSenderService emailSenderService;
-    private final GoogleSheetsService googleSheetsService;
 
     @GetMapping
     public String deleteTeach(Model model, RedirectAttributes attributes) throws GeneralSecurityException, IOException {
         List<Teacher> deleteList = teacherRepository.findTeacherByCheck("1");
-        googleSheetsService.saveTraineeReply();
+        //googleSheetsService.saveTraineeReply();
         if(deleteList.size()==0){
             String msg = "Никто увольняться не хочет!)";
             attributes.addFlashAttribute("msg",msg);

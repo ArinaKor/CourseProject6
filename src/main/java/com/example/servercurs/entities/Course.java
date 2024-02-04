@@ -46,10 +46,10 @@ public class Course {
             cascade = CascadeType.ALL)
     private List<Group> groups;
 
-    @OneToMany(mappedBy = "idHistory",
+    /*@OneToMany(mappedBy = "idHistory",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    private List<LessonsHistory> lessonsHistories;
+    private List<LessonsHistory> lessonsHistories;*/
 
     @OneToMany(mappedBy = "idLesson",
             fetch = FetchType.EAGER,

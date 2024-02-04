@@ -37,10 +37,10 @@ public class LessonsHistory {
     @Column(name = "status_lesson")
     private StatusLesson statusLesson;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    /*@ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_course", nullable = false)
     @JsonIgnore
-    private Course id_course;
+    private Course id_course;*/
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "idLesson", nullable = false)
@@ -49,6 +49,7 @@ public class LessonsHistory {
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_student", nullable = false)
+
     @JsonIgnore
     private Student id_student;
 

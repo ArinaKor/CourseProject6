@@ -60,7 +60,7 @@ public class Student {
 
     @OneToMany(mappedBy = "idHistory",
             fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+            cascade = CascadeType.DETACH)
     private List<LessonsHistory> lessonsHistories;
 
     @Override

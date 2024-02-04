@@ -25,6 +25,6 @@ public interface LessonsHistoryRepository extends JpaRepository<LessonsHistory, 
     @Query("from LessonsHistory history where history.id_student.id_student=:student")
     List<LessonsHistory> findByStudentAndCourse(@Param("student") int student);
 
-    @Query("SELECT lh FROM LessonsHistory lh WHERE lh.statusLesson = :statusLesson AND lh.id_course = :id_course AND lh.idLesson = :idLesson AND lh.id_student = :id_student")
-    Optional<LessonsHistory> findExistingRecord(@Param("statusLesson") StatusLesson statusLesson, @Param("id_course") Course id_course, @Param("idLesson") CourseLesson idLesson, @Param("id_student") Student id_student);
+    @Query("SELECT lh FROM LessonsHistory lh WHERE lh.statusLesson = :statusLesson AND lh.idLesson = :idLesson AND lh.id_student = :id_student")
+    Optional<LessonsHistory> findExistingRecord(@Param("statusLesson") StatusLesson statusLesson, @Param("idLesson") CourseLesson idLesson, @Param("id_student") Student id_student);
 }

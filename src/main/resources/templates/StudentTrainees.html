@@ -11,20 +11,34 @@
     <link rel="stylesheet" th:href="@{/vendors/aos/css/aos.css}">
     <link rel="stylesheet" th:href="@{/css/style.min.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .center-block {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
 </head>
 <body id="body" data-spy="scroll" data-target=".navbar" data-offset="100">
 <header id="header-section">
     <nav class="navbar navbar-expand-lg pl-3 pl-sm-0" id="navbar">
-        <a th:href="@{/student/{id}(id=${student.id_student})}" >
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z"/>
-                <path fill-rule="evenodd" d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
-            </svg>
-        </a>
+        <div style="margin-left: 30px;">
+            <a th:href="@{/student/{id}(id=${student.id_student})}">
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                     class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                          d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z"/>
+                    <path fill-rule="evenodd"
+                          d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                </svg>
+            </a></div>
         <div class="container">
             <div class="navbar-brand-wrapper d-flex w-100">
                 <img src="/img/images/Group2.svg" alt="">
-                <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
                     <span class="mdi mdi-menu navbar-toggler-icon"></span>
                 </button>
             </div>
@@ -34,7 +48,9 @@
                         <div class="navbar-collapse-logo">
                             <img src="/img/images/Group2.svg" alt="">
                         </div>
-                        <button class="navbar-toggler close-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <button class="navbar-toggler close-button" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
                             <span class="mdi mdi-close navbar-toggler-icon pl-5"></span>
                         </button>
                     </li>
@@ -58,10 +74,13 @@
         </div>
     </nav>
 </header>
-<div class="banner" >
+<div class="banner">
     <div class="container">
-        <h1 class="font-weight-semibold">Search engine optimisation &<br>Marketing.</h1>
-        <h6 class="font-weight-normal text-muted pb-3">Simple is a simple template with a creative design that solves all your marketing and SEO queries.</h6>
+        <h1 class="font-weight-semibold">Стажировка от классной IT-компании</h1><br><h3>Начни свою карьеру в IT уже сегодня</h3>
+        <h6 class="font-weight-normal text-muted pb-3">Мы рады предложить вам уникальную возможность
+            присоединиться к нашей команде и получить ценный опыт работы в IT-сфере.
+            Наш отдел стажировок предлагает программы для студентов и выпускников,
+            которые хотят погрузиться в мир технологий и разработки</h6>
         <div>
             <button class="btn btn-opacity-light mr-1">Get started</button>
             <button class="btn btn-opacity-success ml-1">Learn more</button>
@@ -71,62 +90,36 @@
 </div>
 <div class="content-wrapper">
     <div class="container">
-        <section class="features-overview" id="features-section" >
+        <section class="features-overview" id="features-section">
             <div class="content-header">
                 <h2>How does it works</h2>
-                <h6 class="section-subtitle text-muted">One theme that serves as an easy-to-use operational toolkit<br>that meets customer's needs.</h6>
+                <h6 class="section-subtitle text-muted">One theme that serves as an easy-to-use operational toolkit<br>that
+                    meets customer's needs.</h6>
             </div>
             <div class="d-md-flex justify-content-between">
                 <div class="grid-margin d-flex justify-content-start">
                     <div class="features-width">
                         <img src="/img/images/Group12.svg" alt="" class="img-icons">
-                        <h5 class="py-3">Speed<br>Optimisation</h5>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
+                        <h5 class="py-3">Практический<br>опыт</h5>
+                        <p class="text-muted">Вы будете работать над реальными проектами под руководством опытных специалистов</p>
                         <a href="#"><p class="readmore-link">Readmore</p></a>
                     </div>
                 </div>
                 <div class="grid-margin d-flex justify-content-center">
                     <div class="features-width">
                         <img src="/img/images/Group7.svg" alt="" class="img-icons">
-                        <h5 class="py-3">SEO and<br>Backlinks</h5>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
+                        <h5 class="py-3">Обучение<br></h5>
+                        <p class="text-muted">Мы предоставляем обучающие материалы и курсы для улучшения ваших навыков</p>
                         <a href="#"><p class="readmore-link">Readmore</p></a>
                     </div>
                 </div>
                 <div class="grid-margin d-flex justify-content-end">
                     <div class="features-width">
                         <img src="/img/images/Group5.svg" alt="" class="img-icons">
-                        <h5 class="py-3">Content<br>Marketing</h5>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
+                        <h5 class="py-3">Карьерные <br>возможности</h5>
+                        <p class="text-muted">После успешного завершения стажировки у вас есть шанс стать полноценным сотрудником нашей команды</p>
                         <a href="#"><p class="readmore-link">Readmore</p></a>
                     </div>
-                </div>
-            </div>
-        </section>
-        <section class="digital-marketing-service" id="digital-marketing-section">
-            <div class="row align-items-center">
-                <div class="col-12 col-lg-7 grid-margin grid-margin-lg-0" data-aos="fade-right">
-                    <h3 class="m-0">We Offer a Full Range<br>of Digital Marketing Services!</h3>
-                    <div class="col-lg-7 col-xl-6 p-0">
-                        <p class="py-4 m-0 text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
-                        <p class="font-weight-medium text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer</p>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-5 p-0 img-digital grid-margin grid-margin-lg-0" data-aos="fade-left">
-                    <img src="/img/images/Group1.png" alt="" class="img-fluid">
-                </div>
-            </div>
-            <div class="row align-items-center">
-                <div class="col-12 col-lg-7 text-center flex-item grid-margin" data-aos="fade-right">
-                    <img src="/img/images/Group2.png" alt="" class="img-fluid">
-                </div>
-                <div class="col-12 col-lg-5 flex-item grid-margin" data-aos="fade-left">
-                    <h3 class="m-0">Leading Digital Agency<br>for  Business Solution.</h3>
-                    <div class="col-lg-9 col-xl-8 p-0">
-                        <p class="py-4 m-0 text-muted">Power-packed with impressive features and well-optimized, this template is designed to provide the best performance in all circumstances.</p>
-                        <p class="pb-2 font-weight-medium text-muted">Its smart features make it a powerful stand-alone website building tool.</p>
-                    </div>
-                    <button class="btn btn-info">Readmore</button>
                 </div>
             </div>
         </section>
@@ -209,7 +202,8 @@
                                 <div class="card-desc-box d-flex align-items-center justify-content-around">
                                     <div>
                                         <h6 class="text-white pb-2 px-3">Know more about Software Development</h6>
-                                        <button class="btn btn-white"><a href="/auth">START STUDY ON OUR COURSES</a></button>
+                                        <button class="btn btn-white"><a href="/auth">START STUDY ON OUR COURSES</a>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -222,92 +216,30 @@
                 </div>
             </div>
         </section>
-        <section class="contact-us" id="contact-section">
-            <div class="contact-us-bgimage grid-margin" >
-                <div class="pb-4">
-                    <h4 class="px-3 px-md-0 m-0" data-aos="fade-down">Do you have any projects?</h4>
-                    <h4 class="pt-1" data-aos="fade-down">Contact us</h4>
-                </div>
-                <div data-aos="fade-up">
-                    <button class="btn btn-rounded btn-outline-danger">Contact us</button>
-                </div>
-            </div>
-        </section>
-        <section class="contact-details" id="contact-details-section">
+        <section class="contact-details center-block" id="contact-details-section">
             <div class="row text-center text-md-left">
-                <div class="col-12 col-md-6 col-lg-3 grid-margin">
-                    <img src="/img/images/Group2.svg" alt="" class="pb-2">
-                    <div class="pt-2">
-                        <p class="text-muted m-0">mikayla_beer@feil.name</p>
-                        <p class="text-muted m-0">906-179-8309</p>
-                    </div>
-                </div>
+
                 <div class="col-12 col-md-6 col-lg-3 grid-margin">
                     <h5 class="pb-2">Get in Touch</h5>
                     <p class="text-muted">Don’t miss any updates of our new templates and extensions.!</p>
 
                     <form class="decor" th:action="'/student/trainees/'+${student.id_student}+'/reply'" method="post">
                         <div class="form-inner">
-                            <input type="text" class="form-control" th:text="${student.id_user.mail}" name="mail" placeholder="Email id">
+                            <input type="text" class="form-control" th:value="${student.id_user.mail}" name="mail"
+                                   placeholder="Email id">
                             <input type="submit" value="ПОДАТЬ ЗАЯВКУ НА СТАЖИРОВКУ">
                         </div>
                     </form>
 
                 </div>
-                <div class="col-12 col-md-6 col-lg-3 grid-margin">
-                    <h5 class="pb-2">Our Guidelines</h5>
-                    <a href="#"><p class="m-0 pb-2">Terms</p></a>
-                    <a href="#" ><p class="m-0 pt-1 pb-2">Privacy policy</p></a>
-                    <a href="#"><p class="m-0 pt-1 pb-2">Cookie Policy</p></a>
-                    <a href="#"><p class="m-0 pt-1">Discover</p></a>
-                </div>
-                <div class="col-12 col-md-6 col-lg-3 grid-margin">
-                    <h5 class="pb-2">Our address</h5>
-                    <p class="text-muted">518 Schmeler Neck<br>Bartlett. Illinois</p>
-                    <div class="d-flex justify-content-center justify-content-md-start">
-                        <a href="#"><span class="mdi mdi-facebook"></span></a>
-                        <a href="#"><span class="mdi mdi-twitter"></span></a>
-                        <a href="#"><span class="mdi mdi-instagram"></span></a>
-                        <a href="#"><span class="mdi mdi-linkedin"></span></a>
-                    </div>
-                </div>
+
             </div>
         </section>
         <footer class="border-top">
-            <p class="text-center text-muted pt-4">Copyright © 2019<a href="https://www.bootstrapdash.com/" class="px-1">Bootstrapdash.</a>All rights reserved.</p>
+            <p class="text-center text-muted pt-4">Copyright © 2023<a href="https://www.bootstrapdash.com/"
+                                                                      class="px-1">Bootstrapdash.</a>All rights
+                reserved.</p>
         </footer>
-        <!-- Modal for Contact - us Button -->
-<!--
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="exampleModalLabel">Contact Us</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="Name">Name</label>
-                                <input type="text" class="form-control" id="Name" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                                <label for="Email">Email</label>
-                                <input type="email" class="form-control" id="Email-1" placeholder="Email">
-                            </div>
-                            <div class="form-group">
-                                <label for="Message">Message</label>
-                                <textarea class="form-control" id="Message" placeholder="Enter your Message"></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success">Submit</button>
-                    </div>
-                </div>
-            </div>
-        </div>
--->
     </div>
 </div>
 <script th:src="@{/vendors/jquery/jquery.min.js}"></script>
