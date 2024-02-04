@@ -31,6 +31,10 @@ public class CourseService {
         return courseRepository.findById(id).orElse(null);
     }
 
+    public Course findCourseByCourse_name(String id) {
+        return courseRepository.findCourseByCourse_name(id);
+    }
+
     public Course save(Course course) {
         return courseRepository.save(course);
     }

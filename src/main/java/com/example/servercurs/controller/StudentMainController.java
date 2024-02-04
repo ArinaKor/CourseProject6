@@ -9,6 +9,7 @@ import com.example.servercurs.entities.Skills;
 import com.example.servercurs.entities.Student;
 import com.example.servercurs.entities.Teacher;
 import com.example.servercurs.entities.User;
+import com.example.servercurs.service.CourseSearchService;
 import com.example.servercurs.service.DataMapper;
 import com.example.servercurs.service.DocumentGenerator;
 import com.example.servercurs.service.EmailSenderService;
@@ -54,6 +55,7 @@ public class StudentMainController {
     private final DocumentGenerator documentGenerator;
     private final EmailSenderService emailSenderService;
     private final SpringTemplateEngine springTemplateEngine;
+    private final CourseSearchService courseSearchService;
 
     private final DataMapper dataMapper;
     PdfController pdfController = new PdfController();
@@ -298,15 +300,21 @@ public class StudentMainController {
     }
 
     @PostMapping("/students/groups/{id_student}")
-    public String findGroups(RedirectAttributes attributes, @PathVariable("id_student") int id_student, @RequestParam(required = false) String contact, @RequestParam("groupTime") String groupTime,
-                             @RequestParam Date date1, @RequestParam(value = "selected", required = false) List<Integer> selected, @RequestParam(value = "finding", required = false) List<Integer> finding, Model model) {
+    public String findGroups(RedirectAttributes attributes, @PathVariable("id_student") int id_student, @RequestParam(required = false) String contact, @RequestParam(value="groupTime", required = false) String groupTime,
+                             @RequestParam(required = false) Date date1, @RequestParam(value = "selected", required = false) List<Integer> selected, @RequestParam(value = "finding", required = false) List<Integer> finding, @RequestParam(value="inputName", required = false) String inputName, Model model) {
 
         Student student = studentService.findById(id_student);
         model.addAttribute("student", student);
         attributes.addFlashAttribute("student", student);
         List<Group> lst = new ArrayList<>();
 
-        if (contact.equals("3")) {
+        if (contact.equals("0")) {
+            courseSearchService.indexCourses();
+            Set<Course> courses = courseSearchService.searchCourses(inputName);
+            for (Course crs : courses) {
+                lst.addAll(groupService.findByCourse(crs));
+            }
+        }else if (contact.equals("3")) {
             lst = groupService.findByDate(date1);
         } else if (contact.equals("2")) {
             lst = groupService.findByTime(groupTime);

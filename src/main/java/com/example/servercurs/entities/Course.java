@@ -46,15 +46,15 @@ public class Course {
             cascade = CascadeType.ALL)
     private List<Group> groups;
 
-    /*@OneToMany(mappedBy = "idHistory",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-    private List<LessonsHistory> lessonsHistories;*/
-
     @OneToMany(mappedBy = "idLesson",
             fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
     private List<CourseLesson> lessons;
+
+    public Course(String name) {
+        this.course_name = name;
+    }
+
 
     @Override
     public String toString() {

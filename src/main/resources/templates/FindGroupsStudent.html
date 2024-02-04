@@ -176,14 +176,18 @@
   </div>
 </nav>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-<div class="container mt-5 pt-4">
+<div class="container mt-5 pt-4"><form  method="post" class="form">
   <div class="filter-toggle ng-scope">
     <!--<form onclick="openClose()">-->
-    <input type="text" class="form-control form-control-lg" value="Параметры поиска" id="input" readonly/>
+
+      <input type="text" class="form-control form-control-lg" value="Параметры поиска" id="inputName" name="inputName"/>
+      <input class="btn-check" type="radio" name="contact"  value="0" checked hidden/>
+   <!-- </form>-->
+    <!--readonly-->
     <!--</form>-->
   </div>
   <div style="display: none" id="div"><!--To chto poyavl-->
-    <form  method="post" class="form">
+    <!--<form  method="post" class="form">-->
       <fieldset>
         <legend>Please select for search:</legend>
         <div class="btn-group ">
@@ -213,14 +217,14 @@
               <input type="date" name="date1"  value="2023-05-04" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"  >
             </div>
           </div>
-          <input type="submit" value="Find Group" class="shine-button" style="margin-top: 1%" >
+
         </div>
       </fieldset>
-    </form>
+
     <!--
       </div>
     </div>-->
-  </div>
+  </div><input type="submit" value="Find Group" class="shine-button" style="margin-top: 1%" ></form>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
   <div class="container mt-3 pt-2">
     <div class="row" >

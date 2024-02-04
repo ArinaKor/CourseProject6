@@ -22,6 +22,9 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
     @Query("From Course c where c.id_skills=:id")
     List<Course> findCourseById_skills(Skills id);
 
+    @Query("From Course c where c.course_name=:id")
+    Course findCourseByCourse_name(String id);
+
     @Query("From Course c where c.id_skills=:id and c.id_language=:idLang and c.course_name=:name")
     Course findCourse(Skills id, Language idLang, String name);
 
